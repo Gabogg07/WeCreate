@@ -1,0 +1,7 @@
+{% if texto_editable %}
+	<textarea cols="50" rows="5" style="overflow:scroll;">
+		{{ texto_editable }}
+	</textarea>
+{% else %}
+		<p>No hay texto disponible</p>
+{% endif %}
