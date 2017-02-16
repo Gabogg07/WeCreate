@@ -12,6 +12,6 @@ class Transcriptor(object):
         try:
             self.text=textract.process(file)
             self.f.write(self.text)
-            
         except:
             print("Archivo PDF Invalido")
+            self.f='Error'
