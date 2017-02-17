@@ -16,11 +16,11 @@ def upload_file(request):
 		form = DocumentForm(request.POST, request.FILES)
 		if form.is_valid():
 			newdoc = Document(docfile=request.FILES['docfile'])
-			newdoc.save()
-
-			texto_editable = textract.process(newdoc.docfile.url)
-			context = {'texto_editable': texto_editable,}
-			return render(request, 'SIGPAE/index.html', context)
+			if (newdoc.docfile.url.endswith('.pdf')):
+				newdoc.save()
+				texto_editable = textract.process(newdoc.docfile.url)
+				context = {'texto_editable': texto_editable, 'documento': newdoc}
+				return render(request, 'SIGPAE/index.html', context)
 	else:
 		form = DocumentForm()
 
