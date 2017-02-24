@@ -1,0 +1,45 @@
+<table>
+	 <tr>
+			<td align="center">
+			<h2> PDF </h2>
+			<iframe src={{ documento.docfile.url }} style="width:300px;height:490px;padding:10px;border:10px double deepskyblue;">
+			</iframe>
+			</td>
+			<td align="center">
+				<h2> Texto extraído </h2>
+		{% if texto_editable %}
+			<textarea cols="35" rows="25" col align="" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px">
+				{{ texto_editable }}
+			</textarea>
+		{% endif %}
+			</td>
+			<td align="center">
+				<h2> Departamento: </h2>
+		<select name="Departamentos">
+			<option value="1">Departamento de Matemáticas Puras y Aplicadas</option> 
+			<option value="2">Departamento de Física</option> 
+			<option value="3">Departamento de Química</option>
+			<option value="4">Departamento de Mecánica</option> 
+			<option value="5">Departamento de Termodinámica y Fenómenos de Transferencia</option> 
+			<option value="6">Departamento de Electrónica y Circuitos</option> 
+			<option value="7">Departamento de Conversión y Transporte de Energía</option> 
+			<option value="8">Departamento de Procesos y Sistemas</option> 
+			<option value="9">Departamento de Ciencias de los Materiales</option> 
+			<option value="10">Departamento de Computación y Tecnología de la Información</option> 
+			<option value="11">Departamento de Ciencias de la Tierra</option> 
+			<option value="12">Departamento de Cómputo Cientifico y Estadística</option> 
+		</select>
+		<h2> Código Asignatura </h2>
+		<textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px">
+		</textarea>
+		<br>
+			<h2> Título </h2>
+		<textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px">
+		</textarea>
+		<br>
+			<h2> Objetivos </h2>
+		<textarea cols="40" rows="15" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px">
+		</textarea>
+	</td>
+	 </tr>
+</table>

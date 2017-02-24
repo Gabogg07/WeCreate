@@ -8,22 +8,27 @@ from .models import Document
 from .forms import DocumentForm
 
 def index(request):
-	context = {}
-	return render(request, 'SIGPAE/index.html', context)
+	return render(request, 'SIGPAE/index.html', {})
 
-def upload_file(request):
+def cargar_archivo(request):
+	form = DocumentForm()
+	documents = Document.objects.all()
+	return render(request,'SIGPAE/cargar.html',{'documents': documents, 'form': form})
+
+def transcripcion(request):
 	if request.method == 'POST':
 		form = DocumentForm(request.POST, request.FILES)
 		if form.is_valid():
-			newdoc = Document(docfile=request.FILES['docfile'])
-			if (newdoc.docfile.url.endswith('.pdf')):
-				newdoc.save()
-				texto_editable = textract.process(newdoc.docfile.url)
-				context = {'texto_editable': texto_editable, 'documento': newdoc}
-				return render(request, 'SIGPAE/index.html', context)
+			newdoc = Document(
+				codigo = form.cleaned_data['codigo'],
+				periodo = form.cleaned_data['periodo'],
+				anio = form.cleaned_data['anio'],
+				docfile = request.FILES['docfile'])
+			newdoc.save()
+			texto_editable = textract.process(newdoc.docfile.url)
+			context = {'texto_editable': texto_editable, 'documento': newdoc}
+			return render(request, 'SIGPAE/transcripcion.html', context)
 	else:
 		form = DocumentForm()
-
-	documents = Document.objects.all()
-
-	return render(request,'SIGPAE/upload.html',{'documents': documents, 'form': form})
+		documents = Document.objects.all()
+		return render(request,'SIGPAE/cargar.html',{'documents': documents, 'form': form})
