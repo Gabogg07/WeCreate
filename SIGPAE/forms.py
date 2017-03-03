@@ -7,38 +7,27 @@ import datetime
 
 class DocumentForm(forms.Form):
 	PERIODOS = [
-<<<<<<< HEAD
 		('Sep-Dic','Sep-Dic'),
 		('Ene-Mar','Ene-Mar'),
 		('Abr-Jul','Abr-Jul'),
 		('Intensivo','Intensivo')]
 
 	PERIODOS.insert(0,(0,'Sin seleccionar'))
-=======
-		('sep-dic','sep-dic'),
-		('ene-mar','ene-mar'),
-		('abr-jul','abr-jul'),
-		('intensivo','intensivo')]
->>>>>>> 139fc268705670d855abefb57ba379aecc65dedc
 
 	ANIOS = [(x, x) for x in range(1969, datetime.datetime.now().year+1)]
 
 	ANIOS.insert(0,(0,'Sin seleccionar'))
 
-<<<<<<< HEAD
 	TIPO = [
 		('texto','Texto'),
 		('html','HTML')]
 
-=======
->>>>>>> 139fc268705670d855abefb57ba379aecc65dedc
 	codigo = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}),label="Código")
 
 	periodo = forms.ChoiceField(choices=PERIODOS,label="Período")
 
 	anio = forms.ChoiceField(choices=ANIOS,label="Año")
 
-<<<<<<< HEAD
 	tipo = forms.ChoiceField(choices=TIPO, label="Tipo de transcripción")
 
 	docfile = forms.FileField(label='Selecciona un archivo PDF', validators=[validar_extension])
@@ -67,6 +56,3 @@ class ConsultaForm(forms.Form):
 	anio = forms.ChoiceField(choices=ANIOS, label="Año")
 
 	tipo = forms.ChoiceField(choices=TIPO, label="Tipo de transcripción")
-=======
-	docfile = forms.FileField(label='Selecciona un archivo PDF', validators=[validar_extension])
->>>>>>> 139fc268705670d855abefb57ba379aecc65dedc

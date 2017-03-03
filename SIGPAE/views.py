@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.template import RequestContext
-<<<<<<< HEAD
 from django.http import HttpResponseRedirect,HttpResponse
 from django.core.urlresolvers import reverse
 import textract
@@ -12,14 +11,6 @@ from .forms import DocumentForm, ConsultaForm
 
 def home(request):
 	return render(request, 'SIGPAE/home.html', {})
-=======
-from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
-import textract
-
-from .models import Document
-from .forms import DocumentForm
->>>>>>> 139fc268705670d855abefb57ba379aecc65dedc
 
 def index(request):
 	return render(request, 'SIGPAE/index.html', {})
@@ -39,8 +30,6 @@ def transcripcion(request):
 				anio = form.cleaned_data['anio'],
 				docfile = request.FILES['docfile'])
 			newdoc.save()
-<<<<<<< HEAD
-
 			opcion = form.cleaned_data['tipo']
 			if (opcion == "texto"):
 				texto_editable = textract.process(newdoc.docfile.url)
@@ -130,12 +119,3 @@ def consulta(request):
 	else:
 		form=ConsultaForm()
 		return render(request, 'SIGPAE/consulta.html', {'form': form})
-=======
-			texto_editable = textract.process(newdoc.docfile.url)
-			context = {'texto_editable': texto_editable, 'documento': newdoc}
-			return render(request, 'SIGPAE/transcripcion.html', context)
-	else:
-		form = DocumentForm()
-		documents = Document.objects.all()
-		return render(request,'SIGPAE/cargar.html',{'documents': documents, 'form': form})
->>>>>>> 139fc268705670d855abefb57ba379aecc65dedc

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -12,24 +11,24 @@
 
 <div class="container" style="padding-top: 1em;">
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="navbar-header">
-	  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex6-collapse">
-		<span class="sr-only">Desplegar navegación</span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-		<span class="icon-bar"></span>
-	  </button>
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex6-collapse">
+        <span class="sr-only">Desplegar navegación</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
 
-	</div>
+    </div>
 
-	<div class="collapse navbar-collapse navbar-ex6-collapse">
-	  <ul class="nav navbar-nav">
-	  <li>&nbsp;</li>
-		<li><a href="{% url "home" %}">SIGPAE</a></li>
-		<li><a href="{% url "cargar" %}" >Cargar</a></li>
-		<li><a href="{% url "consulta" %}">Consultar</a></li>
-	  </ul>
-	</div>
+    <div class="collapse navbar-collapse navbar-ex6-collapse">
+      <ul class="nav navbar-nav">
+      <li>&nbsp;</li>
+        <li><a href="{% url "home" %}">SIGPAE</a></li>
+        <li><a href="{% url "cargar" %}" >Cargar</a></li>
+        <li><a href="{% url "consulta" %}">Consultar</a></li>
+      </ul>
+    </div>
   </nav>
 
 <br>
@@ -40,221 +39,221 @@
 <div class="container-fluid" style="height: 80%">
 
    <div class="row">
-	  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-		 <h2> PDF </h2>
-		 <iframe src={{ documento.docfile.url }} style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
-		 </iframe>
-	  </div>
+      <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+         <h2> PDF </h2>
+         <iframe src={{ documento.docfile.url }} style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
+         </iframe>
+      </div>
 
-	  <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-	  
-		 <h2> Texto extraído </h2>
-		 {% if texto_editable %}
-		 <textarea cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
-		 {{ texto_editable }}
-		 </textarea>
-		 {% endif %}
-	  </div>
+      <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+      
+         <h2> Texto extraído </h2>
+         {% if texto_editable %}
+         <textarea cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
+         {{ texto_editable }}
+         </textarea>
+         {% endif %}
+      </div>
 
-	  <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-	  <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
-
-
-	  <h2> Dependencia </h2>
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+      <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
 
 
-	  <form action="index.php" method="post" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-		 
-		  <select class="form-control" id="status" name="status" onChange="mostrar(this.value);"  >
-			<option value="0">Seleccione tipo de unidad</option>
-			  <option value="coordinaciones">Coordinación</option>
-			  <option value="departamento">Departamento</option>
-		   </select>
-	  </form>
+      <h2> Dependencia </h2>
 
-	  <div id="coordinaciones" class="element" style="display: none;">
-			   <h2> Coordinación </h2>
-		 <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-			<form name="f2">
-			<select class="form-control" name=dec onchange="cambia_decanato()" style="width:95%;">
-			<option value="0" selected>Seleccione Decanato...
-			<option value="1">Decanato de Estudios Generales
-			<option value="2">Decanato de Estudios Profesionales
-			<option value="3">Decanato de Estudios Tecnológicos
-			</select>
+
+      <form action="index.php" method="post" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         
+          <select class="form-control" id="status" name="status" onChange="mostrar(this.value);"  >
+            <option value="0">Seleccione tipo de unidad</option>
+              <option value="coordinaciones">Coordinación</option>
+              <option value="departamento">Departamento</option>
+           </select>
+      </form>
+
+      <div id="coordinaciones" class="element" style="display: none;">
+               <h2> Coordinación </h2>
+         <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+            <form name="f2">
+            <select class="form-control" name=dec onchange="cambia_decanato()" style="width:95%;">
+            <option value="0" selected>Seleccione Decanato...
+            <option value="1">Decanato de Estudios Generales
+            <option value="2">Decanato de Estudios Profesionales
+            <option value="3">Decanato de Estudios Tecnológicos
+            </select>
 <br>
-			<select class="form-control" name=decanato style="width:95%;">
-			<option value="-">-
-			</select>
-			</form>
-		 </div>
-	  </div>
+            <select class="form-control" name=decanato style="width:95%;">
+            <option value="-">-
+            </select>
+            </form>
+         </div>
+      </div>
 
-	  <div id="departamento" class="element" style="display: none;">
-		 <h2> Departamento: </h2>
-		 <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-			<form name="f1">
-			<select class="form-control" name=div onchange="cambia_division()" style="width:95%;">
-			<option value="0" selected>Seleccione División...
-			<option value="1">División de Ciencias Físicas y Matemáticas
-			<option value="2">División de Ciencias Sociales y Humanidades
-			<option value="3">División de Ciencias Biológicas
-			<option value="4">División de Ciencias y Tecnologías Administrativas e Industriales
-			</select>
+      <div id="departamento" class="element" style="display: none;">
+         <h2> Departamento: </h2>
+         <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+            <form name="f1">
+            <select class="form-control" name=div onchange="cambia_division()" style="width:95%;">
+            <option value="0" selected>Seleccione División...
+            <option value="1">División de Ciencias Físicas y Matemáticas
+            <option value="2">División de Ciencias Sociales y Humanidades
+            <option value="3">División de Ciencias Biológicas
+            <option value="4">División de Ciencias y Tecnologías Administrativas e Industriales
+            </select>
 <br>
-			<select class="form-control" name=division style="width:95%;">
-			<option value="-">-
-			</select>
-			</form>
-		 </div>
+            <select class="form-control" name=division style="width:95%;">
+            <option value="-">-
+            </select>
+            </form>
+         </div>
 
-	  </div>
-		 
+      </div>
+         
 
-		 <h2> Código Asignatura </h2>
-		 <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-		 </textarea>
-		 <br>
-		 <h2> Denominación </h2>
-		 <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-		 </textarea>
-		 <br>
+         <h2> Código Asignatura </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
+         <br>
+         <h2> Denominación </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
+         <br>
 
-		 <h2> Horas de teoría semanales: </h2>
-		 <select class="form-control" name="Horas_Teoria" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-			<option value="0">0</option> 
-			<option value="1">1</option> 
-			<option value="2">2</option> 
-			<option value="3">3</option> 
-			<option value="4">4</option> 
-			<option value="5">5</option> 
-			<option value="6">6</option> 
-			<option value="7">7</option> 
-			<option value="8">8</option> 
-			<option value="9">9</option> 
-			<option value="10">10</option> 
-			<option value="11">11</option> 
-			<option value="12">12</option> 
-			<option value="13">13</option> 
-			<option value="14">14</option> 
-			<option value="15">15</option> 
-			<option value="16">16</option> 
-			<option value="17">17</option> 
-			<option value="19">18</option>
-			<option value="20">19</option>
-			<option value="21">20</option>
-			<option value="22">21</option>
-			<option value="23">22</option>
-			<option value="24">23</option>
-			<option value="25">24</option>
-			<option value="26">25</option>
-			<option value="27">26</option>
-			<option value="28">27</option>
-			<option value="29">28</option>
-			<option value="30">29</option>
-			<option value="31">30</option>
-			<option value="32">31</option>
-			<option value="33">32</option>
-			<option value="34">33</option>
-			<option value="35">34</option>
-			<option value="36">35</option>
-			<option value="37">36</option>
-			<option value="38">37</option>
-			<option value="39">38</option>
-			<option value="40">39</option>
-			<option value="41">40</option>
-		 </select>
-		 <h2> Horas de práctica semanales: </h2>
-		 <select class="form-control" name="Horas_Practica"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-			<option value="0">0</option> 
-			<option value="1">1</option> 
-			<option value="2">2</option> 
-			<option value="3">3</option> 
-			<option value="4">4</option> 
-			<option value="5">5</option> 
-			<option value="6">6</option> 
-			<option value="7">7</option> 
-			<option value="8">8</option> 
-			<option value="9">9</option> 
-			<option value="10">10</option> 
-			<option value="11">11</option> 
-			<option value="12">12</option> 
-			<option value="13">13</option> 
-			<option value="14">14</option> 
-			<option value="15">15</option> 
-			<option value="16">16</option> 
-			<option value="17">17</option> 
-			<option value="19">18</option>
-			<option value="20">19</option>
-			<option value="21">20</option>
-			<option value="22">21</option>
-			<option value="23">22</option>
-			<option value="24">23</option>
-			<option value="25">24</option>
-			<option value="26">25</option>
-			<option value="27">26</option>
-			<option value="28">27</option>
-			<option value="29">28</option>
-			<option value="30">29</option>
-			<option value="31">30</option>
-			<option value="32">31</option>
-			<option value="33">32</option>
-			<option value="34">33</option>
-			<option value="35">34</option>
-			<option value="36">35</option>
-			<option value="37">36</option>
-			<option value="38">37</option>
-			<option value="39">38</option>
-			<option value="40">39</option>
-			<option value="41">40</option>
-		 </select>
-		 <h2> Número de créditos: </h2>
-		 <select class="form-control" name="Numero_creditos"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-			<option value="0">0</option> 
-			<option value="1">1</option> 
-			<option value="2">2</option> 
-			<option value="3">3</option> 
-			<option value="4">4</option> 
-			<option value="5">5</option> 
-			<option value="6">6</option> 
-			<option value="7">7</option> 
-			<option value="8">8</option> 
-			<option value="9">9</option> 
-			<option value="10">10</option> 
-			<option value="11">11</option> 
-			<option value="12">12</option> 
-			<option value="13">13</option> 
-			<option value="14">14</option> 
-			<option value="15">15</option> 
-			<option value="16">16</option>
-		 </select>
-		
-		 <h2> Requisitos </h2>
-		 <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-		 </textarea>
-		 <h2> Contenidos sinópticos </h2>
-		 <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-		 </textarea>
-		 <h2> Estrategias metodológicas </h2>
-		 <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-		 </textarea>
-		 <br>
-		 <h2> Estrategias de evaluación </h2>
-		 <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-		 </textarea>
-		 <br>
-			<h2> Objetivos </h2>
-		 <textarea cols="40" rows="15" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-		 </textarea>
-		 <br>
-		 <h2> Fuentes de información recomendadas </h2>
-		 <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-		 </textarea>
+         <h2> Horas de teoría semanales: </h2>
+         <select class="form-control" name="Horas_Teoria" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+            <option value="0">0</option> 
+            <option value="1">1</option> 
+            <option value="2">2</option> 
+            <option value="3">3</option> 
+            <option value="4">4</option> 
+            <option value="5">5</option> 
+            <option value="6">6</option> 
+            <option value="7">7</option> 
+            <option value="8">8</option> 
+            <option value="9">9</option> 
+            <option value="10">10</option> 
+            <option value="11">11</option> 
+            <option value="12">12</option> 
+            <option value="13">13</option> 
+            <option value="14">14</option> 
+            <option value="15">15</option> 
+            <option value="16">16</option> 
+            <option value="17">17</option> 
+            <option value="19">18</option>
+            <option value="20">19</option>
+            <option value="21">20</option>
+            <option value="22">21</option>
+            <option value="23">22</option>
+            <option value="24">23</option>
+            <option value="25">24</option>
+            <option value="26">25</option>
+            <option value="27">26</option>
+            <option value="28">27</option>
+            <option value="29">28</option>
+            <option value="30">29</option>
+            <option value="31">30</option>
+            <option value="32">31</option>
+            <option value="33">32</option>
+            <option value="34">33</option>
+            <option value="35">34</option>
+            <option value="36">35</option>
+            <option value="37">36</option>
+            <option value="38">37</option>
+            <option value="39">38</option>
+            <option value="40">39</option>
+            <option value="41">40</option>
+         </select>
+         <h2> Horas de práctica semanales: </h2>
+         <select class="form-control" name="Horas_Practica"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+            <option value="0">0</option> 
+            <option value="1">1</option> 
+            <option value="2">2</option> 
+            <option value="3">3</option> 
+            <option value="4">4</option> 
+            <option value="5">5</option> 
+            <option value="6">6</option> 
+            <option value="7">7</option> 
+            <option value="8">8</option> 
+            <option value="9">9</option> 
+            <option value="10">10</option> 
+            <option value="11">11</option> 
+            <option value="12">12</option> 
+            <option value="13">13</option> 
+            <option value="14">14</option> 
+            <option value="15">15</option> 
+            <option value="16">16</option> 
+            <option value="17">17</option> 
+            <option value="19">18</option>
+            <option value="20">19</option>
+            <option value="21">20</option>
+            <option value="22">21</option>
+            <option value="23">22</option>
+            <option value="24">23</option>
+            <option value="25">24</option>
+            <option value="26">25</option>
+            <option value="27">26</option>
+            <option value="28">27</option>
+            <option value="29">28</option>
+            <option value="30">29</option>
+            <option value="31">30</option>
+            <option value="32">31</option>
+            <option value="33">32</option>
+            <option value="34">33</option>
+            <option value="35">34</option>
+            <option value="36">35</option>
+            <option value="37">36</option>
+            <option value="38">37</option>
+            <option value="39">38</option>
+            <option value="40">39</option>
+            <option value="41">40</option>
+         </select>
+         <h2> Número de créditos: </h2>
+         <select class="form-control" name="Numero_creditos"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+            <option value="0">0</option> 
+            <option value="1">1</option> 
+            <option value="2">2</option> 
+            <option value="3">3</option> 
+            <option value="4">4</option> 
+            <option value="5">5</option> 
+            <option value="6">6</option> 
+            <option value="7">7</option> 
+            <option value="8">8</option> 
+            <option value="9">9</option> 
+            <option value="10">10</option> 
+            <option value="11">11</option> 
+            <option value="12">12</option> 
+            <option value="13">13</option> 
+            <option value="14">14</option> 
+            <option value="15">15</option> 
+            <option value="16">16</option>
+         </select>
+        
+         <h2> Requisitos </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
+         <h2> Contenidos sinópticos </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
+         <h2> Estrategias metodológicas </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
+         <br>
+         <h2> Estrategias de evaluación </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
+         <br>
+            <h2> Objetivos </h2>
+         <textarea cols="40" rows="15" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
+         <br>
+         <h2> Fuentes de información recomendadas </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
 
-		</div>
-	  </div>
-	   </div>
-	  </div></div>
+        </div>
+      </div>
+       </div>
+      </div></div>
 
 <script>
 var division_1=new Array("Seleccione Departamento","Departamento de Física","Departamento de Química","Departamento de Mecánica","Departamento de Matemáticas Puras y Aplicadas","Departamento de Computación y Tecnología de la Información","Departamento de Cómputo Científico y Estadística","Departamento de Electrónica y Circuitos","Departamento de Termodinámica y Fenómenos de Transferencia","Departamento de Conversión y Transporte de Energía","Departamento de Procesos y Sistemas","Departamento de Ciencias de los Materiales","Departamento de Ciencias de la Tierra")
@@ -264,17 +263,17 @@ var division_4=new Array("Seleccione Departamento","Departamento de Tecnología 
 function cambia_division(){
    var div = document.f1.div[document.f1.div.selectedIndex].value
    if (div != 0) {
-	  mis_division=eval("division_" + div)
-	  num_division = mis_division.length
-	  document.f1.division.length = num_division
-	  for(i=0;i<num_division;i++){
-		 document.f1.division.options[i].value=mis_division[i]
-		 document.f1.division.options[i].text=mis_division[i]
-	  }  
+      mis_division=eval("division_" + div)
+      num_division = mis_division.length
+      document.f1.division.length = num_division
+      for(i=0;i<num_division;i++){
+         document.f1.division.options[i].value=mis_division[i]
+         document.f1.division.options[i].text=mis_division[i]
+      }  
    }else{
-	  document.f1.division.length = 1
-	  document.f1.division.options[0].value = "-"
-	  document.f1.division.options[0].text = "-"
+      document.f1.division.length = 1
+      document.f1.division.options[0].value = "-"
+      document.f1.division.options[0].text = "-"
    }
    document.f1.division.options[0].selected = true
 }
@@ -284,76 +283,29 @@ var decanato_3=new Array("Seleccione Coordinación","Coordinación de Tecnologí
 function cambia_decanato(){
    var dec = document.f2.dec[document.f2.dec.selectedIndex].value
    if (dec != 0) {
-	  mis_decanato=eval("decanato_" + dec)
-	  num_decanato = mis_decanato.length
-	  document.f2.decanato.length = num_decanato
-	  for(i=0;i<num_decanato;i++){
-		 document.f2.decanato.options[i].value=mis_decanato[i]
-		 document.f2.decanato.options[i].text=mis_decanato[i]
-	  }  
+      mis_decanato=eval("decanato_" + dec)
+      num_decanato = mis_decanato.length
+      document.f2.decanato.length = num_decanato
+      for(i=0;i<num_decanato;i++){
+         document.f2.decanato.options[i].value=mis_decanato[i]
+         document.f2.decanato.options[i].text=mis_decanato[i]
+      }  
    }else{
-	  document.f2.decanato.length = 1
-	  document.f2.decanato.options[0].value = "-"
-	  document.f2.decanato.options[0].text = "-"
+      document.f2.decanato.length = 1
+      document.f2.decanato.options[0].value = "-"
+      document.f2.decanato.options[0].text = "-"
    }
    document.f2.decanato.options[0].selected = true
 }
 function mostrar(id) {
    if (id == "coordinaciones") {
-	  $("#coordinaciones").show();
-	  $("#departamento").hide();
+      $("#coordinaciones").show();
+      $("#departamento").hide();
    }
    
    if (id == "departamento") {
-	  $("#coordinaciones").hide();
-	  $("#departamento").show();
+      $("#coordinaciones").hide();
+      $("#departamento").show();
    }
 }
 </script>
-=======
-<table>
-	 <tr>
-			<td align="center">
-			<h2> PDF </h2>
-			<iframe src={{ documento.docfile.url }} style="width:300px;height:490px;padding:10px;border:10px double deepskyblue;">
-			</iframe>
-			</td>
-			<td align="center">
-				<h2> Texto extraído </h2>
-		{% if texto_editable %}
-			<textarea cols="35" rows="25" col align="" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px">
-				{{ texto_editable }}
-			</textarea>
-		{% endif %}
-			</td>
-			<td align="center">
-				<h2> Departamento: </h2>
-		<select name="Departamentos">
-			<option value="1">Departamento de Matemáticas Puras y Aplicadas</option> 
-			<option value="2">Departamento de Física</option> 
-			<option value="3">Departamento de Química</option>
-			<option value="4">Departamento de Mecánica</option> 
-			<option value="5">Departamento de Termodinámica y Fenómenos de Transferencia</option> 
-			<option value="6">Departamento de Electrónica y Circuitos</option> 
-			<option value="7">Departamento de Conversión y Transporte de Energía</option> 
-			<option value="8">Departamento de Procesos y Sistemas</option> 
-			<option value="9">Departamento de Ciencias de los Materiales</option> 
-			<option value="10">Departamento de Computación y Tecnología de la Información</option> 
-			<option value="11">Departamento de Ciencias de la Tierra</option> 
-			<option value="12">Departamento de Cómputo Cientifico y Estadística</option> 
-		</select>
-		<h2> Código Asignatura </h2>
-		<textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px">
-		</textarea>
-		<br>
-			<h2> Título </h2>
-		<textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px">
-		</textarea>
-		<br>
-			<h2> Objetivos </h2>
-		<textarea cols="40" rows="15" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px">
-		</textarea>
-	</td>
-	 </tr>
-</table>
->>>>>>> 139fc268705670d855abefb57ba379aecc65dedc
