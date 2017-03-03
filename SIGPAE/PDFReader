@@ -1,4 +1,0 @@
-import textract
-
-def leerPDF(ruta):
-	return textract.process(ruta)
