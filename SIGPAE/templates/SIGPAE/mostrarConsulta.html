@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>mostrarConsulta</title>
+	</head>
+
+	<body>
+
+		{% if documents %}
+			<ul>
+				{% for document in documents %}
+					<li>
+						<form action="{% url "transcripcion" %}" method="get" enctype="multipart/form-data">
+							{% csrf_token %}
+							
+							<input type="hidden" name="documento" value={{ document.docfile.name }}>
+							<p>{{ document.docfile.name }} {{ form.tipo }} <input type="submit" value="Transcribir"/></p>
+
+						</form>
+					</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+
+		<form action="{% url "consulta" %}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<p>{{ form.non_field_errors }}</p>
+
+			<p>{{ form.codigo.label_tag }} {{ form.codigo }}</p>
+
+			<p>{{ form.periodo.label_tag }} {{ form.periodo }}</p>
+
+			<p>{{ form.anio.label_tag }} {{ form.anio }}</p>
+
+			<p>{{ form.tipo.label_tag }} {{ form.tipo }}</p>
+
+			<p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+
+			<p>
+				{{ form.docfile.errors }}
+				{{ form.docfile }}
+			</p>
+
+			<p><input type="submit" value="Consultar"/></p>
+		</form>
+	</body>
+
+</html>

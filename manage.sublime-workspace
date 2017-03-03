@@ -1,0 +1,354 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Oper",
+				"OperacionUnaria"
+			],
+			[
+				"Fracc",
+				"Fraccion_Entera"
+			],
+			[
+				"attr",
+				"attr_accessor"
+			],
+			[
+				"P",
+				"PalabraReservada"
+			],
+			[
+				"A",
+				"A"
+			],
+			[
+				"May",
+				"MayorIgual"
+			],
+			[
+				"Me",
+				"MenorEstricto"
+			],
+			[
+				"Myor",
+				"MayorEstricto"
+			],
+			[
+				"cada",
+				"cadena_caracteres"
+			],
+			[
+				"operador",
+				"operador_aritmertico"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 146.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/gianni/CI3715/SIGPAE/templates/SIGPAE/index.html",
+		"/home/gianni/CI3715/CI3715/urls.py",
+		"/home/gianni/CI3715/SIGPAE/views.py",
+		"/home/gianni/CI3715/SIGPAE/urls.py",
+		"/home/gianni/CI3715/SIGPAE/forms.py",
+		"/home/gianni/CI3715/CI3715/settings.py",
+		"/home/gianni/CI3715/manage.py",
+		"/home/gianni/sudo",
+		"/home/gianni/CI3715/SIGPAE/librerias.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/controllers/home.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/views/layout.html",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/views/home/user.html",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/models/datamodel_objects.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/controllers/appadmin.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/web2py.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/views/home/index.html",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/views/__init__.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/views/generic.html",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/views/defl.html",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/routes.example.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/routes.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/welcome/views/layout.html",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/admin/views/layout.html",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/admin/views/appadmin.html",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/controllers/api.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/controllers/product.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/controllers/order.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/controllers/category.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/controllers/cart.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/models/datamodel_application.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/models/database.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/models/appsettings.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/models/validators.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/prueba1/databases/mibase_251095.sqlite",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/welcome/models/menu.py",
+		"/home/gianni/Escritorio/Sistemas/SIGPIE/applications/welcome/models/db.py",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/entrada1.rtn",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/retina_parser.y",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/clases.rb",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/retina_ast.rb",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/retina_lexer.rb",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/retina",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/makefile",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/retina_parser.rb",
+		"/home/gianni/Escritorio/Personales/Sincronizaciones/Tablet.sh",
+		"/home/gianni/Escritorio/nodos.rb",
+		"/home/gianni/Escritorio/Parser.y",
+		"/home/gianni/Escritorio/Ejemplo/retina/etapa2/ejemplo_ruby/calculator_parser.y",
+		"/home/gianni/Escritorio/tokens.rb",
+		"/home/gianni/Escritorio/LexerR.rb",
+		"/home/gianni/Escritorio/Ejemplo/retina/etapa2/ejemplo_ruby/calculator_ast.rb",
+		"/home/gianni/Escritorio/Ejemplo/retina/etapa2/ejemplo_ruby/entrada.calc",
+		"/home/gianni/Escritorio/Ejemplo/retina/etapa2/ejemplo_ruby/calculator_lexer.rb",
+		"/home/gianni/Escritorio/Ejemplo/retina/etapa2/ejemplo_ruby/calculator",
+		"/home/gianni/Escritorio/Personales/Sincronizaciones/Tablet_Musica.sh",
+		"/home/gianni/Escritorio/Ejemplo/retina/etapa2/ejemplo_ruby/in.calc",
+		"/home/gianni/Escritorio/test.rb",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/entrada1.txt",
+		"/home/gianni/Documentos/CI3825 - Sistemas de Operación I/Tarea CI3825/main.c",
+		"/home/gianni/Documentos/CI3825 - Sistemas de Operación I/Tarea CI3825/makefile",
+		"/home/gianni/Documentos/CI3825 - Sistemas de Operación I/Tarea CI3825/lista.c",
+		"/home/gianni/Documentos/CI3825 - Sistemas de Operación I/Tarea CI3825/lista.h",
+		"/home/gianni/Escritorio/Sistemas/CD Intercambio/Codigo Fuente/intercambio-reloaded-master/estudiante/forms.py",
+		"/home/gianni/Escritorio/Sistemas/CD Intercambio/Codigo Fuente/intercambio-reloaded-master/estudiante/models.py",
+		"/home/gianni/Escritorio/Sistemas/CD Intercambio/Codigo Fuente/intercambio-reloaded-master/intercambio/settings.py",
+		"/home/gianni/Escritorio/Sistemas/CD Intercambio/Codigo Fuente/intercambio-reloaded-master/manage.py",
+		"/home/gianni/Escritorio/Sistemas/CD Intercambio/Codigo Fuente/intercambio-reloaded-master/administrador/models.py",
+		"/home/gianni/Escritorio/Sistemas/CD Intercambio/Codigo Fuente/intercambio-reloaded-master/estudiante/views.py",
+		"/home/gianni/Escritorio/Sistemas/CD Intercambio/Codigo Fuente/intercambio-reloaded-master/estudiante/tests.py",
+		"/home/gianni/Escritorio/Sistemas/CD Intercambio/Codigo Fuente/intercambio-reloaded-master/estudiante/admin.py",
+		"/home/gianni/Escritorio/Sistemas/CD Intercambio/Léeme - Instalación.txt",
+		"/home/gianni/Escritorio/Sistemas/CD Intercambio/Codigo Fuente/intercambio-reloaded-master/administrador/views.py",
+		"/home/gianni/Escritorio/Sistemas/CD Intercambio/Codigo Fuente/intercambio-reloaded-master/README.md",
+		"/home/gianni/Escritorio/Sistemas/CD Intercambio/Codigo Fuente/intercambio-reloaded-master/administrador/admin.py",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/retina.rb",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/calculator.rb",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/lexercomentado.rb",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3725/lexer.rb",
+		"/home/gianni/Documentos/Preparador/CI2125 Ene-Mar 2016/Soluciones/Lab2/ejercicio1c.c",
+		"/home/gianni/Documentos/Preparador/CI2125 Ene-Mar 2016/Soluciones/Lab2/ejercicio3a.c",
+		"/home/gianni/Documentos/Preparador/CI2125 Ene-Mar 2016/Soluciones/Lab2/ejercicio3b.c",
+		"/home/gianni/Documentos/Preparador/CI2125 Ene-Mar 2016/Soluciones/Lab2/ejercicio3c.c",
+		"/home/gianni/Documentos/Preparador/CI2125 Ene-Mar 2016/Soluciones/Lab1/Ejercicio1f.c",
+		"/home/gianni/Escritorio/Sistemas/Web2Py",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3715/entrada1.txt",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3715/lexer.rb",
+		"/home/gianni/Escritorio/Traductores/Proyecto CI3715/lexercomentado.rb",
+		"/home/gianni/Escritorio/Fabiana/trad.rb",
+		"/home/gianni/Escritorio/Fabiana/lexer.rb",
+		"/home/gianni/Escritorio/Fabiana/lexercomentado.rb",
+		"/home/gianni/Escritorio/Fabiana/entrada1.txt",
+		"/home/gianni/Documentos/Cursos/Lenguaje C/Notas Clase 3.txt",
+		"/home/gianni/Documentos/Cursos/Lenguaje C/Notas Clase 4.txt",
+		"/home/gianni/Documentos/Cursos/Lenguaje C/Notas clase 1.txt",
+		"/home/gianni/Escritorio/Personales/Sincronizaciones/Pen-Drive.sh",
+		"/home/gianni/Escritorio/Personales/Sincronizaciones/Respaldos_Pen-Drive.sh",
+		"/home/gianni/Escritorio/Personales/Sincronizaciones/Transcend.sh",
+		"/home/gianni/Escritorio/Personales/Sincronizaciones/Celular.sh",
+		"/home/gianni/Escritorio/Personales/Sincronizaciones/Celular_Musica.sh",
+		"/etc/udev/rules.d/51-android.rules"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"url(r'^$', views.index, name='index'),",
+			"FileField",
+			"cATEGORIES",
+			"Producto",
+			"producto",
+			"Asignacion",
+			"read",
+			"Read",
+			"read",
+			"Read",
+			"read",
+			"Read",
+			"read",
+			"attr",
+			"Write",
+			"Igual",
+			"Aigna",
+			"'id'",
+			"id",
+			"Tipo",
+			"Identificador",
+			"to_i",
+			"inst2",
+			"Texto",
+			"Tipo_Var",
+			"Tipo",
+			"SECUENCIACION",
+			"NodoSec",
+			"Exps",
+			"Nodo",
+			"NodoSec",
+			":\t\t\t",
+			";",
+			"TkNum",
+			"Numero",
+			"String",
+			"prnt",
+			"CloseRoundBracket",
+			"TkDi",
+			"TkDigit",
+			"var",
+			"ListDec",
+			"signos",
+			"taux",
+			"aux",
+			"tpc",
+			"tint",
+			"tid",
+			"palClav",
+			"/"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "manage.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 318.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
