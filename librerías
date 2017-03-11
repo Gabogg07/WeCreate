@@ -1,0 +1,7 @@
+sudo apt-get update
+sudo apt-get install python-pip
+sudo pip install django
+sudo pip install textract
+sudo apt-get install python-pip python-dev libpq-dev postgresql postgresql-contrib
+sudo apt-get build-dep python-psycopg2
+sudo pip install psycopg2
