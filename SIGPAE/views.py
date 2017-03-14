@@ -56,7 +56,6 @@ def transcripcion(request):
 				if match[2] in cods:
 					dpto = cods.get(match[2])
 
-			#codigo=match[0]+match[1]+match[2]
 			context = {'texto_editable': texto_editable, 'documento': newdoc, 'codigo': cdg.upper(),'dpto':dpto}
 			return render(request, 'SIGPAE/transcripcion.html', context)
 		return render(request,'SIGPAE/cargar.html',{'form': form})

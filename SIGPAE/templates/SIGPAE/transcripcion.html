@@ -58,6 +58,7 @@
          {% endif %}
       </div>
 
+
    {% if codigo|length == 0 %}
         <script type="text/javascript">
                alert ("No se encontró ningún código");
@@ -67,6 +68,7 @@
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
       <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
 
+<button onClick=(codigo=1)>Extraer</button>
 
       <h2> Dependencia </h2>
 
@@ -79,7 +81,6 @@
               <option value="departamento">Departamento</option>
            </select>
       </form>
-
       <div id="coordinaciones" class="element" style="display: none;">
                <h2> Coordinación </h2>
          <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
