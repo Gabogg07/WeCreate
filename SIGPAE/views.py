@@ -33,13 +33,18 @@ def transcripcion(request):
 			opcion = form.cleaned_data['tipo']
 			if (opcion == "texto"):
 				texto_editable = textract.process(newdoc.docfile.url)
+				texto_editable=texto_editable.decode("utf-8")
+				match = re.search(r'(co|ep|dfm|et|ci|cib|bc|bcb|bo|bob|mt|cmt|gc|ce|cea|cs|csa|csx|csy|csz|egs|cc|cce|ct|cte|da|dap|daa|ec|eyc|ea|ead|ff|fl|fs|fsi|fis|fc|fcr|fca|fcb|fcc|fce|fcf|fcg|fch|fci|fcl|fcr|fcx|fcz|fcw|id|idm|ll|lla|llb|llc|lle|egl|ma|mat|mc|mec|pl|plx|ply|ps|prs|qm|qim|pb|ts|tsx|ti|tf|tft|fc|pg|td|teg|tg)(-|\s)?([0-9][0-9][0-9][0-9]?)',
+					texto_editable.lower())
+				codigo=[]
+				if match: codigo=match.group()
 			else:
 				os.system("pdftohtml -s -c " + newdoc.docfile.url)
 				output = re.sub('.(p|P)(d|D)(f|F)', '-html.html', newdoc.docfile.url)
 				file = open(output, "r")
 				texto_editable = file.read()
 				file.close()
-			context = {'texto_editable': texto_editable, 'documento': newdoc}
+			context = {'texto_editable': texto_editable, 'documento': newdoc, 'codigo': codigo.upper()}
 			return render(request, 'SIGPAE/transcripcion.html', context)
 		return render(request,'SIGPAE/cargar.html',{'form': form})
 	
@@ -48,6 +53,7 @@ def transcripcion(request):
 		docfile = request.GET['documento']
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
+
 		else:
 			os.system("pdftohtml -s -c " + docfile)
 			output = re.sub('.(p|P)(d|D)(f|F)', '-html.html', docfile)
