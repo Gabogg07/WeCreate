@@ -6,6 +6,7 @@ import textract
 import os
 import re
 
+from .codigos import *
 from .models import Document
 from .forms import DocumentForm, ConsultaForm
 
@@ -34,17 +35,28 @@ def transcripcion(request):
 			if (opcion == "texto"):
 				texto_editable = textract.process(newdoc.docfile.url)
 				texto_editable=texto_editable.decode("utf-8")
-				match = re.search(r'(co|ep|dfm|et|ci|cib|bc|bcb|bo|bob|mt|cmt|gc|ce|cea|cs|csa|csx|csy|csz|egs|cc|cce|ct|cte|da|dap|daa|ec|eyc|ea|ead|ff|fl|fs|fsi|fis|fc|fcr|fca|fcb|fcc|fce|fcf|fcg|fch|fci|fcl|fcr|fcx|fcz|fcw|id|idm|ll|lla|llb|llc|lle|egl|ma|mat|mc|mec|pl|plx|ply|ps|prs|qm|qim|pb|ts|tsx|ti|tf|tft|fc|pg|td|teg|tg)(-|\s)?([0-9][0-9][0-9][0-9]?)',
-					texto_editable.lower())
-				codigo=[]
-				if match: codigo=match.group()
+				match = re.findall(r'(((co|ep|dfm|et|ci|bc|bo|mt|gc|ce|cs|cc|ct|da|ec|ea|ff|fl|fs|fis|fc|id|ll|ma|mc|pl|ps|qm|pb|ts|ti|tf|fc|pg|td|tg)(-|\s)?([0-9][0-9][0-9][0-9]))|((dfm|cib|bcb|bob|cmt|cea|csa|csx|csy|csz|egs|cce|cte|dap|daa|eyc|ead|fsi|fis|fcr|fca|fcb|fcc|fce|fcf|fcg|fch|fci|fcl|fcr|fcx|fcz|fcw|idm|lla|llb|llc|lle|egl|mat|mec|plx|ply|prs|qim|tsx|tft|teg)(-|\s)?([0-9][0-9][0-9])))',texto_editable.lower())
+				if match: match=match[0]
+				else: match=""
+				cdg=""
+				if match:
+					cdg=match[0]
+
 			else:
 				os.system("pdftohtml -s -c " + newdoc.docfile.url)
 				output = re.sub('.(p|P)(d|D)(f|F)', '-html.html', newdoc.docfile.url)
 				file = open(output, "r")
 				texto_editable = file.read()
 				file.close()
-			context = {'texto_editable': texto_editable, 'documento': newdoc, 'codigo': codigo.upper()}
+				match=[]
+				cdg=""
+			dpto=""
+			codigo=""
+			if match:
+				if match[2] in cods:
+					dpto = cods.get(match[2])
+
+			context = {'texto_editable': texto_editable, 'documento': newdoc, 'codigo': cdg.upper(),'dpto':dpto}
 			return render(request, 'SIGPAE/transcripcion.html', context)
 		return render(request,'SIGPAE/cargar.html',{'form': form})
 	

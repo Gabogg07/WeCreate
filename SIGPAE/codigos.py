@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-codś = {
+cods = {
 	'co':	'Cómputo Científico y Estadístico',
 	'ep':	'Cursos en Cooperación',
 	'dfm':	'Cursos en Cooperación',
