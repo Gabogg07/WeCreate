@@ -10,6 +10,30 @@ from .models import Document, Historial
 from .forms import DocumentForm, ConsultaForm, HistorialForm, MostrarConsultaForm
 
 def home(request):
+
+	if request.method == 'POST':
+		print("\nPOST\n")
+		form = HistorialForm(request.POST, request.FILES)
+		if form.is_valid():
+			print("\nFORM VALIDO\n")
+			documento = form.cleaned_data['documento']
+			row_hist = Historial.objects.all().filter(docfile_id = documento)
+			row_hist.codigo_asignatura = form.cleaned_data['codigo_asignatura']
+			row_hist.denominacion = form.cleaned_data['denominacion']
+			row_hist.periodo = form.cleaned_data['denominacion']
+			row_hist.anio = form.cleaned_data['anio']
+			row_hist.horas_T = form.cleaned_data['horas_T']
+			row_hist.horas_P = form.cleaned_data['horas_P']
+			row_hist.horas_L = form.cleaned_data['horas_L']
+			row_hist.num_creditos = form.cleaned_data['num_creditos']
+			row_hist.requisitos = form.cleaned_data['requisitos']
+			row_hist.cont_sinopticos = form.cleaned_data['cont_sinopticos']
+			row_hist.estrategias_met = form.cleaned_data['estrategias_met']
+			row_hist.estrategias_ev = form.cleaned_data['estrategias_ev']
+			row_hist.objetivos = form.cleaned_data['objetivos']
+			row_hist.fuentes_info = form.cleaned_data['fuentes_info']
+			row_hist.save()
+
 	return render(request, 'SIGPAE/home.html', {})
 
 def index(request):
@@ -47,11 +71,32 @@ def cargar_archivo(request):
 
 def transcripcion(request):
 	if request.method == 'POST':
-		pass
+		form = HistorialForm(request.POST, request.FILES)
+		if form.is_valid():
+			documento = form.cleaned_data['documento']
+			row_hist = Historial.objects.all().filter(docfile_id = documento.id)
+			row_hist.codigo_asignatura = form.cleaned_data['codigo_asignatura']
+			row_hist.denominacion = form.cleaned_data['denominacion']
+			row_hist.periodo = form.cleaned_data['denominacion']
+			row_hist.anio = form.cleaned_data['anio']
+			row_hist.horas_T = form.cleaned_data['horas_T']
+			row_hist.horas_P = form.cleaned_data['horas_P']
+			row_hist.horas_L = form.cleaned_data['horas_L']
+			row_hist.num_creditos = form.cleaned_data['num_creditos']
+			row_hist.requisitos = form.cleaned_data['requisitos']
+			row_hist.cont_sinopticos = form.cleaned_data['cont_sinopticos']
+			row_hist.estrategias_met = form.cleaned_data['estrategias_met']
+			row_hist.estrategias_ev = form.cleaned_data['estrategias_ev']
+			row_hist.objetivos = form.cleaned_data['objetivos']
+			row_hist.fuentes_info = form.cleaned_data['fuentes_info']
+			row_hist.save()
+		return render(request,'SIGPAE/home.html',{})
+
 	if request.GET.items():
 		opcion = request.GET['tipo']
 		docfile = request.GET['documento']
-		row = Historial.objects.all().filter(docfile_name = docfile)
+		id_row = Document.objects.all().filter(docfile = docfile).first()
+		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
 		else:
@@ -61,7 +106,7 @@ def transcripcion(request):
 			texto_editable = file.read()
 			file.close()
 
-		context = {'texto_editable': texto_editable, 'row': row}
+		context = {'texto_editable': texto_editable, 'row': row, 'form':HistorialForm()}
 		return render(request, 'SIGPAE/transcripcion.html', context)
 	else:
 		form = DocumentForm()

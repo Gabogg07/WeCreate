@@ -80,18 +80,4 @@ class HistorialForm(forms.Form):
 
 	CREDITOS.insert(0, (0, 'Sin seleccionar'))
 
-	codigo = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}), label="Código")
-	denominacion = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}), label="Denominación")
-	periodo = forms.ChoiceField(choices=PERIODOS, label="Período")
-	anio = forms.ChoiceField(choices=ANIOS, label="Año")
-	horas_T = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}), label="Horas de Teoría")
-	horas_P = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}), label="Horas de Práctica")
-	horas_L = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}), label="Horas de Laboratorio")
-	num_creditos = forms.ChoiceField(choices=CREDITOS, label="Número de Créditos")
-	requisitos = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}), label="Requisitos")
-	cont_sinopticos = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}), label="Contenidos Sinópticos")
-	estrategias_met = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}), label="Estrategias Metodológicas")
-	estrategias_ev = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}), label="Estrategias de Evaluación")
-	objetivos = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}), label="Objetivos")
-	fuentes_info = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}), label="Fuentes de Información recomendadas")
-
+	codigo_asignatura = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 1}), label="Código")

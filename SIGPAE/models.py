@@ -14,7 +14,7 @@ class Document(models.Model):
 class Historial(models.Model):
     codigo_asignatura = models.CharField(max_length = 512, default = "")
     denominacion = models.CharField(max_length = 512, default = "")
-    periodo = models.CharField(max_length = 512, default = "")
+    periodo = models.CharField(max_length = 512, default = "Ningún Período")
     anio = models.IntegerField(default = 0)
     horas_T = models.IntegerField(default = 0)
     horas_P = models.IntegerField(default = 0)
