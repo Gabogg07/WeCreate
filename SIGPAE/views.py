@@ -7,7 +7,7 @@ import os
 import re
 
 from .models import Document, Historial
-from .forms import DocumentForm, ConsultaForm, HistorialForm
+from .forms import DocumentForm, ConsultaForm, HistorialForm, MostrarConsultaForm
 
 def home(request):
 	return render(request, 'SIGPAE/home.html', {})
@@ -84,7 +84,8 @@ def consulta(request):
 			if(per==str(0) or an==str(0)):
 				doc = Document.objects.filter(codigo=cod).order_by('-periodo' and '-anio')
 				if doc:
-					context = {'documents': doc,'cod':cod, 'form':form}
+					form = MostrarConsultaForm()
+					context = {'documents': doc,'cod':cod,'form':form}
 					return render(request,'SIGPAE/mostrarConsulta.html',context)
 
 				else:
@@ -94,7 +95,6 @@ def consulta(request):
 
 			else:
 				doc = Document.objects.filter(codigo=cod, periodo=per, anio=an)
-				html=''
 
 				if doc:
 					for f in doc:
@@ -106,18 +106,9 @@ def consulta(request):
 				else:
 					doc = Document.objects.filter(codigo=cod).order_by('-periodo' and '-anio')
 					if doc:
-						mensaje = "Su busqueda anterior no tuvo coincidencias, le recomendamos:"
-						context = {'documents': doc,'mensaje':mensaje,'cod':cod}
-
+						form = MostrarConsultaForm()
+						context = {'documents': doc,'cod':cod,'form':form}
 						return render(request, 'SIGPAE/mostrarConsulta.html', context)
-						html = ''
-
-						for f in doc:
-							nombre = os.path.basename(f.docfile.name)
-							url = '../SIGPAE/consulta.html'
-							html += '<a href="' + url + '">' + "   " + nombre + "__" + f.periodo + "__" + str(
-								f.anio) + '</a><br>'
-						return HttpResponse("<h3>No hubo coincidencia para su busqueda de :<br>" + cod  +"</h3>" + html)
 					else:
 						mensaje = "No hay archivos con esas especificaciones"
 						form = ConsultaForm()
