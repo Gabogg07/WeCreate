@@ -6,8 +6,8 @@ import textract
 import os
 import re
 
-from .models import Document
-from .forms import DocumentForm, ConsultaForm
+from .models import Document, Historial
+from .forms import DocumentForm, ConsultaForm, HistorialForm
 
 def home(request):
 	return render(request, 'SIGPAE/home.html', {})
@@ -16,11 +16,6 @@ def index(request):
 	return render(request, 'SIGPAE/index.html', {})
 
 def cargar_archivo(request):
-	form = DocumentForm()
-	documents = Document.objects.all()
-	return render(request,'SIGPAE/cargar.html',{'documents': documents, 'form': form})
-
-def transcripcion(request):
 	if request.method == 'POST':
 		form = DocumentForm(request.POST, request.FILES)
 		if form.is_valid():
@@ -30,6 +25,11 @@ def transcripcion(request):
 				anio = form.cleaned_data['anio'],
 				docfile = request.FILES['docfile'])
 			newdoc.save()
+
+			newhist = Historial(
+				docfile_id = newdoc)
+			newhist.save()
+			'''
 			opcion = form.cleaned_data['tipo']
 			if (opcion == "texto"):
 				texto_editable = textract.process(newdoc.docfile.url)
@@ -40,12 +40,18 @@ def transcripcion(request):
 				texto_editable = file.read()
 				file.close()
 			context = {'texto_editable': texto_editable, 'documento': newdoc}
-			return render(request, 'SIGPAE/transcripcion.html', context)
-		return render(request,'SIGPAE/cargar.html',{'form': form})
-	
+			'''
+			return render(request, 'SIGPAE/cargar.html', {'form': DocumentForm()})
+		return render(request,'SIGPAE/cargar.html',{'form': DocumentForm()})
+	return render(request,'SIGPAE/cargar.html',{'form': DocumentForm()})
+
+def transcripcion(request):
+	if request.method == 'POST':
+		pass
 	if request.GET.items():
 		opcion = request.GET['tipo']
 		docfile = request.GET['documento']
+		row = Historial.objects.all().filter(docfile_name = docfile)
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
 		else:
@@ -54,8 +60,8 @@ def transcripcion(request):
 			file = open(output, "r")
 			texto_editable = file.read()
 			file.close()
-		
-		context = {'texto_editable': texto_editable}
+
+		context = {'texto_editable': texto_editable, 'row': row}
 		return render(request, 'SIGPAE/transcripcion.html', context)
 	else:
 		form = DocumentForm()
