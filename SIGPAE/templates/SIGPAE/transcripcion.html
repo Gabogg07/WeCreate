@@ -41,7 +41,10 @@
    <div class="row">
       <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
          <h2> PDF </h2>
-         <iframe src={{ documento.docfile.url }} style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
+          <div id="example1"></div>
+          <script src="/js/pdfobject.js"></script>
+          <script>PDFObject.embed("/documents/CI-2511.pdf", "#example1");</script>
+         <iframe src=example1 style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
          </iframe>
       </div>
 
@@ -54,6 +57,12 @@
          </textarea>
          {% endif %}
       </div>
+
+   {% if codigo|length == 0 %}
+        <script type="text/javascript">
+               alert ("No se encontró ningún código");
+        </script>
+   {% endif %}
 
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
       <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
@@ -112,6 +121,7 @@
 
          <h2> Código Asignatura </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+             {{ codigo }}
          </textarea>
          <br>
          <h2> Denominación </h2>
