@@ -5,7 +5,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SIGPAE/templates/SIGPAE/transcripcion.html" afterPath="$PROJECT_DIR$/SIGPAE/templates/SIGPAE/transcripcion.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SIGPAE/views.py" afterPath="$PROJECT_DIR$/SIGPAE/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,7 +33,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SIGPAE/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="641">
@@ -66,13 +65,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transcripcion.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="transcripcion.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SIGPAE/templates/SIGPAE/transcripcion.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="496">
-              <caret line="70" column="43" lean-forward="false" selection-start-line="70" selection-start-column="43" selection-end-line="70" selection-end-column="43" />
+            <state relative-caret-position="5156">
+              <caret line="422" column="12" lean-forward="false" selection-start-line="422" selection-start-column="12" selection-end-line="422" selection-end-column="12" />
               <folding>
                 <element signature="n#style#0;n#iframe#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#textarea#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#select#3;n#h3#0;n#h3#0;n#h3#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#textarea#1;n#h3#0;n#h3#0;n#h3#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#textarea#3;n#h3#0;n#h3#0;n#h3#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
@@ -133,6 +133,9 @@
       <find>Selecciona</find>
       <find>Seleccio</find>
       <find>Horas</find>
+      <find>codigo</find>
+      <find>Extraer</find>
+      <find>Codigo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -160,8 +163,8 @@
         <option value="$PROJECT_DIR$/SIGPAE/templates/SIGPAE/consulta.html" />
         <option value="$PROJECT_DIR$/SIGPAE/templates/SIGPAE/mostrarConsulta.html" />
         <option value="$PROJECT_DIR$/SIGPAE/codigos.py" />
-        <option value="$PROJECT_DIR$/SIGPAE/templates/SIGPAE/transcripcion.html" />
         <option value="$PROJECT_DIR$/SIGPAE/views.py" />
+        <option value="$PROJECT_DIR$/SIGPAE/templates/SIGPAE/transcripcion.html" />
       </list>
     </option>
   </component>
@@ -603,7 +606,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489521822362</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Boton extraer no funcional">
+      <created>1489523542719</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1489523542719</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -650,7 +660,8 @@
     <MESSAGE value="Ya hace los queries sobre la base de datos normal" />
     <MESSAGE value="Busca Codigo en texto extraido" />
     <MESSAGE value="Pone codigo en campo o lanza mensaje si no.&#10;Arreglado el orden requisitos-objetivos-contenido&#10;Agregadas Horas Laboratorio" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pone codigo en campo o lanza mensaje si no.&#10;Arreglado el orden requisitos-objetivos-contenido&#10;Agregadas Horas Laboratorio" />
+    <MESSAGE value="Boton extraer no funcional" />
+    <option name="LAST_COMMIT_MESSAGE" value="Boton extraer no funcional" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -967,25 +978,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SIGPAE/templates/SIGPAE/transcripcion.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="70" column="43" lean-forward="false" selection-start-line="70" selection-start-column="43" selection-end-line="70" selection-end-column="43" />
-          <folding>
-            <element signature="n#style#0;n#iframe#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#select#3;n#h3#0;n#h3#0;n#h3#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#1;n#h3#0;n#h3#0;n#h3#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#textarea#3;n#h3#0;n#h3#0;n#h3#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SIGPAE/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="641">
           <caret line="56" column="45" lean-forward="true" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
           <folding>
             <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SIGPAE/templates/SIGPAE/transcripcion.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5156">
+          <caret line="422" column="12" lean-forward="false" selection-start-line="422" selection-start-column="12" selection-end-line="422" selection-end-column="12" />
+          <folding>
+            <element signature="n#style#0;n#iframe#0;n#div#0;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#textarea#0;n#div#1;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#select#3;n#h3#0;n#h3#0;n#h3#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#textarea#1;n#h3#0;n#h3#0;n#h3#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#textarea#3;n#h3#0;n#h3#0;n#h3#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#div#1;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
