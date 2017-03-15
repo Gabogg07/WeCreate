@@ -111,30 +111,30 @@
 
       <form action="{% url "home" %}" method="post" enctype="multipart/form-data">
          {% csrf_token %}
-         <input type="hidden" name="documento" value={{ row.docfile_id }}>
+         <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
          <h2> Código Asignatura </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">{{row.codigo_asignatura}}</textarea>
+         <!--<textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">{{ form.codigo_asignatura }}</textarea>-->
 
          <p>{{ form.codigo_asignatura.label_tag }} {{ form.codigo_asignatura }}</p>
 
-         <input type="text" id='codigo_asignatura' value={{ row.codigo_asignatura }}/>
-
          <br>
-         <h2> Denominación </h2>
+         <!--<h2> Denominación </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.denominacion}}</textarea>
+         {{row.denominacion}}</textarea>-->
+         <p>{{ form.denominacion.label_tag }} {{ form.denominacion }}</p>
          <br>
          <h2> Fecha de entrada en vigencia </h2>
-         <h3> Período: </h3>
+         <!--<h3> Período: </h3>
          <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
          	<option value="">{{row.periodo}}</option>
             <option value="Sep-Dic">Sep-Dic</option>
             <option value="Ene-Mar">Ene-Mar</option>
             <option value="Abr-Jul">Abr-Jul</option>
             <option value="Intensivo">Intensivo</option>
-         </select>
+         </select>-->
+         <p>{{ form.periodo.label_tag }} {{ form.periodo }}</p>
 
-         <h3> Año: </h3>
+         <!--<h3> Año: </h3>
          <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
          	<option value=0>{{row.anio}}</option>
             <option value="1">1969</option>
@@ -186,10 +186,11 @@
             <option value="39">2015</option>
             <option value="40">2016</option>
             <option value="41">2017</option>
-         </select>
+         </select>-->
+         <p>{{ form.anio.label_tag }} {{ form.anio }}</p>
 
          <h2> Horas de teoría semanales: </h2>
-         <select class="form-control" name="Horas_Teoria" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+         <!--<select class="form-control" name="Horas_Teoria" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
             <option value="0">{{row.horas_T}}</option>
             <option value="0">0</option>
             <option value="1">1</option>
@@ -232,8 +233,9 @@
             <option value="39">38</option>
             <option value="40">39</option>
             <option value="41">40</option>
-         </select>
-         <h2> Horas de práctica semanales: </h2>
+         </select>-->
+         <p>{{ form.horas_T.label_tag }} {{ form.horas_T }}</p>
+         <!--<h2> Horas de práctica semanales: </h2>
          <select class="form-control" name="Horas_Practica"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
             <option value="0">{{row.horas_P}}</option>
             <option value="0">0</option>
@@ -277,8 +279,9 @@
             <option value="39">38</option>
             <option value="40">39</option>
             <option value="41">40</option>
-         </select>
-         <h2> Horas de Laboratorio semanales: </h2>
+         </select>-->
+         <p>{{ form.horas_P.label_tag }} {{ form.horas_P }}</p>
+         <!--<h2> Horas de Laboratorio semanales: </h2>
          <select class="form-control" name="Horas_Laboratorio"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
             <option value="0">{{row.horas_L}}</option>
             <option value="0">0</option>
@@ -322,8 +325,10 @@
             <option value="39">38</option>
             <option value="40">39</option>
             <option value="41">40</option>
-         </select>
-         <h2> Número de créditos: </h2>
+         </select>-->
+         <p>{{ form.horas_L.label_tag }} {{ form.horas_L }}</p>
+
+         <!--<h2> Número de créditos: </h2>
          <select class="form-control" name="Numero_creditos"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
             <option value="0">{{row.num_creditos}}</option>
             <option value="0">0</option>
@@ -343,29 +348,41 @@
             <option value="14">14</option>
             <option value="15">15</option>
             <option value="16">16</option>
-         </select>
+         </select>-->
+         <p>{{ form.num_creditos.label_tag }} {{ form.num_creditos }}</p>
 
-         <h2> Requisitos </h2>
+         <!--<h2> Requisitos </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.requisitos}}</textarea>
-         <h2> Contenidos sinópticos </h2>
+         {{row.requisitos}}</textarea>-->
+         <p>{{ form.requisitos.label_tag }} {{ form.requisitos }}</p>
+
+         <!--<h2> Contenidos sinópticos </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.cont_sinopticos}}</textarea>
-         <h2> Estrategias metodológicas </h2>
+         {{row.cont_sinopticos}}</textarea>-->
+         <p>{{ form.cont_sinopticos.label_tag }} {{ form.cont_sinopticos }}</p>
+
+         <!--<h2> Estrategias metodológicas </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.estrategias_met}}</textarea>
+         {{row.estrategias_met}}</textarea>-->
+         <p>{{ form.estrategias_met.label_tag }} {{ form.estrategias_met }}</p>
          <br>
-         <h2> Estrategias de evaluación </h2>
+
+         <!--<h2> Estrategias de evaluación </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.estrategias_ev}}</textarea>
+         {{row.estrategias_ev}}</textarea>-->
+         <p>{{ form.estrategias_ev.label_tag }} {{ form.estrategias_ev }}</p>
          <br>
-            <h2> Objetivos </h2>
+
+         <!--<h2> Objetivos </h2>
          <textarea cols="40" rows="15" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.objetivos}}</textarea>
+         {{row.objetivos}}</textarea>-->
+         <p>{{ form.objetivos.label_tag }} {{ form.objetivos }}</p>
          <br>
-         <h2> Fuentes de información recomendadas </h2>
+
+         <!--<h2> Fuentes de información recomendadas </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.fuentes_info}}</textarea>
+         {{row.fuentes_info}}</textarea>-->
+         <p>{{ form.fuentes_info.label_tag }} {{ form.fuentes_info }}</p>
 
         </div>
         <input type="submit" value="Guardar"/>
@@ -374,9 +391,24 @@
        </div>
       </div></div>
 
+
 <script type="text/javascript">
-   document.getElementById('codigo_asignatura').value = "{{ row.codigo_asignatura }}";
+   document.getElementById('id_codigo_asignatura').value = "{{ row.codigo_asignatura }}";
+   document.getElementById('id_denominacion').value = "{{ row.denominacion }}";
+   document.getElementById('id_periodo').value = "{{ row.periodo }}";
+   document.getElementById('id_anio').value = "{{ row.anio }}";
+   document.getElementById('id_horas_T').value = "{{ row.horas_T }}";
+   document.getElementById('id_horas_P').value = "{{ row.horas_P }}";
+   document.getElementById('id_horas_L').value = "{{ row.horas_L }}";
+   document.getElementById('id_num_creditos').value = "{{ row.num_creditos }}";
+   document.getElementById('id_requisitos').value = "{{ row.requisitos }}";
+   document.getElementById('id_cont_sinopticos').value = "{{ row.cont_sinopticos }}";
+   document.getElementById('id_estrategias_met').value = "{{ row.estrategias_met }}";
+   document.getElementById('id_estrategias_ev').value = "{{ row.estrategias_ev }}";
+   document.getElementById('id_objetivos').value = "{{ row.objetivos }}";
+   document.getElementById('id_fuentes_info').value = "{{ row.fuentes_info }}";
 </script>
+
 
 <script>
 var division_1=new Array("Seleccione Departamento","Departamento de Física","Departamento de Química","Departamento de Mecánica","Departamento de Matemáticas Puras y Aplicadas","Departamento de Computación y Tecnología de la Información","Departamento de Cómputo Científico y Estadística","Departamento de Electrónica y Circuitos","Departamento de Termodinámica y Fenómenos de Transferencia","Departamento de Conversión y Transporte de Energía","Departamento de Procesos y Sistemas","Departamento de Ciencias de los Materiales","Departamento de Ciencias de la Tierra")
