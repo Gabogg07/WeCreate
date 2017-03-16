@@ -34,14 +34,12 @@
 <br>
 <br>
 
-</div>   
+</div>
 
 <script type="text/javascript">
    var ElCod = "{{codigo}}";
    var ElDep = "{{ dpto }}"
 </script>
-
-
 
 <div class="container-fluid" style="height: 80%">
 
@@ -56,7 +54,7 @@
       </div>
 
       <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-      
+
          <h2> Texto extraído </h2>
          {% if texto_editable %}
          <textarea id= KKK cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
@@ -65,19 +63,28 @@
          {% endif %}
       </div>
 
-
-
-
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
       <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
+      <button onClick="Extraer(ElCod,ElDep)">Extraer</button>
+      <form action="{% url "home" %}" method="post" enctype="multipart/form-data">
+         {% csrf_token %}
+         <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
 
-<button onClick="Extraer(ElCod,ElDep)">Extraer</button>
-
-      <h2> Dependencia </h2>
+         <p>{{ form.dependencia.label_tag }} {{ form.dependencia }}</p>
+         <p>{{ form.decanato.label_tag }} {{ form.decanato }}</p>
+         <p>{{ form.coordinacion_D1.label_tag }} {{ form.coordinacion_D1 }}</p>
+         <p>{{ form.coordinacion_D2.label_tag }} {{ form.coordinacion_D2 }}</p>
+         <p>{{ form.coordinacion_D3.label_tag }} {{ form.coordinacion_D3 }}</p>
+         <p>{{ form.division.label_tag }} {{ form.division }}</p>
+         <p>{{ form.departamento_D1.label_tag }} {{ form.departamento_D1 }}</p>
+         <p>{{ form.departamento_D2.label_tag }} {{ form.departamento_D2 }}</p>
+         <p>{{ form.departamento_D3.label_tag }} {{ form.departamento_D3 }}</p>
+         <p>{{ form.departamento_D4.label_tag }} {{ form.departamento_D4 }}</p>
+      <!--<h2> Dependencia </h2>
 
 
       <form action="index.php" method="post" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         
+
           <select class="form-control" id="status" name="status" onChange="mostrar(this.value);"  >
             <option value="0">Seleccione tipo de unidad</option>
               <option value="coordinaciones">Coordinación</option>
@@ -113,54 +120,57 @@
             <option value="3">División de Ciencias Biológicas
             <option value="4">División de Ciencias y Tecnologías Administrativas e Industriales
             </select>
-<br>
+            <br>
             <select class="form-control" name=division style="width:95%;">
             <option value="-">-
             </select>
             </form>
          </div>
 
-      </div>
-         
+      </div-->
+
 
          <h2> Código Asignatura </h2>
-         <textarea id=CodAsig cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         </textarea>
+         <!--<textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">{{ form.codigo_asignatura }}</textarea>-->
+
+         <p>{{ form.codigo_asignatura.label_tag }} {{ form.codigo_asignatura }}</p>
          <br>
-         <h2> Denominación </h2>
+         <!--<h2> Denominación </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         </textarea>
+         {{row.denominacion}}</textarea>-->
+         <p>{{ form.denominacion.label_tag }} {{ form.denominacion }}</p>
          <br>
          <h2> Fecha de entrada en vigencia </h2>
-         <h3> Período: <h3> 
+         <!--<h3> Período: </h3>
          <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-         	<option value="">Nigún período</option>
-            <option value="Sep-Dic">Sep-Dic</option> 
-            <option value="Ene-Mar">Ene-Mar</option> 
-            <option value="Abr-Jul">Abr-Jul</option> 
-            <option value="Intensivo">Intensivo</option>          
-         </select>
+         	<option value="">{{row.periodo}}</option>
+            <option value="Sep-Dic">Sep-Dic</option>
+            <option value="Ene-Mar">Ene-Mar</option>
+            <option value="Abr-Jul">Abr-Jul</option>
+            <option value="Intensivo">Intensivo</option>
+         </select>-->
+         <p>{{ form.periodo.label_tag }} {{ form.periodo }}</p>
 
-         <h3> Año: <h3> 
+         <!--<h3> Año: </h3>
          <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-         	<option value=0>Ningún año</option>
-            <option value="1">1969</option> 
-            <option value="2">1970</option> 
-            <option value="3">1971</option> 
-            <option value="4">1972</option> 
-            <option value="5">1973</option> 
-            <option value="6">1974</option> 
-            <option value="7">1975</option> 
-            <option value="8">1976</option> 
-            <option value="9">1977</option> 
-            <option value="10">1978</option> 
-            <option value="11">1979</option> 
-            <option value="12">1980</option> 
-            <option value="13">1981</option> 
-            <option value="14">1982</option> 
-            <option value="15">1983</option> 
-            <option value="16">1984</option> 
-            <option value="17">1985</option> 
+         	<option value=0>{{row.anio}}</option>
+            <option value="1">1969</option>
+            <option value="2">1970</option>
+            <option value="3">1971</option>
+            <option value="4">1972</option>
+            <option value="5">1973</option>
+            <option value="6">1974</option>
+            <option value="7">1975</option>
+            <option value="8">1976</option>
+            <option value="9">1977</option>
+            <option value="10">1978</option>
+            <option value="11">1979</option>
+            <option value="12">1980</option>
+            <option value="13">1981</option>
+            <option value="14">1982</option>
+            <option value="15">1983</option>
+            <option value="16">1984</option>
+            <option value="17">1985</option>
             <option value="19">1986</option>
             <option value="20">1987</option>
             <option value="21">1988</option>
@@ -183,7 +193,7 @@
             <option value="38">2005</option>
             <option value="39">2006</option>
             <option value="40">2007</option>
-            <option value="41">2008</option>    
+            <option value="41">2008</option>
             <option value="33">2009</option>
             <option value="34">2010</option>
             <option value="35">2011</option>
@@ -192,29 +202,31 @@
             <option value="38">2014</option>
             <option value="39">2015</option>
             <option value="40">2016</option>
-            <option value="41">2017</option>   
-         </select>
+            <option value="41">2017</option>
+         </select>-->
+         <p>{{ form.anio.label_tag }} {{ form.anio }}</p>
 
          <h2> Horas de teoría semanales: </h2>
-         <select class="form-control" name="Horas_Teoria" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-            <option value="0">0</option> 
-            <option value="1">1</option> 
-            <option value="2">2</option> 
-            <option value="3">3</option> 
-            <option value="4">4</option> 
-            <option value="5">5</option> 
-            <option value="6">6</option> 
-            <option value="7">7</option> 
-            <option value="8">8</option> 
-            <option value="9">9</option> 
-            <option value="10">10</option> 
-            <option value="11">11</option> 
-            <option value="12">12</option> 
-            <option value="13">13</option> 
-            <option value="14">14</option> 
-            <option value="15">15</option> 
-            <option value="16">16</option> 
-            <option value="17">17</option> 
+         <!--<select class="form-control" name="Horas_Teoria" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+            <option value="0">{{row.horas_T}}</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
             <option value="19">18</option>
             <option value="20">19</option>
             <option value="21">20</option>
@@ -238,27 +250,29 @@
             <option value="39">38</option>
             <option value="40">39</option>
             <option value="41">40</option>
-         </select>
-         <h2> Horas de práctica semanales: </h2>
+         </select>-->
+         <p>{{ form.horas_T.label_tag }} {{ form.horas_T }}</p>
+         <!--<h2> Horas de práctica semanales: </h2>
          <select class="form-control" name="Horas_Practica"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-            <option value="0">0</option> 
-            <option value="1">1</option> 
-            <option value="2">2</option> 
-            <option value="3">3</option> 
-            <option value="4">4</option> 
-            <option value="5">5</option> 
-            <option value="6">6</option> 
-            <option value="7">7</option> 
-            <option value="8">8</option> 
-            <option value="9">9</option> 
-            <option value="10">10</option> 
-            <option value="11">11</option> 
-            <option value="12">12</option> 
-            <option value="13">13</option> 
-            <option value="14">14</option> 
-            <option value="15">15</option> 
-            <option value="16">16</option> 
-            <option value="17">17</option> 
+            <option value="0">{{row.horas_P}}</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
             <option value="19">18</option>
             <option value="20">19</option>
             <option value="21">20</option>
@@ -282,6 +296,11 @@
             <option value="39">38</option>
             <option value="40">39</option>
             <option value="41">40</option>
+         </select>-->
+         <p>{{ form.horas_P.label_tag }} {{ form.horas_P }}</p>
+         <!--<h2> Horas de Laboratorio semanales: </h2>
+         <select class="form-control" name="Horas_Laboratorio"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+            <option value="0">{{row.horas_L}}</option>
          </select>
              </select>
          <h2> Horas de laboratorio semanales: </h2>
@@ -327,30 +346,63 @@
             <option value="39">38</option>
             <option value="40">39</option>
             <option value="41">40</option>
+         </select>-->
+         <p>{{ form.horas_L.label_tag }} {{ form.horas_L }}</p>
+
+         <!--<h2> Número de créditos: </h2>
          </select>
          <h2> Número de créditos: </h2>
          <select class="form-control" name="Numero_creditos"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-            <option value="0">0</option> 
-            <option value="1">1</option> 
-            <option value="2">2</option> 
-            <option value="3">3</option> 
-            <option value="4">4</option> 
-            <option value="5">5</option> 
-            <option value="6">6</option> 
-            <option value="7">7</option> 
-            <option value="8">8</option> 
-            <option value="9">9</option> 
-            <option value="10">10</option> 
-            <option value="11">11</option> 
-            <option value="12">12</option> 
-            <option value="13">13</option> 
-            <option value="14">14</option> 
-            <option value="15">15</option> 
+            <option value="0">{{row.num_creditos}}</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
             <option value="16">16</option>
-         </select>
-        
-         <h2> Requisitos </h2>
+         </select>-->
+         <p>{{ form.num_creditos.label_tag }} {{ form.num_creditos }}</p>
+
+         <!--<h2> Requisitos </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         {{row.requisitos}}</textarea>-->
+         <p>{{ form.requisitos.label_tag }} {{ form.requisitos }}</p>
+
+         <!--<h2> Contenidos sinópticos </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         {{row.cont_sinopticos}}</textarea>-->
+         <p>{{ form.cont_sinopticos.label_tag }} {{ form.cont_sinopticos }}</p>
+
+         <!--<h2> Estrategias metodológicas </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         {{row.estrategias_met}}</textarea>-->
+         <p>{{ form.estrategias_met.label_tag }} {{ form.estrategias_met }}</p>
+         <br>
+
+         <!--<h2> Estrategias de evaluación </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         {{row.estrategias_ev}}</textarea>-->
+         <p>{{ form.estrategias_ev.label_tag }} {{ form.estrategias_ev }}</p>
+         <br>
+
+         <!--<h2> Objetivos </h2>
+         <textarea cols="40" rows="15" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         {{row.objetivos}}</textarea>-->
+         <p>{{ form.objetivos.label_tag }} {{ form.objetivos }}</p>
+         <br>
+
+         <!--<h2> Fuentes de información recomendadas </h2>
          </textarea>
              <br>
              <h2> Objetivos </h2>
@@ -369,12 +421,45 @@
          </textarea>
          <h2> Fuentes de información recomendadas </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         </textarea>
+         {{row.fuentes_info}}</textarea>-->
+         <p>{{ form.fuentes_info.label_tag }} {{ form.fuentes_info }}</p>
 
         </div>
+        <input type="submit" value="Guardar"/>
+      </form>
       </div>
        </div>
       </div></div>
+
+
+<script type="text/javascript">
+   document.getElementById('id_codigo_asignatura').value = "{{ row.codigo_asignatura }}";
+   document.getElementById('id_denominacion').value = "{{ row.denominacion }}";
+   document.getElementById('id_periodo').value = "{{ row.periodo }}";
+   document.getElementById('id_anio').value = "{{ row.anio }}";
+   document.getElementById('id_horas_T').value = "{{ row.horas_T }}";
+   document.getElementById('id_horas_P').value = "{{ row.horas_P }}";
+   document.getElementById('id_horas_L').value = "{{ row.horas_L }}";
+   document.getElementById('id_num_creditos').value = "{{ row.num_creditos }}";
+   document.getElementById('id_requisitos').value = "{{ row.requisitos }}";
+   document.getElementById('id_cont_sinopticos').value = "{{ row.cont_sinopticos }}";
+   document.getElementById('id_estrategias_met').value = "{{ row.estrategias_met }}";
+   document.getElementById('id_estrategias_ev').value = "{{ row.estrategias_ev }}";
+   document.getElementById('id_objetivos').value = "{{ row.objetivos }}";
+   document.getElementById('id_fuentes_info').value = "{{ row.fuentes_info }}";
+
+   document.getElementById('id_dependencia').value = "{{ row.dependencia }}";
+   document.getElementById('id_decanato').value = "{{ row.decanato }}";
+   document.getElementById('id_coordinacion_D1').value = "{{ row.coordinacion_D1 }}";
+   document.getElementById('id_coordinacion_D2').value = "{{ row.coordinacion_D2 }}";
+   document.getElementById('id_coordinacion_D3').value = "{{ row.coordinacion_D3 }}";
+   document.getElementById('id_division').value = "{{ row.division }}";
+   document.getElementById('id_departamento_D1').value = "{{ row.departamento_D1 }}";
+   document.getElementById('id_departamento_D2').value = "{{ row.departamento_D2 }}";
+   document.getElementById('id_departamento_D3').value = "{{ row.departamento_D3 }}";
+   document.getElementById('id_departamento_D4').value = "{{ row.departamento_D4 }}";
+
+</script>
 
 <script>
 var division_1=["Seleccione Departamento","Departamento de Física","Departamento de Química","Departamento de Mecánica","Departamento de Matemáticas Puras y Aplicadas","Departamento de Computación y Tecnología de la Información","Departamento de Cómputo Científico y Estadística","Departamento de Electrónica y Circuitos","Departamento de Termodinámica y Fenómenos de Transferencia","Departamento de Conversión y Transporte de Energía","Departamento de Procesos y Sistemas","Departamento de Ciencias de los Materiales","Departamento de Ciencias de la Tierra"]
@@ -391,7 +476,7 @@ function cambia_division(k){
       for(i=0;i<num_division;i++){
          document.f1.division.options[i].value=mis_division[i]
          document.f1.division.options[i].text=mis_division[i]
-      }  
+      }
    }else{
       document.f1.division.length = 1
       document.f1.division.options[0].value = "-"
@@ -412,7 +497,7 @@ function cambia_decanato(k){
       for(i=0;i<num_decanato;i++){
          document.f2.decanato.options[i].value=mis_decanato[i]
          document.f2.decanato.options[i].text=mis_decanato[i]
-      }  
+      }
    }else{
       document.f2.decanato.length = 1
       document.f2.decanato.options[0].value = "-"
@@ -488,18 +573,7 @@ function AsignarDep(dpto) {
 
     mostrar("departamento");
     document.getElementById('status').value="departamento";
-
-
-
-
-    document.f1.div.options[val].selected=true //Ya asigna el dpto que es
+    document.f1.div.options[val].selected=true
     document.f1.division.options[Ndpto].selected= true
-
-    //document.f2.decanato.options[2].selected = true
-
-
-
-
-
 }
 </script>

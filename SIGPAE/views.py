@@ -6,22 +6,54 @@ import textract
 import os
 import re
 
-from .codigos import *
-from .models import Document
-from .forms import DocumentForm, ConsultaForm, MostrarConsultaForm
+from .models import Document, Historial
+from .forms import DocumentForm, ConsultaForm, HistorialForm, MostrarConsultaForm
 
 def home(request):
+
+	if request.method == 'POST':
+		print("\nPOST\n")
+		form = HistorialForm(request.POST, request.FILES)
+		if form.is_valid():
+			print("\nFORM VALIDO\n")
+			documento = request.POST['documento']
+			row_hist = Historial.objects.all().filter(docfile_id = documento).first()
+			row_hist.dependencia = form.cleaned_data['dependencia']
+			row_hist.decanato = form.cleaned_data['decanato']
+			row_hist.coordinacion_D1 = form.cleaned_data['coordinacion_D1']
+			row_hist.coordinacion_D2 = form.cleaned_data['coordinacion_D2']
+			row_hist.coordinacion_D3 = form.cleaned_data['coordinacion_D3']
+			row_hist.division = form.cleaned_data['division']
+			row_hist.departamento_D1 = form.cleaned_data['departamento_D1']
+			row_hist.departamento_D2 = form.cleaned_data['departamento_D2']
+			row_hist.departamento_D3 = form.cleaned_data['departamento_D3']
+			row_hist.departamento_D4 = form.cleaned_data['departamento_D4']
+
+
+
+
+			row_hist.codigo_asignatura = form.cleaned_data['codigo_asignatura']
+			row_hist.denominacion = form.cleaned_data['denominacion']
+			row_hist.periodo = form.cleaned_data['periodo']
+			row_hist.anio = form.cleaned_data['anio']
+			row_hist.horas_T = form.cleaned_data['horas_T']
+			row_hist.horas_P = form.cleaned_data['horas_P']
+			row_hist.horas_L = form.cleaned_data['horas_L']
+			row_hist.num_creditos = form.cleaned_data['num_creditos']
+			row_hist.requisitos = form.cleaned_data['requisitos']
+			row_hist.cont_sinopticos = form.cleaned_data['cont_sinopticos']
+			row_hist.estrategias_met = form.cleaned_data['estrategias_met']
+			row_hist.estrategias_ev = form.cleaned_data['estrategias_ev']
+			row_hist.objetivos = form.cleaned_data['objetivos']
+			row_hist.fuentes_info = form.cleaned_data['fuentes_info']
+			row_hist.save()
+
 	return render(request, 'SIGPAE/home.html', {})
 
 def index(request):
 	return render(request, 'SIGPAE/index.html', {})
 
 def cargar_archivo(request):
-	form = DocumentForm()
-	documents = Document.objects.all()
-	return render(request,'SIGPAE/cargar.html',{'documents': documents, 'form': form})
-
-def transcripcion(request):
 	if request.method == 'POST':
 		form = DocumentForm(request.POST, request.FILES)
 		if form.is_valid():
@@ -32,6 +64,11 @@ def transcripcion(request):
 				nombre=request.FILES['docfile'].name,
 				docfile = request.FILES['docfile'])
 			newdoc.save()
+
+			newhist = Historial(
+				docfile_id = newdoc)
+			newhist.save()
+			'''
 			opcion = form.cleaned_data['tipo']
 			if (opcion == "texto"):
 				texto_editable = textract.process(newdoc.docfile.url)
@@ -49,21 +86,21 @@ def transcripcion(request):
 				file = open(output, "r")
 				texto_editable = file.read()
 				file.close()
-				match=[]
-				cdg=""
-			dpto=""
-			codigo=""
-			if match:
-				if match[2] in cods:
-					dpto = cods.get(match[2])
+			context = {'texto_editable': texto_editable, 'documento': newdoc}
+			'''
+			return render(request, 'SIGPAE/cargar.html', {'form': DocumentForm()})
+		return render(request,'SIGPAE/cargar.html',{'form': DocumentForm()})
+	return render(request,'SIGPAE/cargar.html',{'form': DocumentForm()})
 
-			context = {'texto_editable': texto_editable, 'documento': newdoc, 'codigo': cdg.upper(),'dpto':dpto}
-			return render(request, 'SIGPAE/transcripcion.html', context)
-		return render(request,'SIGPAE/cargar.html',{'form': form})
-	
+def transcripcion(request):
 	if request.GET.items():
 		opcion = request.GET['tipo']
 		docfile = request.GET['documento']
+		id_row = Document.objects.all().filter(docfile = docfile).first()
+		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
+		print('\n')
+		print(row.dependencia)
+		print('\n')
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
 
@@ -73,8 +110,8 @@ def transcripcion(request):
 			file = open(output, "r")
 			texto_editable = file.read()
 			file.close()
-		
-		context = {'texto_editable': texto_editable}
+
+		context = {'texto_editable': texto_editable, 'row': row, 'form':HistorialForm()}
 		return render(request, 'SIGPAE/transcripcion.html', context)
 	else:
 		form = DocumentForm()
