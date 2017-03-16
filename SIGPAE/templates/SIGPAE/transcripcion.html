@@ -294,13 +294,8 @@
          <h2> Requisitos </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
          </textarea>
-         <h2> Contenidos sinópticos </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         </textarea>
 
          <h2> Contenidos sinópticos </h2>
-
-
          <form action="index.php" method="post" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
 
              <select class="form-control" id="status" name="status" onChange="mostrar_objetivos(this.value);"  >
@@ -314,8 +309,7 @@
                   <h2> Objetivos Generales </h2>
             <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
                <form name="f3">
-                 <textarea id="objsGeneralesContent1"  cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" onChange="mantenerContenidos(this.id, 'objsGeneralesContent2');">
-                 </textarea>
+                 <textarea id="objsGeneralesContent1"  cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" onChange="mantenerContenidos(this.id, 'objsGeneralesContent2');"></textarea>
                </form>
             </div>
          </div>
@@ -324,8 +318,7 @@
             <h2> Objetivos Generales: </h2>
             <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
                <form name="f4">
-                 <textarea id="objsGeneralesContent2" cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" >
-                 </textarea>
+                 <textarea id="objsGeneralesContent2" cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" onChange="mantenerContenidos2(this.id, 'objsEspecificosContent', 'objsGeneralesContent1')"></textarea>
    <br>
                </form>
             </div>
@@ -333,8 +326,7 @@
             <h2> Objetivos Específicos: </h2>
             <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
                <form name="f5">
-                 <textarea id="objsEspecificosContent" cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" onChange="mantenerContenidos2(this.id, 'objsGeneralesContent2', 'objsGeneralesContent1')">
-                 </textarea>
+                 <textarea id="objsEspecificosContent" cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" onChange="mantenerContenidos2('objsGeneralesContent2', this.id, 'objsGeneralesContent1')"></textarea>
    <br>
                </form>
             </div>
@@ -457,7 +449,7 @@ function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
 
 
 
-   copyTo.value = copyFrom2.value + "\n" + copyFrom1.value;
+   copyTo.value = copyFrom1.value + "\n" + copyFrom2.value;
 }
 
 
