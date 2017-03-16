@@ -10,8 +10,8 @@ from .codigos import *
 from .models import Document, Historial
 from .forms import DocumentForm, ConsultaForm, HistorialForm, MostrarConsultaForm
 
-def prueba(request):
-	with open('/home/gabriel/PycharmProjects/WeCreate/documents/LLA-111.pdf', 'rb') as pdf:
+def prueba(request,url):
+	with open(url, 'rb') as pdf:
 		response = HttpResponse(pdf.read(), content_type='application/pdf')
 		response['Content-Disposition'] = 'inline;filename=some_file.pdf'
 		return response
@@ -51,7 +51,6 @@ def home(request):
 			row_hist.objetivos = form.cleaned_data['objetivos']
 			row_hist.fuentes_info = form.cleaned_data['fuentes_info']
 			row_hist.save()
-
 	return render(request, 'SIGPAE/home.html', {})
 
 def index(request):
