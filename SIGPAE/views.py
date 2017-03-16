@@ -36,6 +36,7 @@ def transcripcion(request):
 				codigo = form.cleaned_data['codigo'],
 				periodo = form.cleaned_data['periodo'],
 				anio = form.cleaned_data['anio'],
+				nombre=request.FILES['docfile'].name,
 				docfile = request.FILES['docfile'])
 			newdoc.save()
 			opcion = form.cleaned_data['tipo']

@@ -2,7 +2,7 @@
 
 from django import forms
 from django.forms import Textarea
-from .validators import validar_extension
+from .validators import validar_extension, validar_unicidad
 import datetime
 
 class DocumentForm(forms.Form):
@@ -30,7 +30,7 @@ class DocumentForm(forms.Form):
 
 	tipo = forms.ChoiceField(choices=TIPO, label="Tipo de transcripción")
 
-	docfile = forms.FileField(label='Selecciona un archivo PDF', validators=[validar_extension])
+	docfile = forms.FileField(label='Selecciona un archivo PDF', validators=[validar_extension,validar_unicidad])
 
 class ConsultaForm(forms.Form):
 	PERIODOS = [
