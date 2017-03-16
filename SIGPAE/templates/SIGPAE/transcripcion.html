@@ -67,7 +67,17 @@
 
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
       <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
+
+      <form name="menu_extraer">
+            <select class="form-control" name="opciones_extraer" style="width:95%;">
+            <option value="0" selected>Seleccione Opción
+            <option value="1">Código y Departamento
+            </select>
+      </form>
+
       <button onClick="Extraer(ElCod,ElDep)">Extraer</button>
+
+
       <form action="{% url "home" %}" method="post" enctype="multipart/form-data">
          {% csrf_token %}
          <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
@@ -521,13 +531,15 @@ function mostrar(id) {
 }
 
 function Extraer(cod,dpto) {
-    if (cod.length == 0) {
-        alert ("No se encontró ningún código");
-    }
-    else {
-        asig = document.getElementById('CodAsig');
-        asig.value = cod;
-        AsignarDep(dpto)
+    if (document.menu_extraer.opciones_extraer.options[1].selected==true) {
+        if (cod.length == 0) {
+            alert("No se encontró ningún código");
+        }
+        else {
+            asig = document.getElementById('id_codigo_asignatura');
+            asig.value = cod;
+            AsignarDep(dpto)
+        }
     }
 }
 
@@ -542,7 +554,7 @@ function contains(a, obj) {
 
 function AsignarDep(dpto) {
     mi_division=[]
-    ndpto=0
+    Ndpto=0
     val=0
     if (contains(division_1,dpto)){
         val=1
@@ -574,7 +586,9 @@ function AsignarDep(dpto) {
 
     mostrar("departamento");
     document.getElementById('status').value="departamento";
+    document.getElementById('id_division').options[Ndpto].selected=true
     document.f1.div.options[val].selected=true
     document.f1.division.options[Ndpto].selected= true
+
 }
 </script>
