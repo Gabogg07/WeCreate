@@ -9,6 +9,13 @@ import re
 from .models import Document, Historial
 from .forms import DocumentForm, ConsultaForm, HistorialForm, MostrarConsultaForm
 
+def prueba(request):
+	with open('/home/gabriel/PycharmProjects/WeCreate/documents/LLA-111.pdf', 'rb') as pdf:
+		response = HttpResponse(pdf.read(), content_type='application/pdf')
+		response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+		return response
+	pdf.closed
+
 def home(request):
 
 	if request.method == 'POST':
