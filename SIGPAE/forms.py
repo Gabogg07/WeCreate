@@ -214,7 +214,7 @@ class HistorialForm(forms.Form):
 	horas_P = forms.ChoiceField(choices=HORAS_P, label="Horas de Práctica", required = False)
 	horas_L = forms.ChoiceField(choices=HORAS_L, label="Horas de Laboratorio", required = False)
 	num_creditos = forms.ChoiceField(choices=CREDITOS, label="Número de Créditos", required = False)
-	requisitos = forms.CharField(label="Requisitos", required = False)
+	requisitos = forms.CharField(widget=forms.Textarea(attrs={'cols': 25, 'rows': 6}), label="Requisitos", required = False)
 	cont_sinopticos = forms.CharField(widget=forms.Textarea(attrs={'cols': 25, 'rows': 6}), label="Contenidos Sinópticos", required = False)
 	estrategias_met = forms.CharField(widget=forms.Textarea(attrs={'cols': 25, 'rows': 6}), label="Estrategias Metodológicas", required = False)
 	estrategias_ev = forms.CharField(widget=forms.Textarea(attrs={'cols': 25, 'rows': 6}), label="Estrategias de Evaluación", required = False)
