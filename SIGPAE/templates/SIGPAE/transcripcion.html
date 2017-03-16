@@ -36,12 +36,22 @@
 
 </div>   
 
+<script type="text/javascript">
+   var ElCod = "{{codigo}}";
+   var ElDep = "{{ dpto }}"
+</script>
+
+
+
 <div class="container-fluid" style="height: 80%">
 
    <div class="row">
       <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
          <h2> PDF </h2>
-         <iframe src={{ documento.docfile.url }} style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
+          <div id="example1"></div>
+          <script src="/js/pdfobject.js"></script>
+          <script>PDFObject.embed("/documents/CI-2511.pdf", "#example1");</script>
+         <iframe src=example1 style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
          </iframe>
       </div>
 
@@ -49,15 +59,19 @@
       
          <h2> Texto extraído </h2>
          {% if texto_editable %}
-         <textarea cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
+         <textarea id= KKK cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
          {{ texto_editable }}
          </textarea>
          {% endif %}
       </div>
 
+
+
+
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
       <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
 
+<button onClick="Extraer(ElCod,ElDep)">Extraer</button>
 
       <h2> Dependencia </h2>
 
@@ -70,12 +84,11 @@
               <option value="departamento">Departamento</option>
            </select>
       </form>
-
       <div id="coordinaciones" class="element" style="display: none;">
                <h2> Coordinación </h2>
          <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
             <form name="f2">
-            <select class="form-control" name=dec onchange="cambia_decanato()" style="width:95%;">
+            <select class="form-control" name=dec onchange="cambia_decanato(0)" style="width:95%;">
             <option value="0" selected>Seleccione Decanato...
             <option value="1">Decanato de Estudios Generales
             <option value="2">Decanato de Estudios Profesionales
@@ -93,7 +106,7 @@
          <h2> Departamento: </h2>
          <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
             <form name="f1">
-            <select class="form-control" name=div onchange="cambia_division()" style="width:95%;">
+            <select class="form-control" name=div onchange="cambia_division(0)" style="width:95%;">
             <option value="0" selected>Seleccione División...
             <option value="1">División de Ciencias Físicas y Matemáticas
             <option value="2">División de Ciencias Sociales y Humanidades
@@ -111,7 +124,7 @@
          
 
          <h2> Código Asignatura </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         <textarea id=CodAsig cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
          </textarea>
          <br>
          <h2> Denominación </h2>
@@ -270,6 +283,51 @@
             <option value="40">39</option>
             <option value="41">40</option>
          </select>
+             </select>
+         <h2> Horas de laboratorio semanales: </h2>
+         <select class="form-control" name="Horas_Laboratorio"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="19">18</option>
+            <option value="20">19</option>
+            <option value="21">20</option>
+            <option value="22">21</option>
+            <option value="23">22</option>
+            <option value="24">23</option>
+            <option value="25">24</option>
+            <option value="26">25</option>
+            <option value="27">26</option>
+            <option value="28">27</option>
+            <option value="29">28</option>
+            <option value="30">29</option>
+            <option value="31">30</option>
+            <option value="32">31</option>
+            <option value="33">32</option>
+            <option value="34">33</option>
+            <option value="35">34</option>
+            <option value="36">35</option>
+            <option value="37">36</option>
+            <option value="38">37</option>
+            <option value="39">38</option>
+            <option value="40">39</option>
+            <option value="41">40</option>
+         </select>
          <h2> Número de créditos: </h2>
          <select class="form-control" name="Numero_creditos"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
             <option value="0">0</option> 
@@ -294,21 +352,21 @@
          <h2> Requisitos </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
          </textarea>
-         <h2> Contenidos sinópticos </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+             <br>
+             <h2> Objetivos </h2>
+             <textarea cols="40" rows="15" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
          </textarea>
-         <h2> Estrategias metodológicas </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+             <br>
+             <h2> Contenidos sinópticos </h2>
+             <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
          </textarea>
-         <br>
-         <h2> Estrategias de evaluación </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+             <h2> Estrategias metodológicas </h2>
+             <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
          </textarea>
-         <br>
-            <h2> Objetivos </h2>
-         <textarea cols="40" rows="15" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+             <br>
+             <h2> Estrategias de evaluación </h2>
+             <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
          </textarea>
-         <br>
          <h2> Fuentes de información recomendadas </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
          </textarea>
@@ -319,11 +377,12 @@
       </div></div>
 
 <script>
-var division_1=new Array("Seleccione Departamento","Departamento de Física","Departamento de Química","Departamento de Mecánica","Departamento de Matemáticas Puras y Aplicadas","Departamento de Computación y Tecnología de la Información","Departamento de Cómputo Científico y Estadística","Departamento de Electrónica y Circuitos","Departamento de Termodinámica y Fenómenos de Transferencia","Departamento de Conversión y Transporte de Energía","Departamento de Procesos y Sistemas","Departamento de Ciencias de los Materiales","Departamento de Ciencias de la Tierra")
-var division_2=new Array("Seleccione Departamento","Departamento de Ciencia y Tecnología del Comportamiento","Departamento de Lengua y Literatura","Departamento de Ciencias Económicas y Administrativas","Departamento de Idiomas","Departamento de Filosofía","Departamento de Ciencias Sociales","Departamento de Diseño Arquitectura y Artes Plásticas","Departamento de Planificación Urbana")
-var division_3=new Array("Seleccione Departamento","Departamento de Biología Celular","Departamento de Estudios Ambientales","Departamento de Biología de Organismos","Departamento de Tecnología de Procesos Biológicos y Bioquímicos")
-var division_4=new Array("Seleccione Departamento","Departamento de Tecnología de Servicios","Departamento de Tecnología Industrial","Departamento de Formación General y Ciencias Básicas")
-function cambia_division(){
+var division_1=["Seleccione Departamento","Departamento de Física","Departamento de Química","Departamento de Mecánica","Departamento de Matemáticas Puras y Aplicadas","Departamento de Computación y Tecnología de la Información","Departamento de Cómputo Científico y Estadística","Departamento de Electrónica y Circuitos","Departamento de Termodinámica y Fenómenos de Transferencia","Departamento de Conversión y Transporte de Energía","Departamento de Procesos y Sistemas","Departamento de Ciencias de los Materiales","Departamento de Ciencias de la Tierra"]
+var division_2=["Seleccione Departamento","Departamento de Ciencia y Tecnología del Comportamiento","Departamento de Lengua y Literatura","Departamento de Ciencias Económicas y Administrativas","Departamento de Idiomas","Departamento de Filosofía","Departamento de Ciencias Sociales","Departamento de Diseño Arquitectura y Artes Plásticas","Departamento de Planificación Urbana"]
+var division_3=["Seleccione Departamento","Departamento de Biología Celular","Departamento de Estudios Ambientales","Departamento de Biología de Organismos","Departamento de Tecnología de Procesos Biológicos y Bioquímicos"]
+var division_4=["Seleccione Departamento","Departamento de Tecnología de Servicios","Departamento de Tecnología Industrial","Departamento de Formación General y Ciencias Básicas"]
+
+function cambia_division(k){
    var div = document.f1.div[document.f1.div.selectedIndex].value
    if (div != 0) {
       mis_division=eval("division_" + div)
@@ -338,12 +397,13 @@ function cambia_division(){
       document.f1.division.options[0].value = "-"
       document.f1.division.options[0].text = "-"
    }
-   document.f1.division.options[0].selected = true
+   document.f1.division.options[k].selected = true
 }
 var decanato_1=new Array("Seleccione Coordinación","Coordinación del Ciclo Básico","Coordinación del Ciclo Profesional","Coordinación de Formación General","Coordinación del Ciclo de Iniciación Universitaria")
 var decanato_2=new Array("Seleccione Coordinación","Coordinación de Química","Coordinación de Matemática","Coordinación de Biología","Coordinación de Física","Coordinación de Tecnología e Ingeniería Eléctrica","Coordinación de Tecnología e Ingeniería Electrónica","Coordinación de Ingeniería Mecánica","Coordinación de Ingeniería Química","Coordinación de Ingeniería de Computación","Coordinación de Ingeniería Geofísica","Coordinación de Ingeniería de Materiales","Coordinación de Ingeniería de Producción y Organización Empresarial","Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento","Coordinación de Ingeniería de Telecomunicaciones","Coordinación de Arquitectura","Coordinación de Estudios Urbanos","Coordinación de Turismo, Hotelería y Hospitalidad","Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional")
 var decanato_3=new Array("Seleccione Coordinación","Coordinación de Tecnología e Ingeniería Eléctrica","Coordinación de Tecnología Eléctrica y Electrónica","Coordinación de Ingeniería de Producción y Organización Empresarial","Coordinación de Turismo, Hotelería y Hospitalidad","Coordinación de Administración Aduanera","Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional","Coordinación de Administración del Transporte y Organización Empresarial","Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento")
-function cambia_decanato(){
+
+function cambia_decanato(k){
    var dec = document.f2.dec[document.f2.dec.selectedIndex].value
    if (dec != 0) {
       mis_decanato=eval("decanato_" + dec)
@@ -358,17 +418,88 @@ function cambia_decanato(){
       document.f2.decanato.options[0].value = "-"
       document.f2.decanato.options[0].text = "-"
    }
-   document.f2.decanato.options[0].selected = true
+   document.f2.decanato.options[k].selected = true
 }
+
 function mostrar(id) {
    if (id == "coordinaciones") {
       $("#coordinaciones").show();
       $("#departamento").hide();
    }
-   
+
    if (id == "departamento") {
       $("#coordinaciones").hide();
       $("#departamento").show();
    }
+}
+
+function Extraer(cod,dpto) {
+    if (cod.length == 0) {
+        alert ("No se encontró ningún código");
+    }
+    asig=document.getElementById('CodAsig');
+    asig.value=cod;
+    AsignarDep(dpto)
+}
+
+function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function AsignarDep(dpto) {
+    mi_division=[]
+    ndpto=0
+    val=0
+    if (contains(division_1,dpto)){
+        val=1
+        Ndpto=division_1.indexOf(dpto)
+        mi_division = division_1
+    }
+    else if (contains(division_2,dpto)) {
+        val=2
+        Ndpto=division_2.indexOf(dpto)
+        mi_division = division_2
+    }
+    else if (contains(division_3,dpto)) {
+        val=3
+        Ndpto=division_3.indexOf(dpto)
+        mi_division = division_3
+    }
+    else if (contains(division_4,dpto)) {
+        val=4
+        Ndpto=division_4.indexOf(dpto)
+        mi_division = division_4
+    }
+
+    asig=document.getElementById('KKK');
+    asig.value=dpto + "\n" + mi_division;
+
+    num_division = mi_division.length;
+    document.f1.division.length = num_division;
+    for(i=0;i<num_division;i++){
+        document.f1.division.options[i].value=mi_division[i];
+        document.f1.division.options[i].text=mi_division[i];
+    }
+
+    mostrar("departamento");
+    document.getElementById('status').value="departamento";
+
+
+
+
+    document.f1.div.options[val].selected=true //Ya asigna el dpto que es
+    document.f1.division.options[Ndpto].selected= true
+
+    //document.f2.decanato.options[2].selected = true
+
+
+
+
+
 }
 </script>

@@ -6,6 +6,7 @@ import textract
 import os
 import re
 
+from .codigos import *
 from .models import Document
 from .forms import DocumentForm, ConsultaForm, MostrarConsultaForm
 
@@ -34,13 +35,29 @@ def transcripcion(request):
 			opcion = form.cleaned_data['tipo']
 			if (opcion == "texto"):
 				texto_editable = textract.process(newdoc.docfile.url)
+				texto_editable=texto_editable.decode("utf-8")
+				match = re.findall(r'(((co|ep|dfm|et|ci|bc|bo|mt|gc|ce|cs|cc|ct|da|ec|ea|ff|fl|fs|fis|fc|id|ll|ma|mc|pl|ps|qm|pb|ts|ti|tf|fc|pg|td|tg)(-|\s)?([0-9][0-9][0-9][0-9]))|((dfm|cib|bcb|bob|cmt|cea|csa|csx|csy|csz|egs|cce|cte|dap|daa|eyc|ead|fsi|fis|fcr|fca|fcb|fcc|fce|fcf|fcg|fch|fci|fcl|fcr|fcx|fcz|fcw|idm|lla|llb|llc|lle|egl|mat|mec|plx|ply|prs|qim|tsx|tft|teg)(-|\s)?([0-9][0-9][0-9])))',texto_editable.lower())
+				if match: match=match[0]
+				else: match=""
+				cdg=""
+				if match:
+					cdg=match[0]
+
 			else:
 				os.system("pdftohtml -s -c " + newdoc.docfile.url)
 				output = re.sub('.(p|P)(d|D)(f|F)', '-html.html', newdoc.docfile.url)
 				file = open(output, "r")
 				texto_editable = file.read()
 				file.close()
-			context = {'texto_editable': texto_editable, 'documento': newdoc}
+				match=[]
+				cdg=""
+			dpto=""
+			codigo=""
+			if match:
+				if match[2] in cods:
+					dpto = cods.get(match[2])
+
+			context = {'texto_editable': texto_editable, 'documento': newdoc, 'codigo': cdg.upper(),'dpto':dpto}
 			return render(request, 'SIGPAE/transcripcion.html', context)
 		return render(request,'SIGPAE/cargar.html',{'form': form})
 	
@@ -49,6 +66,7 @@ def transcripcion(request):
 		docfile = request.GET['documento']
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
+
 		else:
 			os.system("pdftohtml -s -c " + docfile)
 			output = re.sub('.(p|P)(d|D)(f|F)', '-html.html', docfile)
