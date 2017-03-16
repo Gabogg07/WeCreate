@@ -59,7 +59,7 @@
       
          <h2> Texto extraído </h2>
          {% if texto_editable %}
-         <textarea cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
+         <textarea id= KKK cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
          {{ texto_editable }}
          </textarea>
          {% endif %}
@@ -88,7 +88,7 @@
                <h2> Coordinación </h2>
          <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
             <form name="f2">
-            <select class="form-control" name=dec onchange="cambia_decanato()" style="width:95%;">
+            <select class="form-control" name=dec onchange="cambia_decanato(0)" style="width:95%;">
             <option value="0" selected>Seleccione Decanato...
             <option value="1">Decanato de Estudios Generales
             <option value="2">Decanato de Estudios Profesionales
@@ -106,7 +106,7 @@
          <h2> Departamento: </h2>
          <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
             <form name="f1">
-            <select class="form-control" name=div onchange="cambia_division()" style="width:95%;">
+            <select class="form-control" name=div onchange="cambia_division(0)" style="width:95%;">
             <option value="0" selected>Seleccione División...
             <option value="1">División de Ciencias Físicas y Matemáticas
             <option value="2">División de Ciencias Sociales y Humanidades
@@ -377,11 +377,11 @@
       </div></div>
 
 <script>
-var division_1=new Array("Seleccione Departamento","Departamento de Física","Departamento de Química","Departamento de Mecánica","Departamento de Matemáticas Puras y Aplicadas","Departamento de Computación y Tecnología de la Información","Departamento de Cómputo Científico y Estadística","Departamento de Electrónica y Circuitos","Departamento de Termodinámica y Fenómenos de Transferencia","Departamento de Conversión y Transporte de Energía","Departamento de Procesos y Sistemas","Departamento de Ciencias de los Materiales","Departamento de Ciencias de la Tierra")
-var division_2=new Array("Seleccione Departamento","Departamento de Ciencia y Tecnología del Comportamiento","Departamento de Lengua y Literatura","Departamento de Ciencias Económicas y Administrativas","Departamento de Idiomas","Departamento de Filosofía","Departamento de Ciencias Sociales","Departamento de Diseño Arquitectura y Artes Plásticas","Departamento de Planificación Urbana")
-var division_3=new Array("Seleccione Departamento","Departamento de Biología Celular","Departamento de Estudios Ambientales","Departamento de Biología de Organismos","Departamento de Tecnología de Procesos Biológicos y Bioquímicos")
-var division_4=new Array("Seleccione Departamento","Departamento de Tecnología de Servicios","Departamento de Tecnología Industrial","Departamento de Formación General y Ciencias Básicas")
-function cambia_division(){
+var division_1=["Seleccione Departamento","Departamento de Física","Departamento de Química","Departamento de Mecánica","Departamento de Matemáticas Puras y Aplicadas","Departamento de Computación y Tecnología de la Información","Departamento de Cómputo Científico y Estadística","Departamento de Electrónica y Circuitos","Departamento de Termodinámica y Fenómenos de Transferencia","Departamento de Conversión y Transporte de Energía","Departamento de Procesos y Sistemas","Departamento de Ciencias de los Materiales","Departamento de Ciencias de la Tierra"]
+var division_2=["Seleccione Departamento","Departamento de Ciencia y Tecnología del Comportamiento","Departamento de Lengua y Literatura","Departamento de Ciencias Económicas y Administrativas","Departamento de Idiomas","Departamento de Filosofía","Departamento de Ciencias Sociales","Departamento de Diseño Arquitectura y Artes Plásticas","Departamento de Planificación Urbana"]
+var division_3=["Seleccione Departamento","Departamento de Biología Celular","Departamento de Estudios Ambientales","Departamento de Biología de Organismos","Departamento de Tecnología de Procesos Biológicos y Bioquímicos"]
+var division_4=["Seleccione Departamento","Departamento de Tecnología de Servicios","Departamento de Tecnología Industrial","Departamento de Formación General y Ciencias Básicas"]
+function cambia_division(k){
    var div = document.f1.div[document.f1.div.selectedIndex].value
    if (div != 0) {
       mis_division=eval("division_" + div)
@@ -396,12 +396,13 @@ function cambia_division(){
       document.f1.division.options[0].value = "-"
       document.f1.division.options[0].text = "-"
    }
-   document.f1.division.options[0].selected = true
+   document.f1.division.options[k].selected = true
 }
 var decanato_1=new Array("Seleccione Coordinación","Coordinación del Ciclo Básico","Coordinación del Ciclo Profesional","Coordinación de Formación General","Coordinación del Ciclo de Iniciación Universitaria")
 var decanato_2=new Array("Seleccione Coordinación","Coordinación de Química","Coordinación de Matemática","Coordinación de Biología","Coordinación de Física","Coordinación de Tecnología e Ingeniería Eléctrica","Coordinación de Tecnología e Ingeniería Electrónica","Coordinación de Ingeniería Mecánica","Coordinación de Ingeniería Química","Coordinación de Ingeniería de Computación","Coordinación de Ingeniería Geofísica","Coordinación de Ingeniería de Materiales","Coordinación de Ingeniería de Producción y Organización Empresarial","Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento","Coordinación de Ingeniería de Telecomunicaciones","Coordinación de Arquitectura","Coordinación de Estudios Urbanos","Coordinación de Turismo, Hotelería y Hospitalidad","Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional")
 var decanato_3=new Array("Seleccione Coordinación","Coordinación de Tecnología e Ingeniería Eléctrica","Coordinación de Tecnología Eléctrica y Electrónica","Coordinación de Ingeniería de Producción y Organización Empresarial","Coordinación de Turismo, Hotelería y Hospitalidad","Coordinación de Administración Aduanera","Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional","Coordinación de Administración del Transporte y Organización Empresarial","Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento")
-function cambia_decanato(){
+
+function cambia_decanato(k){
    var dec = document.f2.dec[document.f2.dec.selectedIndex].value
    if (dec != 0) {
       mis_decanato=eval("decanato_" + dec)
@@ -416,14 +417,15 @@ function cambia_decanato(){
       document.f2.decanato.options[0].value = "-"
       document.f2.decanato.options[0].text = "-"
    }
-   document.f2.decanato.options[0].selected = true
+   document.f2.decanato.options[k].selected = true
 }
+
 function mostrar(id) {
    if (id == "coordinaciones") {
       $("#coordinaciones").show();
       $("#departamento").hide();
    }
-   
+
    if (id == "departamento") {
       $("#coordinaciones").hide();
       $("#departamento").show();
@@ -434,10 +436,55 @@ function Extraer(cod,dpto) {
     if (cod.length == 0) {
         alert ("No se encontró ningún código");
     }
-    asig=document.getElementById('CodAsig')
-    asig.value=cod
-    dep=document.getElementById('departamento')
-    dep.value=dpto
+    asig=document.getElementById('CodAsig');
+    asig.value=cod;
+    AsignarDep(dpto)
+}
+
+function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function AsignarDep(dpto) {
+    mi_division=[]
+    if (contains(division_1,dpto)){
+        val=1
+        mi_division = division_1
+    }
+    else if (contains(division_2,dpto)) {
+        val=2
+        mi_division = division_2
+    }
+    else if (contains(division_3,dpto)) {
+        val=3
+        mi_division = division_3
+    }
+    else if (contains(division_4,dpto)) {
+        val=4
+        mi_division = division_4
+    }
+
+    asig=document.getElementById('KKK');
+    asig.value=mi_division;
+
+    num_division = mi_division.length;
+    document.f1.division.length = num_division;
+    for(i=0;i<num_division;i++){
+        document.f1.division.options[i].value=mi_division[i];
+        document.f1.division.options[i].text=mi_division[i];
+    }
+
+    mostrar("departamento");
+    document.getElementById('status').value="departamento";
+    document.f2.decanato.options[0].value = mi_division
+    document.f1.division.options[0].value=mi_division
+
+
 
 }
 </script>
