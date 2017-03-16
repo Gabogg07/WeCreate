@@ -401,7 +401,6 @@
          <!--<h2> Contenidos sinópticos </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
          {{row.cont_sinopticos}}</textarea>-->
-         <p>{{ form.cont_sinopticos.label_tag }} {{ form.cont_sinopticos }}</p>
 
          <!--<h2> Estrategias metodológicas </h2>
          </select>
@@ -411,42 +410,49 @@
          </textarea-->
 
          <h2> Contenidos sinópticos </h2>
-         <form action="index.php" method="post" name="contenidos" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         <!--<form action="index.php" method="post" name="contenidos" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">-->
 
-             <select class="form-control" id="status_contenido" name="status_contenido" onChange="mostrar_objetivos(this.value, 'objsGeneralesContent1', 'objsGeneralesContent2', 'objsEspecificosContent');">
+             <!--<select class="form-control" id="status_contenido" name="status_contenido" onChange="mostrar_objetivos(this.value, 'objsGeneralesContent1', 'objsGeneralesContent2', 'objsEspecificosContent');">
                <option value="0">Seleccione el tipo de contenido</option>
                  <option value="objsGenerales">Objetivos</option>
                  <option value="objsEspecificos">Objetivos Generales y Específicos</option>
               </select>
-         </form>
+         </form>-->
+         <p>{{ form.contenido.label_tag }} {{ form.contenido }}</p>
 
-         <div id="objsGenerales" class="element" style="display: none;">
+
+         <!--<div id="objsGenerales" class="element" style="display: none;">
                   <h2> Objetivos Generales </h2>
             <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
-               <form name="f3">
+               <<form name="f3">
                  <textarea id="objsGeneralesContent1"  cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" ></textarea>
-               </form>
+               </form>>
             </div>
-         </div>
+         </div>-->
 
-         <div id="objsEspecificos" class="element" style="display: none;">
+         <!--<div id="objsEspecificos" class="element" style="display: none;">
             <h2> Objetivos Generales: </h2>
             <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
-               <form name="f4">
+               <<form name="f4">
                  <textarea id="objsGeneralesContent2" cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" ></textarea>
    <br>
-               </form>
+               </form>>
             </div>
 
             <h2> Objetivos Específicos: </h2>
             <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
-               <form name="f5">
+               <!--<form name="f5">
                  <textarea id="objsEspecificosContent" cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" ></textarea>
    <br>
-               </form>
+               </form>>
             </div>
 
-         </div>
+         </div>-->
+         <br>
+         <br>
+         <p>{{ form.objetivos_generales.label_tag }} {{ form.objetivos_generales }}</p>
+         <p>{{ form.objetivos_especificos.label_tag }} {{ form.objetivos_especificos }}</p>
+
 
          <!--h2> Estrategias metodológicas </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
@@ -491,9 +497,7 @@
 
 
 <script type="text/javascript">
-
    document.getElementById('id_dependencia').value = "{{ row.dependencia }}";
-
    document.getElementById('id_decanato').value = "{{ row.decanato }}";
    document.getElementById('id_coordinacion_D1').value = "{{ row.coordinacion_D1 }}";
    document.getElementById('id_coordinacion_D2').value = "{{ row.coordinacion_D2 }}";
@@ -512,10 +516,11 @@
    document.getElementById('id_horas_L').value = "{{ row.horas_L }}";
    document.getElementById('id_num_creditos').value = "{{ row.num_creditos }}";
    document.getElementById('id_requisitos').value = "{{ row.requisitos }}";
-   document.getElementById('id_cont_sinopticos').value = "{{ row.cont_sinopticos }}";
    document.getElementById('id_estrategias_met').value = "{{ row.estrategias_met }}";
    document.getElementById('id_estrategias_ev').value = "{{ row.estrategias_ev }}";
-   document.getElementById('id_objetivos').value = "{{ row.objetivos }}";
+   document.getElementById('id_contenido').value = "{{ row.contenido }}";
+   document.getElementById('id_objetivos_generales').value = "{{ row.objetivos_generales }}";
+   document.getElementById('id_objetivos_especificos').value = "{{ row.objetivos_especificos }}";
    document.getElementById('id_fuentes_info').value = "{{ row.fuentes_info }}";
 
 

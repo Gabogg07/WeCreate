@@ -175,6 +175,12 @@ class HistorialForm(forms.Form):
 
 	PERIODOS.insert(0,(0,'Sin seleccionar'))
 
+	CONTENIDO = [
+		('Objetivos','Objetivos'),
+		('Objetivos Generales y Específicos','Objetivos Generales y Específicos')]
+
+	CONTENIDO.insert(0,(0,'Sin seleccionar'))
+
 	ANIOS = [(x, x) for x in range(1969, datetime.datetime.now().year + 1)]
 
 	ANIOS.insert(0, (0, 'Sin seleccionar'))
@@ -215,8 +221,9 @@ class HistorialForm(forms.Form):
 	horas_L = forms.ChoiceField(choices=HORAS_L, label="Horas de Laboratorio", required = False)
 	num_creditos = forms.ChoiceField(choices=CREDITOS, label="Número de Créditos", required = False)
 	requisitos = forms.CharField(widget=forms.Textarea(attrs={'cols': 25, 'rows': 6}), label="Requisitos", required = False)
-	cont_sinopticos = forms.CharField(widget=forms.Textarea(attrs={'cols': 25, 'rows': 6}), label="Contenidos Sinópticos", required = False)
 	estrategias_met = forms.CharField(widget=forms.Textarea(attrs={'cols': 25, 'rows': 6}), label="Estrategias Metodológicas", required = False)
 	estrategias_ev = forms.CharField(widget=forms.Textarea(attrs={'cols': 25, 'rows': 6}), label="Estrategias de Evaluación", required = False)
-	objetivos = forms.CharField(widget=forms.Textarea(attrs={'cols': 25, 'rows': 6}), label="Objetivos", required = False)
+	contenido = forms.ChoiceField(choices=CONTENIDO, label="Seleccione el tipo de contenido", required = False)
+	objetivos_generales = forms.CharField(widget=forms.Textarea(attrs={'cols': 25, 'rows': 6}), label="Objetivos Generales", required = False)
+	objetivos_especificos = forms.CharField(widget=forms.Textarea(attrs={'cols': 25, 'rows': 6}), label="Objetivos Específicos", required = False)
 	fuentes_info = forms.CharField(widget=forms.Textarea(attrs={'cols': 25, 'rows': 6}), label="Fuentes de Información recomendadas", required = False)
