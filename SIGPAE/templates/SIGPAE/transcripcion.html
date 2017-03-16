@@ -41,6 +41,7 @@
    var ElDep = "{{ dpto }}"
 </script>
 
+
 <div class="container-fluid" style="height: 80%">
 
    <div class="row">
@@ -144,6 +145,9 @@
          <!--<h3> Período: </h3>
          <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
          	<option value="">{{row.periodo}}</option>
+         <h3> Período: <h3>
+         <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+         	<option value="">Nigún período</option>
             <option value="Sep-Dic">Sep-Dic</option>
             <option value="Ene-Mar">Ene-Mar</option>
             <option value="Abr-Jul">Abr-Jul</option>
@@ -154,6 +158,11 @@
          <!--<h3> Año: </h3>
          <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
          	<option value=0>{{row.anio}}</option>
+         </select>
+
+         <h3> Año: <h3>
+         <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+         	<option value=0>Ningún año</option>
             <option value="1">1969</option>
             <option value="2">1970</option>
             <option value="3">1971</option>
@@ -209,6 +218,10 @@
          <h2> Horas de teoría semanales: </h2>
          <!--<select class="form-control" name="Horas_Teoria" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
             <option value="0">{{row.horas_T}}</option>
+         </select>
+
+         <h2> Horas de teoría semanales: </h2>
+         <select class="form-control" name="Horas_Teoria" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -391,6 +404,51 @@
          <p>{{ form.cont_sinopticos.label_tag }} {{ form.cont_sinopticos }}</p>
 
          <!--<h2> Estrategias metodológicas </h2>
+         </select>
+
+         <h2> Requisitos </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
+
+         <h2> Contenidos sinópticos </h2>
+         <form action="index.php" method="post" name="contenidos" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+
+             <select class="form-control" id="status_contenido" name="status_contenido" onChange="mostrar_objetivos(this.value, 'objsGeneralesContent1', 'objsGeneralesContent2', 'objsEspecificosContent');">
+               <option value="0">Seleccione el tipo de contenido</option>
+                 <option value="objsGenerales">Objetivos</option>
+                 <option value="objsEspecificos">Objetivos Generales y Específicos</option>
+              </select>
+         </form>
+
+         <div id="objsGenerales" class="element" style="display: none;">
+                  <h2> Objetivos Generales </h2>
+            <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
+               <form name="f3">
+                 <textarea id="objsGeneralesContent1"  cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" ></textarea>
+               </form>
+            </div>
+         </div>
+
+         <div id="objsEspecificos" class="element" style="display: none;">
+            <h2> Objetivos Generales: </h2>
+            <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
+               <form name="f4">
+                 <textarea id="objsGeneralesContent2" cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" ></textarea>
+   <br>
+               </form>
+            </div>
+
+            <h2> Objetivos Específicos: </h2>
+            <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
+               <form name="f5">
+                 <textarea id="objsEspecificosContent" cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" ></textarea>
+   <br>
+               </form>
+            </div>
+
+         </div>
+
+         <h2> Estrategias metodológicas </h2>
          <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
          {{row.estrategias_met}}</textarea>-->
          <p>{{ form.estrategias_met.label_tag }} {{ form.estrategias_met }}</p>
@@ -518,6 +576,57 @@ function mostrar(id) {
       $("#coordinaciones").hide();
       $("#departamento").show();
    }
+
+}
+
+
+/*Funcion utilizada para cambiar entre los tipos de objetivos. Cambia entre
+la opcion de tener solo Objetivos y tener Objetivos Generales y Objetivos
+Especificos*/
+function mostrar_objetivos(id, generales1, generales2, especificos) {
+
+    var contenido1 = document.getElementById(generales1).value;
+    var contenido2 = document.getElementById(especificos).value;
+    var contenido3 = document.getElementById(generales2).value;
+
+    /*Caso base: no se ha introducido ningun tipo de contenido en los campos de Objetivos*/
+    if (contenido1.length == 0 && contenido2.length == 0 && contenido3.length == 0) {
+      /*Oculta los objetivos generales y especificos y muestra los objetivos generales*/
+      if (id == "objsGenerales") {
+        $("#objsGenerales").show();
+        $("#objsEspecificos").hide();
+      }
+      /*Oculta los objetivos y muestra los objetivos generales y especificos*/
+      if (id == "objsEspecificos") {
+        $("#objsGenerales").hide();
+        $("#objsEspecificos").show();
+      }
+    }
+
+    /*Se introdujo informacion en la modalidad Objetivos*/
+    else if (id == "objsEspecificos"){
+        mantenerContenidos(generales1, generales2); // Copia el contenido a Objetivos Generales
+        document.getElementById(generales1).value = ""; // Borra el contenido anterior
+        $("#objsGenerales").hide();
+        $("#objsEspecificos").show();
+    }
+    /*Se introdujo informacion en la modalidad de Objtvs Generales y Especificos*/
+    else if(id == "objsGenerales") {
+        if (confirm("Al cambiar de modalidad se perderá la división entre los tipos\
+ de Objetivos y toda la información pasará a estar en el único campo de\
+ Objetivos. ¿Desea proseguir?")){
+          mantenerContenidos2(generales2, especificos, generales1); // Copia el contenido al unico campo de Objetivos
+          document.getElementById(especificos).value = ""; // Borra el contenido anterior
+          document.getElementById(generales2).value = "";
+          $("#objsGenerales").show();
+          $("#objsEspecificos").hide();
+        }
+        else{
+         document.contenidos.status_contenido.options[2].selected = true;
+        }
+    }
+
+
 }
 
 function Extraer(cod,dpto) {
@@ -577,4 +686,31 @@ function AsignarDep(dpto) {
     document.f1.div.options[val].selected=true
     document.f1.division.options[Ndpto].selected= true
 }
+
+/*Funcion utilizada para mantener el contenido de las textareas cuando se pasa
+de la opcion Objetivos a Objetivos Generales y Objetivos Especificos*/
+function mantenerContenidos (psCopyFromId, psCopyToId)
+{
+   var copyFrom = document.getElementById(psCopyFromId);
+   var copyTo = document.getElementById(psCopyToId);
+
+
+
+   copyTo.value = copyFrom.value;
+}
+
+/*Funcion utilizada para mantener el contenido de las textareas cuando se pasa
+de la opcion Objetvos Generales y Especificos a la opcion Objetivos*/
+function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
+{
+
+   var copyFrom1 = document.getElementById(psCopyFromId1);
+   var copyFrom2 = document.getElementById(psCopyFromId2);
+   var copyTo = document.getElementById(psCopyToId);
+
+
+
+   copyTo.value = copyFrom1.value + "\n" + copyFrom2.value;
+}
+
 </script>
