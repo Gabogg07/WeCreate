@@ -10,6 +10,13 @@ from .codigos import *
 from .models import Document
 from .forms import DocumentForm, ConsultaForm, MostrarConsultaForm
 
+def prueba(request):
+	with open('/home/gabriel/PycharmProjects/WeCreate/documents/LLA-111.pdf', 'rb') as pdf:
+		response = HttpResponse(pdf.read(), content_type='application/pdf')
+		response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+		return response
+	pdf.closed
+
 def home(request):
 	return render(request, 'SIGPAE/home.html', {})
 
@@ -55,8 +62,10 @@ def transcripcion(request):
 			if match:
 				if match[2] in cods:
 					dpto = cods.get(match[2])
-
-			context = {'texto_editable': texto_editable, 'documento': newdoc, 'codigo': cdg.upper(),'dpto':dpto}
+			with open('/home/gabriel/PycharmProjects/WeCreate/documents/MA-1112.pdf', 'rb') as pdf:
+				response = HttpResponse(pdf.read(), content_type='application/pdf')
+				response['Content-Disposition'] = 'inline;filename=some_file.pdf'
+			context = {'texto_editable': texto_editable, 'documento': newdoc, 'codigo': cdg.upper(),'dpto':dpto,'url':response}
 			return render(request, 'SIGPAE/transcripcion.html', context)
 		return render(request,'SIGPAE/cargar.html',{'form': form})
 	
