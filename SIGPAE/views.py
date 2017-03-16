@@ -107,6 +107,9 @@ def transcripcion(request):
 		docfile = request.GET['documento']
 		id_row = Document.objects.all().filter(docfile = docfile).first()
 		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
+		print('\n')
+		print(row.dependencia)
+		print('\n')
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
 		else:
@@ -116,7 +119,7 @@ def transcripcion(request):
 			texto_editable = file.read()
 			file.close()
 
-		context = {'texto_editable': texto_editable, 'row': row, 'form':HistorialForm()}
+		context = {'texto_editable': texto_editable, 'row': row, 'form': HistorialForm()}
 		return render(request, 'SIGPAE/transcripcion.html', context)
 	else:
 		form = DocumentForm()
