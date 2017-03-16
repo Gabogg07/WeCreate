@@ -12,6 +12,16 @@ class Document(models.Model):
 
 
 class Historial(models.Model):
+    dependencia = models.CharField(max_length = 512, default = "", null=True, blank=True)
+    decanato = models.CharField(max_length = 512, default = "", null=True, blank=True)
+    coordinacion_D1 = models.CharField(max_length = 512, default = "", null=True, blank=True)
+    coordinacion_D2 = models.CharField(max_length = 512, default = "", null=True, blank=True)
+    coordinacion_D3 = models.CharField(max_length = 512, default = "", null=True, blank=True)
+    division = models.CharField(max_length = 512, default = "", null=True, blank=True)
+    departamento_D1 = models.CharField(max_length = 512, default = "", null=True, blank=True)
+    departamento_D2 = models.CharField(max_length = 512, default = "", null=True, blank=True)
+    departamento_D3 = models.CharField(max_length = 512, default = "", null=True, blank=True)
+    departamento_D4 = models.CharField(max_length = 512, default = "", null=True, blank=True)
     codigo_asignatura = models.CharField(max_length = 512, default = "", null=True, blank=True)
     denominacion = models.CharField(max_length = 512, default = "", null=True, blank=True)
     periodo = models.CharField(max_length = 512, default = "Ningún Período", null=True, blank=True)

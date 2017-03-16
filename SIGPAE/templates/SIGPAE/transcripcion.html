@@ -58,8 +58,21 @@
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
       <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
 
+      <form action="{% url "home" %}" method="post" enctype="multipart/form-data">
+         {% csrf_token %}
+         <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
 
-      <h2> Dependencia </h2>
+         <p>{{ form.dependencia.label_tag }} {{ form.dependencia }}</p>
+         <p>{{ form.decanato.label_tag }} {{ form.decanato }}</p>
+         <p>{{ form.coordinacion_D1.label_tag }} {{ form.coordinacion_D1 }}</p>
+         <p>{{ form.coordinacion_D2.label_tag }} {{ form.coordinacion_D2 }}</p>
+         <p>{{ form.coordinacion_D3.label_tag }} {{ form.coordinacion_D3 }}</p>
+         <p>{{ form.division.label_tag }} {{ form.division }}</p>
+         <p>{{ form.departamento_D1.label_tag }} {{ form.departamento_D1 }}</p>
+         <p>{{ form.departamento_D2.label_tag }} {{ form.departamento_D2 }}</p>
+         <p>{{ form.departamento_D3.label_tag }} {{ form.departamento_D3 }}</p>
+         <p>{{ form.departamento_D4.label_tag }} {{ form.departamento_D4 }}</p>
+      <!--<h2> Dependencia </h2>
 
 
       <form action="index.php" method="post" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
@@ -107,11 +120,9 @@
             </form>
          </div>
 
-      </div>
+      </div-->
 
-      <form action="{% url "home" %}" method="post" enctype="multipart/form-data">
-         {% csrf_token %}
-         <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
+
          <h2> Código Asignatura </h2>
          <!--<textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">{{ form.codigo_asignatura }}</textarea>-->
 
@@ -407,6 +418,18 @@
    document.getElementById('id_estrategias_ev').value = "{{ row.estrategias_ev }}";
    document.getElementById('id_objetivos').value = "{{ row.objetivos }}";
    document.getElementById('id_fuentes_info').value = "{{ row.fuentes_info }}";
+
+   document.getElementById('id_dependencia').value = "{{ row.dependencia }}";
+   document.getElementById('id_decanato').value = "{{ row.decanato }}";
+   document.getElementById('id_coordinacion_D1').value = "{{ row.coordinacion_D1 }}";
+   document.getElementById('id_coordinacion_D2').value = "{{ row.coordinacion_D2 }}";
+   document.getElementById('id_coordinacion_D3').value = "{{ row.coordinacion_D3 }}";
+   document.getElementById('id_division').value = "{{ row.division }}";
+   document.getElementById('id_departamento_D1').value = "{{ row.departamento_D1 }}";
+   document.getElementById('id_departamento_D2').value = "{{ row.departamento_D2 }}";
+   document.getElementById('id_departamento_D3').value = "{{ row.departamento_D3 }}";
+   document.getElementById('id_departamento_D4').value = "{{ row.departamento_D4 }}";
+
 </script>
 
 

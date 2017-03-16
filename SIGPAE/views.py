@@ -18,9 +18,23 @@ def home(request):
 			print("\nFORM VALIDO\n")
 			documento = request.POST['documento']
 			row_hist = Historial.objects.all().filter(docfile_id = documento).first()
+			row_hist.dependencia = form.cleaned_data['dependencia']
+			row_hist.decanato = form.cleaned_data['decanato']
+			row_hist.coordinacion_D1 = form.cleaned_data['coordinacion_D1']
+			row_hist.coordinacion_D2 = form.cleaned_data['coordinacion_D2']
+			row_hist.coordinacion_D3 = form.cleaned_data['coordinacion_D3']
+			row_hist.division = form.cleaned_data['division']
+			row_hist.departamento_D1 = form.cleaned_data['departamento_D1']
+			row_hist.departamento_D2 = form.cleaned_data['departamento_D2']
+			row_hist.departamento_D3 = form.cleaned_data['departamento_D3']
+			row_hist.departamento_D4 = form.cleaned_data['departamento_D4']
+
+
+
+
 			row_hist.codigo_asignatura = form.cleaned_data['codigo_asignatura']
 			row_hist.denominacion = form.cleaned_data['denominacion']
-			row_hist.periodo = form.cleaned_data['denominacion']
+			row_hist.periodo = form.cleaned_data['periodo']
 			row_hist.anio = form.cleaned_data['anio']
 			row_hist.horas_T = form.cleaned_data['horas_T']
 			row_hist.horas_P = form.cleaned_data['horas_P']
@@ -75,6 +89,9 @@ def transcripcion(request):
 		docfile = request.GET['documento']
 		id_row = Document.objects.all().filter(docfile = docfile).first()
 		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
+		print('\n')
+		print(row.dependencia)
+		print('\n')
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
 		else:
