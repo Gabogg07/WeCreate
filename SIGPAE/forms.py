@@ -55,4 +55,9 @@ class ConsultaForm(forms.Form):
 
 	anio = forms.ChoiceField(choices=ANIOS, label="Año")
 
+class MostrarConsultaForm(forms.Form):
+	TIPO = [
+		('texto','Texto'),
+		('html','HTML')]
+
 	tipo = forms.ChoiceField(choices=TIPO, label="Tipo de transcripción")
