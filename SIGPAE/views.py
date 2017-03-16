@@ -6,6 +6,7 @@ import textract
 import os
 import re
 
+from .codigos import *
 from .models import Document, Historial
 from .forms import DocumentForm, ConsultaForm, HistorialForm, MostrarConsultaForm
 
@@ -17,7 +18,6 @@ def prueba(request):
 	pdf.closed
 
 def home(request):
-
 	if request.method == 'POST':
 		print("\nPOST\n")
 		form = HistorialForm(request.POST, request.FILES)
@@ -35,9 +35,6 @@ def home(request):
 			row_hist.departamento_D2 = form.cleaned_data['departamento_D2']
 			row_hist.departamento_D3 = form.cleaned_data['departamento_D3']
 			row_hist.departamento_D4 = form.cleaned_data['departamento_D4']
-
-
-
 
 			row_hist.codigo_asignatura = form.cleaned_data['codigo_asignatura']
 			row_hist.denominacion = form.cleaned_data['denominacion']
@@ -64,6 +61,7 @@ def cargar_archivo(request):
 	if request.method == 'POST':
 		form = DocumentForm(request.POST, request.FILES)
 		if form.is_valid():
+			print("Form valido")
 			newdoc = Document(
 				codigo = form.cleaned_data['codigo'],
 				periodo = form.cleaned_data['periodo'],
@@ -75,7 +73,7 @@ def cargar_archivo(request):
 			newhist = Historial(
 				docfile_id = newdoc)
 			newhist.save()
-			'''
+
 			opcion = form.cleaned_data['tipo']
 			if (opcion == "texto"):
 				texto_editable = textract.process(newdoc.docfile.url)
@@ -86,17 +84,22 @@ def cargar_archivo(request):
 				cdg=""
 				if match:
 					cdg=match[0]
-
 			else:
 				os.system("pdftohtml -s -c " + newdoc.docfile.url)
 				output = re.sub('.(p|P)(d|D)(f|F)', '-html.html', newdoc.docfile.url)
 				file = open(output, "r")
 				texto_editable = file.read()
 				file.close()
-			context = {'texto_editable': texto_editable, 'documento': newdoc}
-			'''
-			return render(request, 'SIGPAE/cargar.html', {'form': DocumentForm()})
-		return render(request,'SIGPAE/cargar.html',{'form': DocumentForm()})
+				match=[]
+				cdg=""
+			dpto=""
+			codigo=""
+			if match:
+				if match[2] in cods:
+					dpto = cods.get(match[2])
+			context = {'texto_editable': texto_editable, 'documento': newdoc, 'codigo': cdg.upper(),'dpto':dpto,'row': newhist, 'form':HistorialForm()}
+			return render(request, 'SIGPAE/transcripcion.html', context)
+		return render(request,'SIGPAE/cargar.html',{'form': form})
 	return render(request,'SIGPAE/cargar.html',{'form': DocumentForm()})
 
 def transcripcion(request):
@@ -105,12 +108,8 @@ def transcripcion(request):
 		docfile = request.GET['documento']
 		id_row = Document.objects.all().filter(docfile = docfile).first()
 		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
-		print('\n')
-		print(row.dependencia)
-		print('\n')
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
-
 		else:
 			os.system("pdftohtml -s -c " + docfile)
 			output = re.sub('.(p|P)(d|D)(f|F)', '-html.html', docfile)
@@ -122,7 +121,6 @@ def transcripcion(request):
 		return render(request, 'SIGPAE/transcripcion.html', context)
 	else:
 		form = DocumentForm()
-		documents = Document.objects.all()
 		return render(request,'SIGPAE/cargar.html',{'form': form})
 
 def consulta(request):

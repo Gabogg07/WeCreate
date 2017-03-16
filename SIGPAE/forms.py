@@ -62,7 +62,6 @@ class MostrarConsultaForm(forms.Form):
 
 	tipo = forms.ChoiceField(choices=TIPO, label="Tipo de transcripción")
 
-
 class HistorialForm(forms.Form):
 	DEPENDENCIA = [
 			('Coordinación', 'Coordinación'),
