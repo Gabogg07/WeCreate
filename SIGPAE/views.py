@@ -11,6 +11,7 @@ from .models import Document, Historial
 from .forms import DocumentForm, ConsultaForm, HistorialForm, MostrarConsultaForm
 
 def prueba(request,url):
+	print("\nURL: "+url+"\n")
 	with open(url, 'rb') as pdf:
 		response = HttpResponse(pdf.read(), content_type='application/pdf')
 		response['Content-Disposition'] = 'inline;filename=some_file.pdf'
@@ -96,7 +97,7 @@ def cargar_archivo(request):
 			if match:
 				if match[2] in cods:
 					dpto = cods.get(match[2])
-			context = {'texto_editable': texto_editable, 'documento': newdoc, 'codigo': cdg.upper(),'dpto':dpto,'row': newhist, 'form':HistorialForm()}
+			context = {'texto_editable': texto_editable, 'documento': newdoc.docfile, 'codigo': cdg.upper(),'dpto':dpto,'row': newhist, 'form':HistorialForm()}
 			return render(request, 'SIGPAE/transcripcion.html', context)
 		return render(request,'SIGPAE/cargar.html',{'form': form})
 	return render(request,'SIGPAE/cargar.html',{'form': DocumentForm()})
@@ -105,18 +106,35 @@ def transcripcion(request):
 	if request.GET.items():
 		opcion = request.GET['tipo']
 		docfile = request.GET['documento']
+		ruta = request.GET['ruta']
+		print("\nDocfile: "+docfile+"\n")
+		print("Ruta: "+ruta+"\n")
 		id_row = Document.objects.all().filter(docfile = docfile).first()
 		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
+
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
+			texto_editable=texto_editable.decode("utf-8")
+			match = re.findall(r'(((co|ep|dfm|et|ci|bc|bo|mt|gc|ce|cs|cc|ct|da|ec|ea|ff|fl|fs|fis|fc|id|ll|ma|mc|pl|ps|qm|pb|ts|ti|tf|fc|pg|td|tg)(-|\s)?([0-9][0-9][0-9][0-9]))|((dfm|cib|bcb|bob|cmt|cea|csa|csx|csy|csz|egs|cce|cte|dap|daa|eyc|ead|fsi|fis|fcr|fca|fcb|fcc|fce|fcf|fcg|fch|fci|fcl|fcr|fcx|fcz|fcw|idm|lla|llb|llc|lle|egl|mat|mec|plx|ply|prs|qim|tsx|tft|teg)(-|\s)?([0-9][0-9][0-9])))',texto_editable.lower())
+			if match: match=match[0]
+			else: match=""
+			cdg=""
+			if match:
+				cdg=match[0]
 		else:
 			os.system("pdftohtml -s -c " + docfile)
 			output = re.sub('.(p|P)(d|D)(f|F)', '-html.html', docfile)
 			file = open(output, "r")
 			texto_editable = file.read()
 			file.close()
-
-		context = {'texto_editable': texto_editable, 'row': row, 'form':HistorialForm()}
+			match=[]
+			cdg=""
+		dpto=""
+		codigo=""
+		if match:
+			if match[2] in cods:
+				dpto = cods.get(match[2])
+		context = {'texto_editable': texto_editable, 'ruta': ruta, 'codigo': cdg.upper(),'dpto':dpto,'row': row,'form':HistorialForm()}
 		return render(request, 'SIGPAE/transcripcion.html', context)
 	else:
 		form = DocumentForm()
