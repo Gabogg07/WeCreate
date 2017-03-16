@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 cods = {
-	'co':	'Cómputo Científico y Estadístico',
+	'co':	'Departamento de Cómputo Científico y Estadística',
 	'ep':	'Cursos en Cooperación',
 	'dfm':	'Cursos en Cooperación',
 	'et':	'Cursos en Cooperación',
