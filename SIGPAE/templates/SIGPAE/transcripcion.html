@@ -645,7 +645,8 @@ function mostrar_objetivos(id, generales1, generales2, especificos) {
 
 
 }
-
+/*Funcion que verifica si se logro extraer algun codigo, en caso de ser negativo levanta una advertencia, en caso contrario
+  procede a escribir el codigo en su campo respectivo y llamar a su funcion auxiliar. */
 function Extraer(cod,dpto) {
     if (document.menu_extraer.opciones_extraer.options[1].selected==true) {
         if (cod.length == 0) {
@@ -654,11 +655,12 @@ function Extraer(cod,dpto) {
         else {
             asig = document.getElementById('id_codigo_asignatura');
             asig.value = cod;
+
             AsignarDep(dpto)
         }
     }
 }
-
+/*Funcion que verifica si un objeto esta contenido, o no, en un arreglo*/
 function contains(a, obj) {
     for (var i = 0; i < a.length; i++) {
         if (a[i] === obj) {
@@ -667,7 +669,8 @@ function contains(a, obj) {
     }
     return false;
 }
-
+/*Funcion que una vez recibo el departamento, asigna la dependencia, division y departamento a la pagina.
+  usada como auxiliar de Extraer*/
 function AsignarDep(dpto) {
     mi_division=[]
     Ndpto=0
@@ -676,35 +679,29 @@ function AsignarDep(dpto) {
         val=1
         Ndpto=division_1.indexOf(dpto)
         mi_division = division_1
+        document.getElementById('id_departamento_D1').options[Ndpto].selected=true
     }
     else if (contains(division_2,dpto)) {
         val=2
         Ndpto=division_2.indexOf(dpto)
         mi_division = division_2
+        document.getElementById('id_departamento_D2').options[Ndpto].selected=true
     }
     else if (contains(division_3,dpto)) {
         val=3
         Ndpto=division_3.indexOf(dpto)
         mi_division = division_3
+        document.getElementById('id_departamento_D3').options[Ndpto].selected=true
     }
     else if (contains(division_4,dpto)) {
         val=4
         Ndpto=division_4.indexOf(dpto)
         mi_division = division_4
+        document.getElementById('id_departamento_D4').options[Ndpto].selected=true
     }
-
-    num_division = mi_division.length;
-    document.f1.division.length = num_division;
-    for(i=0;i<num_division;i++){
-        document.f1.division.options[i].value=mi_division[i];
-        document.f1.division.options[i].text=mi_division[i];
-    }
-
-    mostrar("departamento");
-    document.getElementById('status').value="departamento";
-    document.getElementById('id_division').options[Ndpto].selected=true
-    document.f1.div.options[val].selected=true
-    document.f1.division.options[Ndpto].selected= true
+    document.getElementById('id_dependencia').options[2].selected=true
+    document.getElementById('id_division').options[val].selected=true
+    document.getElementById('id_decanato').options[2].selected=true
 
 }
 
