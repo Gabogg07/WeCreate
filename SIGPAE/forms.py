@@ -67,14 +67,12 @@ class HistorialForm(forms.Form):
 			('Coordinación', 'Coordinación'),
 			('Departamento', 'Departamento')]
 
-	DEPENDENCIA.insert(0, (0, 'Sin seleccionar'))
 
 	DECANATO = [
 			('Decanato de Estudios Generales', 'Decanato de Estudios Generales'),
 			('Decanato de Estudios Profesionales', 'Decanato de Estudios Profesionales'),
 			('Decanato de Estudios Tecnológicos', 'Decanato de Estudios Tecnológicos')]
 
-	DECANATO.insert(0, (0, 'Sin seleccionar'))
 
 	COORDINACION_D1 = [
 				('Coordinación del Ciclo Básico', 'Coordinación del Ciclo Básico'),
@@ -82,7 +80,6 @@ class HistorialForm(forms.Form):
 				('Coordinación de Formación General', 'Coordinación de Formación General'),
 				('Coordinación del Ciclo de Iniciación Universitaria', 'Coordinación del Ciclo de Iniciación Universitaria')]
 
-	COORDINACION_D1.insert(0, (0, 'Sin seleccionar'))
 
 	COORDINACION_D2 = [
 				('Coordinación de Química', 'Coordinación de Química'),
@@ -103,7 +100,6 @@ class HistorialForm(forms.Form):
 				('Coordinación de Estudios Urbanos', 'Coordinación de Estudios Urbanos'),
 				('Coordinación de Turismo, Hotelería y Hospitalidad', 'Coordinación de Turismo, Hotelería y Hospitalidad'),
 				('Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional', 'Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional')]
-	COORDINACION_D2.insert(0, (0, 'Sin seleccionar'))
 
 	COORDINACION_D3 = [
 				('Coordinación de Tecnología e Ingeniería Eléctrica', 'Coordinación de Tecnología e Ingeniería Eléctrica'),
@@ -114,7 +110,6 @@ class HistorialForm(forms.Form):
 				('Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional', 'Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional'),
 				('Coordinación de Administración del Transporte y Organización Empresarial', 'Coordinación de Administración del Transporte y Organización Empresarial'),
 				('Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento', 'Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento')]
-	COORDINACION_D3.insert(0, (0, 'Sin seleccionar'))
 
 	DIVISION = [
 		('División de Ciencias Físicas y Matemáticas', 'División de Ciencias Físicas y Matemáticas'),
@@ -122,7 +117,6 @@ class HistorialForm(forms.Form):
 		('División de Ciencias Biológicas', 'División de Ciencias Biológicas'),
 		('División de Ciencias y Tecnologías Administrativas e Industriales', 'División de Ciencias y Tecnologías Administrativas e Industriales')]
 
-	DIVISION.insert(0, (0, 'Sin seleccionar'))
 
 	DEPARTAMENTO_1 = [
 			('Departamento de Física', 'Departamento de Física'),
@@ -138,7 +132,6 @@ class HistorialForm(forms.Form):
 			('Departamento de Ciencias de los Materiales', 'Departamento de Ciencias de los Materiales'),
 			('Departamento de Ciencias de la Tierra', 'Departamento de Ciencias de la Tierra')]
 
-	DEPARTAMENTO_1.insert(0, (0, 'Sin seleccionar'))
 
 	DEPARTAMENTO_2 = [
 			('Departamento de Ciencia y Tecnología del Comportamiento', 'Departamento de Ciencia y Tecnología del Comportamiento'),
@@ -150,7 +143,6 @@ class HistorialForm(forms.Form):
 			('Departamento de Diseño Arquitectura y Artes Plásticas', 'Departamento de Diseño Arquitectura y Artes Plásticas'),
 			('Departamento de Planificación Urbana', 'Departamento de Planificación Urbana')]
 
-	DEPARTAMENTO_2.insert(0, (0, 'Sin seleccionar'))
 
 	DEPARTAMENTO_3 = [
 			('Departamento de Biología Celular', 'Departamento de Biología Celular'),
@@ -158,14 +150,12 @@ class HistorialForm(forms.Form):
 			('Departamento de Biología de Organismos', 'Departamento de Biología de Organismos'),
 			('Departamento de Tecnología de Procesos Biológicos y Bioquímicos', 'Departamento de Tecnología de Procesos Biológicos y Bioquímicos')]
 
-	DEPARTAMENTO_3.insert(0, (0, 'Sin seleccionar'))
 
 	DEPARTAMENTO_4 = [
 			('Departamento de Tecnología de Servicios', 'Departamento de Tecnología de Servicios'),
 			('Departamento de Tecnología Industrial', 'Departamento de Tecnología Industrial'),
 			('Departamento de Formación General y Ciencias Básicas', 'Departamento de Formación General y Ciencias Básicas')]
 
-	DEPARTAMENTO_4.insert(0, (0, 'Sin seleccionar'))
 
 	PERIODOS = [
 		('Sep-Dic','Sep-Dic'),
@@ -173,13 +163,12 @@ class HistorialForm(forms.Form):
 		('Abr-Jul','Abr-Jul'),
 		('Intensivo','Intensivo')]
 
-	PERIODOS.insert(0,(0,'Sin seleccionar'))
+	PERIODOS.insert(0,(0,'Ningún Período'))
 
 	CONTENIDO = [
 		('Objetivos','Objetivos'),
 		('Objetivos Generales y Específicos','Objetivos Generales y Específicos')]
 
-	CONTENIDO.insert(0,(0,'Sin seleccionar'))
 
 	ANIOS = [(x, x) for x in range(1969, datetime.datetime.now().year + 1)]
 
@@ -201,7 +190,7 @@ class HistorialForm(forms.Form):
 
 	HORAS_L.insert(0, (0, 'Sin seleccionar'))
 
-	dependencia = forms.ChoiceField(choices=DEPENDENCIA, label="Dependencia", required = False)
+	dependencia = forms.ChoiceField(choices=DEPENDENCIA, initial='Sin seleccionar',label="Dependencia", required = False)
 	decanato = forms.ChoiceField(choices=DECANATO, label="Decanato", required = False)
 	coordinacion_D1 = forms.ChoiceField(choices=COORDINACION_D1, label="Coordinación 1", required = False)
 	coordinacion_D2 = forms.ChoiceField(choices=COORDINACION_D2, label="Coordinación 2", required = False)

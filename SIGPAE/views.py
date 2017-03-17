@@ -104,10 +104,11 @@ def transcripcion(request):
 		opcion = request.GET['tipo']
 		docfile = request.GET['documento']
 		ruta = request.GET['ruta']
-		print("\nDocfile: "+docfile+"\n")
-		print("Ruta: "+ruta+"\n")
 		id_row = Document.objects.all().filter(docfile = docfile).first()
 		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
+		print("\n")
+		print(row.dependencia)
+		print("\n")
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
 			texto_editable=texto_editable.decode("utf-8")
