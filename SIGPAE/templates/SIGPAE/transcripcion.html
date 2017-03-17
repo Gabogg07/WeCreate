@@ -422,53 +422,13 @@
          </textarea-->
 
          <h2> Contenidos sinópticos </h2>
-         <!--<form action="index.php" method="post" name="contenidos" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">-->
 
-             <!--<select class="form-control" id="status_contenido" name="status_contenido" onChange="mostrar_objetivos(this.value, 'objsGeneralesContent1', 'objsGeneralesContent2', 'objsEspecificosContent');">
-               <option value="0">Seleccione el tipo de contenido</option>
-                 <option value="objsGenerales">Objetivos</option>
-                 <option value="objsEspecificos">Objetivos Generales y Específicos</option>
-              </select>
-         </form>-->
-         <p>{{ form.contenido.label_tag }} {{ form.contenido }}</p>
+         <div onchange="mostrar_objetivos()"><p>{{ form.contenido.label_tag }} {{ form.contenido }}</p></div>
 
-
-         <!--<div id="objsGenerales" class="element" style="display: none;">
-                  <h2> Objetivos Generales </h2>
-            <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
-               <<form name="f3">
-                 <textarea id="objsGeneralesContent1"  cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" ></textarea>
-               </form>>
-            </div>
-         </div>-->
-
-         <!--<div id="objsEspecificos" class="element" style="display: none;">
-            <h2> Objetivos Generales: </h2>
-            <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
-               <<form name="f4">
-                 <textarea id="objsGeneralesContent2" cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" ></textarea>
-   <br>
-               </form>>
-            </div>
-
-            <h2> Objetivos Específicos: </h2>
-            <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
-               <!--<form name="f5">
-                 <textarea id="objsEspecificosContent" cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" ></textarea>
-   <br>
-               </form>>
-            </div>
-
-         </div>-->
          <br>
          <br>
-         <p>{{ form.objetivos_generales.label_tag }} {{ form.objetivos_generales }}</p>
-         <p>{{ form.objetivos_especificos.label_tag }} {{ form.objetivos_especificos }}</p>
-
-
-         <!--h2> Estrategias metodológicas </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.estrategias_met}}</textarea>-->
+         <div id="obj_gen"><p>{{ form.objetivos_generales.label_tag }} {{ form.objetivos_generales }}</p></div>
+         <div id="obj_esp"><p>{{ form.objetivos_especificos.label_tag }} {{ form.objetivos_especificos }}</p></div>
          <p>{{ form.estrategias_met.label_tag }} {{ form.estrategias_met }}</p>
          <br>
 
@@ -684,54 +644,6 @@ function cambia_division(){
 }
 
 
-/*Funcion utilizada para cambiar entre los tipos de objetivos. Cambia entre
-la opcion de tener solo Objetivos y tener Objetivos Generales y Objetivos
-Especificos*/
-function mostrar_objetivos(id, generales1, generales2, especificos) {
-
-    var contenido1 = document.getElementById(generales1).value;
-    var contenido2 = document.getElementById(especificos).value;
-    var contenido3 = document.getElementById(generales2).value;
-
-    /*Caso base: no se ha introducido ningun tipo de contenido en los campos de Objetivos*/
-    if (contenido1.length == 0 && contenido2.length == 0 && contenido3.length == 0) {
-      /*Oculta los objetivos generales y especificos y muestra los objetivos generales*/
-      if (id == "objsGenerales") {
-        $("#objsGenerales").show();
-        $("#objsEspecificos").hide();
-      }
-      /*Oculta los objetivos y muestra los objetivos generales y especificos*/
-      if (id == "objsEspecificos") {
-        $("#objsGenerales").hide();
-        $("#objsEspecificos").show();
-      }
-    }
-
-    /*Se introdujo informacion en la modalidad Objetivos*/
-    else if (id == "objsEspecificos"){
-        mantenerContenidos(generales1, generales2); // Copia el contenido a Objetivos Generales
-        document.getElementById(generales1).value = ""; // Borra el contenido anterior
-        $("#objsGenerales").hide();
-        $("#objsEspecificos").show();
-    }
-    /*Se introdujo informacion en la modalidad de Objtvs Generales y Especificos*/
-    else if(id == "objsGenerales") {
-        if (confirm("Al cambiar de modalidad se perderá la división entre los tipos\
- de Objetivos y toda la información pasará a estar en el único campo de\
- Objetivos. ¿Desea proseguir?")){
-          mantenerContenidos2(generales2, especificos, generales1); // Copia el contenido al unico campo de Objetivos
-          document.getElementById(especificos).value = ""; // Borra el contenido anterior
-          document.getElementById(generales2).value = "";
-          $("#objsGenerales").show();
-          $("#objsEspecificos").hide();
-        }
-        else{
-         document.contenidos.status_contenido.options[2].selected = true;
-        }
-    }
-
-
-}
 /*Funcion que verifica si se logro extraer algun codigo, en caso de ser negativo levanta una advertencia, en caso contrario
   procede a escribir el codigo en su campo respectivo y llamar a su funcion auxiliar. */
 function Extraer(cod,dpto) {
@@ -798,6 +710,46 @@ function AsignarDep(dpto) {
 
 }
 
+/*Funcion utilizada para cambiar entre los tipos de objetivos. Cambia entre
+la opcion de tener solo Objetivos y tener Objetivos Generales y Objetivos
+Especificos*/
+function mostrar_objetivos() {
+   $("#obj_gen").hide();
+   $("#obj_esp").hide();
+   var obj = document.getElementById('id_contenido').value;
+   var cont_obj_gen = document.getElementById('id_objetivos_generales').value;
+   var cont_obj_esp = document.getElementById('id_objetivos_especificos').value;
+
+   /*Caso base: no se ha introducido ningun tipo de contenido en los campos de Objetivos*/
+   if ((cont_obj_gen.length==0)&&(cont_obj_esp.length==0)){
+      /*Oculta los objetivos generales y especificos y muestra los objetivos generales*/
+      if (obj == "Objetivos") {
+        $("#obj_gen").show();
+        $("#obj_esp").hide();
+      }
+      /*Oculta los objetivos y muestra los objetivos generales y especificos*/
+      if (obj == "Objetivos Generales y Específicos") {
+        $("#obj_gen").show();
+        $("#obj_esp").show();
+      }
+   }else{
+      if (obj == "Objetivos"){
+         if (confirm("Al cambiar de modalidad se perderá la división entre los tipos\
+ de Objetivos y toda la información pasará a estar en el único campo de\
+ Objetivos. ¿Desea proseguir?")){
+            mantenerContenidos2('id_objetivos_generales','id_objetivos_especificos','id_objetivos_generales'); // Copia el contenido al unico campo de Objetivos
+            document.getElementById('id_objetivos_especificos').value = ""; //Borra el contenido en especificos
+            $("#obj_gen").show();
+            $("#obj_esp").hide();
+            }
+      }
+      else{
+         $("#obj_gen").show();
+         $("#obj_esp").show();
+      }
+   }
+    
+}
 /*Funcion utilizada para mantener el contenido de las textareas cuando se pasa
 de la opcion Objetivos a Objetivos Generales y Objetivos Especificos*/
 function mantenerContenidos (psCopyFromId, psCopyToId)
