@@ -93,333 +93,33 @@
          <div id="departamento_D2"><p>{{ form.departamento_D2.label_tag }} {{ form.departamento_D2 }}</p></div>
          <div id="departamento_D3"><p>{{ form.departamento_D3.label_tag }} {{ form.departamento_D3 }}</p></div>
          <div id="departamento_D4"><p>{{ form.departamento_D4.label_tag }} {{ form.departamento_D4 }}</p></div>
-      <!--<h2> Dependencia </h2>
-
-
-      <form action="index.php" method="post" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-
-          <select class="form-control" id="status" name="status" onChange="mostrar(this.value);"  >
-            <option value="0">Seleccione tipo de unidad</option>
-              <option value="coordinaciones">Coordinación</option>
-              <option value="departamento">Departamento</option>
-           </select>
-      </form>
-      <div id="coordinaciones" class="element" style="display: none;">
-               <h2> Coordinación </h2>
-         <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-            <form name="f2">
-            <select class="form-control" name=dec onchange="cambia_decanato(0)" style="width:95%;">
-            <option value="0" selected>Seleccione Decanato...
-            <option value="1">Decanato de Estudios Generales
-            <option value="2">Decanato de Estudios Profesionales
-            <option value="3">Decanato de Estudios Tecnológicos
-            </select>
-<br>
-            <select class="form-control" name=decanato style="width:95%;">
-            <option value="-">-
-            </select>
-            </form>
-         </div>
-      </div>
-
-      <div id="departamento" class="element" style="display: none;">
-         <h2> Departamento: </h2>
-         <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-            <form name="f1">
-            <select class="form-control" name=div onchange="cambia_division(0)" style="width:95%;">
-            <option value="0" selected>Seleccione División...
-            <option value="1">División de Ciencias Físicas y Matemáticas
-            <option value="2">División de Ciencias Sociales y Humanidades
-            <option value="3">División de Ciencias Biológicas
-            <option value="4">División de Ciencias y Tecnologías Administrativas e Industriales
-            </select>
-            <br>
-            <select class="form-control" name=division style="width:95%;">
-            <option value="-">-
-            </select>
-            </form>
-         </div>
-
-      </div-->
 
 
          <h2> Código Asignatura </h2>
-         <!--<textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">{{ form.codigo_asignatura }}</textarea>-->
 
          <p>{{ form.codigo_asignatura.label_tag }} {{ form.codigo_asignatura }}</p>
          <br>
-         <!--<h2> Denominación </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.denominacion}}</textarea>-->
          <p>{{ form.denominacion.label_tag }} {{ form.denominacion }}</p>
          <br>
          <h2> Fecha de entrada en vigencia </h2>
-         <!--<h3> Período: </h3>
-         <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-         	<option value="">{{row.periodo}}</option>
-         <h3> Período: <h3>
-         <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-         	<option value="">Nigún período</option>
-            <option value="Sep-Dic">Sep-Dic</option>
-            <option value="Ene-Mar">Ene-Mar</option>
-            <option value="Abr-Jul">Abr-Jul</option>
-            <option value="Intensivo">Intensivo</option>
-         </select>-->
          <p>{{ form.periodo.label_tag }} {{ form.periodo }}</p>
 
-         <!--<h3> Año: </h3>
-         <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-         	<option value=0>{{row.anio}}</option>
-         </select>
-
-         <h3> Año: <h3>
-         <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-         	<option value=0>Ningún año</option>
-            <option value="1">1969</option>
-            <option value="2">1970</option>
-            <option value="3">1971</option>
-            <option value="4">1972</option>
-            <option value="5">1973</option>
-            <option value="6">1974</option>
-            <option value="7">1975</option>
-            <option value="8">1976</option>
-            <option value="9">1977</option>
-            <option value="10">1978</option>
-            <option value="11">1979</option>
-            <option value="12">1980</option>
-            <option value="13">1981</option>
-            <option value="14">1982</option>
-            <option value="15">1983</option>
-            <option value="16">1984</option>
-            <option value="17">1985</option>
-            <option value="19">1986</option>
-            <option value="20">1987</option>
-            <option value="21">1988</option>
-            <option value="22">1989</option>
-            <option value="23">1990</option>
-            <option value="24">1991</option>
-            <option value="25">1992</option>
-            <option value="26">1993</option>
-            <option value="27">1994</option>
-            <option value="28">1995</option>
-            <option value="29">1996</option>
-            <option value="30">1997</option>
-            <option value="31">1998</option>
-            <option value="32">1999</option>
-            <option value="33">2000</option>
-            <option value="34">2001</option>
-            <option value="35">2002</option>
-            <option value="36">2003</option>
-            <option value="37">2004</option>
-            <option value="38">2005</option>
-            <option value="39">2006</option>
-            <option value="40">2007</option>
-            <option value="41">2008</option>
-            <option value="33">2009</option>
-            <option value="34">2010</option>
-            <option value="35">2011</option>
-            <option value="36">2012</option>
-            <option value="37">2013</option>
-            <option value="38">2014</option>
-            <option value="39">2015</option>
-            <option value="40">2016</option>
-            <option value="41">2017</option>
-         </select>-->
          <p>{{ form.anio.label_tag }} {{ form.anio }}</p>
 
          <h2> Horas de teoría semanales: </h2>
-         <!--<select class="form-control" name="Horas_Teoria" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-            <option value="0">{{row.horas_T}}</option>
-         </select>
-
-         <h2> Horas de teoría semanales: </h2>
-         <select class="form-control" name="Horas_Teoria" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="19">18</option>
-            <option value="20">19</option>
-            <option value="21">20</option>
-            <option value="22">21</option>
-            <option value="23">22</option>
-            <option value="24">23</option>
-            <option value="25">24</option>
-            <option value="26">25</option>
-            <option value="27">26</option>
-            <option value="28">27</option>
-            <option value="29">28</option>
-            <option value="30">29</option>
-            <option value="31">30</option>
-            <option value="32">31</option>
-            <option value="33">32</option>
-            <option value="34">33</option>
-            <option value="35">34</option>
-            <option value="36">35</option>
-            <option value="37">36</option>
-            <option value="38">37</option>
-            <option value="39">38</option>
-            <option value="40">39</option>
-            <option value="41">40</option>
-         </select>-->
+         
          <p>{{ form.horas_T.label_tag }} {{ form.horas_T }}</p>
-         <!--<h2> Horas de práctica semanales: </h2>
-         <select class="form-control" name="Horas_Practica"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-            <option value="0">{{row.horas_P}}</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="19">18</option>
-            <option value="20">19</option>
-            <option value="21">20</option>
-            <option value="22">21</option>
-            <option value="23">22</option>
-            <option value="24">23</option>
-            <option value="25">24</option>
-            <option value="26">25</option>
-            <option value="27">26</option>
-            <option value="28">27</option>
-            <option value="29">28</option>
-            <option value="30">29</option>
-            <option value="31">30</option>
-            <option value="32">31</option>
-            <option value="33">32</option>
-            <option value="34">33</option>
-            <option value="35">34</option>
-            <option value="36">35</option>
-            <option value="37">36</option>
-            <option value="38">37</option>
-            <option value="39">38</option>
-            <option value="40">39</option>
-            <option value="41">40</option>
-         </select>-->
+        
          <p>{{ form.horas_P.label_tag }} {{ form.horas_P }}</p>
-         <!--<h2> Horas de Laboratorio semanales: </h2>
-         <select class="form-control" name="Horas_Laboratorio"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-            <option value="0">{{row.horas_L}}</option>
-         </select>
-             </select>
-         <h2> Horas de laboratorio semanales: </h2>
-         <select class="form-control" name="Horas_Laboratorio"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="19">18</option>
-            <option value="20">19</option>
-            <option value="21">20</option>
-            <option value="22">21</option>
-            <option value="23">22</option>
-            <option value="24">23</option>
-            <option value="25">24</option>
-            <option value="26">25</option>
-            <option value="27">26</option>
-            <option value="28">27</option>
-            <option value="29">28</option>
-            <option value="30">29</option>
-            <option value="31">30</option>
-            <option value="32">31</option>
-            <option value="33">32</option>
-            <option value="34">33</option>
-            <option value="35">34</option>
-            <option value="36">35</option>
-            <option value="37">36</option>
-            <option value="38">37</option>
-            <option value="39">38</option>
-            <option value="40">39</option>
-            <option value="41">40</option>
-         </select>-->
+         
          <p>{{ form.horas_L.label_tag }} {{ form.horas_L }}</p>
 
-         <!--<h2> Número de créditos: </h2>
-         </select>
-         <h2> Número de créditos: </h2>
-         <select class="form-control" name="Numero_creditos"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
-            <option value="0">{{row.num_creditos}}</option>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-         </select>-->
          <p>{{ form.num_creditos.label_tag }} {{ form.num_creditos }}</p>
 
-         <!--<h2> Requisitos </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.requisitos}}</textarea>-->
          <p>{{ form.requisitos.label_tag }} {{ form.requisitos }}</p>
 
-         <!--<h2> Objetivos </h2>
-         <textarea cols="40" rows="15" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.objetivos}}</textarea>-->
          <p>{{ form.objetivos.label_tag }} {{ form.objetivos }}</p>
          <br>
-
-         <!--<h2> Contenidos sinópticos </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.cont_sinopticos}}</textarea>-->
-
-         <!--<h2> Estrategias metodológicas </h2>
-         </select>
-
-         <h2> Requisitos </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         </textarea-->
 
          <h2> Contenidos sinópticos </h2>
 
@@ -432,32 +132,9 @@
          <p>{{ form.estrategias_met.label_tag }} {{ form.estrategias_met }}</p>
          <br>
 
-         <!--<h2> Estrategias de evaluación </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.estrategias_ev}}</textarea>-->
          <p>{{ form.estrategias_ev.label_tag }} {{ form.estrategias_ev }}</p>
          <br>
 
-         <!--<h2> Fuentes de información recomendadas </h2>
-         </textarea>
-             <br>
-             <h2> Objetivos </h2>
-             <textarea cols="40" rows="15" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         </textarea>
-             <br>
-             <h2> Contenidos sinópticos </h2>
-             <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         </textarea>
-             <h2> Estrategias metodológicas </h2>
-             <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         </textarea>
-             <br>
-             <h2> Estrategias de evaluación </h2>
-             <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         </textarea>
-         <h2> Fuentes de información recomendadas </h2>
-         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
-         {{row.fuentes_info}}</textarea>-->
          <p>{{ form.fuentes_info.label_tag }} {{ form.fuentes_info }}</p>
 
         </div>
