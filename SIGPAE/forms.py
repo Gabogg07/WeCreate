@@ -178,15 +178,15 @@ class HistorialForm(forms.Form):
 
 	CREDITOS.insert(0, (0, 'Sin seleccionar'))
 
-	HORAS_T = [(x, x) for x in range(1, 42)]
+	HORAS_T = [(x, x) for x in range(1, 41)]
 
 	HORAS_T.insert(0, (0, 'Sin seleccionar'))
 
-	HORAS_P = [(x, x) for x in range(1, 42)]
+	HORAS_P = [(x, x) for x in range(1, 41)]
 
 	HORAS_P.insert(0, (0, 'Sin seleccionar'))
 
-	HORAS_L = [(x, x) for x in range(1, 42)]
+	HORAS_L = [(x, x) for x in range(1, 41)]
 
 	HORAS_L.insert(0, (0, 'Sin seleccionar'))
 
