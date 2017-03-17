@@ -45,10 +45,11 @@ def home(request):
 			row_hist.horas_L = form.cleaned_data['horas_L']
 			row_hist.num_creditos = form.cleaned_data['num_creditos']
 			row_hist.requisitos = form.cleaned_data['requisitos']
-			row_hist.cont_sinopticos = form.cleaned_data['cont_sinopticos']
 			row_hist.estrategias_met = form.cleaned_data['estrategias_met']
 			row_hist.estrategias_ev = form.cleaned_data['estrategias_ev']
-			row_hist.objetivos = form.cleaned_data['objetivos']
+			row_hist.contenido = form.cleaned_data['contenido']
+			row_hist.objetivos_generales = form.cleaned_data['objetivos_generales']
+			row_hist.objetivos_especificos = form.cleaned_data['objetivos_especificos']
 			row_hist.fuentes_info = form.cleaned_data['fuentes_info']
 			row_hist.save()
 	return render(request, 'SIGPAE/home.html', {})
