@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import render
 from django.template import RequestContext
 from django.http import HttpResponseRedirect,HttpResponse
@@ -18,9 +20,23 @@ def prueba(request,url):
 	pdf.closed
 
 def home(request):
+	context = {}
 	if request.method == 'POST':
 		form = HistorialForm(request.POST, request.FILES)
 		if form.is_valid():
+			if (form.cleaned_data['codigo_asignatura'] != "" and
+				form.cleaned_data['periodo'] != "" and
+				form.cleaned_data['anio'] != ""):
+
+				items = Historial.objects.all().filter(
+						codigo_asignatura=form.cleaned_data['codigo_asignatura'],
+						periodo=form.cleaned_data['periodo'],
+						anio=form.cleaned_data['anio'])
+
+				if items.count() > 0:
+					message = "Introdujo un programa con código, período y año existentes"
+					context = {'message':message}
+
 			documento = request.POST['documento']
 			row_hist = Historial.objects.all().filter(docfile_id = documento).first()
 			row_hist.dependencia = form.cleaned_data['dependencia']
@@ -49,7 +65,7 @@ def home(request):
 			row_hist.objetivos_especificos = form.cleaned_data['objetivos_especificos']
 			row_hist.fuentes_info = form.cleaned_data['fuentes_info']
 			row_hist.save()
-	return render(request, 'SIGPAE/home.html', {})
+	return render(request, 'SIGPAE/home.html', context)
 
 def index(request):
 	return render(request, 'SIGPAE/index.html', {})
@@ -58,7 +74,6 @@ def cargar_archivo(request):
 	if request.method == 'POST':
 		form = DocumentForm(request.POST, request.FILES)
 		if form.is_valid():
-			print("Form valido")
 			newdoc = Document(
 				codigo = form.cleaned_data['codigo'],
 				periodo = form.cleaned_data['periodo'],
@@ -108,9 +123,6 @@ def transcripcion(request):
 		ruta = request.GET['ruta']
 		id_row = Document.objects.all().filter(docfile = docfile).first()
 		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
-		print("\n")
-		print(row.dependencia)
-		print("\n")
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
 			texto_editable=texto_editable.decode("utf-8")

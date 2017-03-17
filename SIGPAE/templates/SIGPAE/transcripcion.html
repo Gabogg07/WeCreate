@@ -51,7 +51,6 @@
    var ElDep = "{{ dpto }}"
 </script>
 
-
 <div class="container-fluid" style="height: 80%">
 
    <div class="row">
@@ -92,6 +91,7 @@
       <form action="{% url "home" %}" method="post" enctype="multipart/form-data">
          {% csrf_token %}
          <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
+
          <h2>Dependencia</h2>
          <div onchange="mostrar()"><p>{{ form.dependencia }}</p></div>
          <div onchange="cambia_decanato()" id="decanato"><p>{{ form.decanato.label_tag }} {{ form.decanato }}</p></div>
