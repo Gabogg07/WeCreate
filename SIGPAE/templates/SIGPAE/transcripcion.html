@@ -176,12 +176,12 @@
 </script>
 
 <script>
-/*
+
 var division_1=["Seleccione Departamento","Departamento de Física","Departamento de Química","Departamento de Mecánica","Departamento de Matemáticas Puras y Aplicadas","Departamento de Computación y Tecnología de la Información","Departamento de Cómputo Científico y Estadística","Departamento de Electrónica y Circuitos","Departamento de Termodinámica y Fenómenos de Transferencia","Departamento de Conversión y Transporte de Energía","Departamento de Procesos y Sistemas","Departamento de Ciencias de los Materiales","Departamento de Ciencias de la Tierra"]
 var division_2=["Seleccione Departamento","Departamento de Ciencia y Tecnología del Comportamiento","Departamento de Lengua y Literatura","Departamento de Ciencias Económicas y Administrativas","Departamento de Idiomas","Departamento de Filosofía","Departamento de Ciencias Sociales","Departamento de Diseño Arquitectura y Artes Plásticas","Departamento de Planificación Urbana"]
 var division_3=["Seleccione Departamento","Departamento de Biología Celular","Departamento de Estudios Ambientales","Departamento de Biología de Organismos","Departamento de Tecnología de Procesos Biológicos y Bioquímicos"]
 var division_4=["Seleccione Departamento","Departamento de Tecnología de Servicios","Departamento de Tecnología Industrial","Departamento de Formación General y Ciencias Básicas"]
-
+/*
 function cambia_division2(k){
    var div = document.f1.div[document.f1.div.selectedIndex].value
    if (div != 0) {
@@ -353,37 +353,36 @@ function AsignarDep(dpto) {
     val=0
     $("#division").show();
     if (contains(division_1,dpto)){
-        val=1
-        Ndpto=division_1.indexOf(dpto)
+        val=0
+        Ndpto=division_1.indexOf(dpto)-1
         mi_division = division_1
-
         document.getElementById('id_departamento_D1').options[Ndpto].selected=true
         $("#departamento_D1").show();
     }
     else if (contains(division_2,dpto)) {
-        val=2
-        Ndpto=division_2.indexOf(dpto)
+        val=1
+        Ndpto=division_2.indexOf(dpto)-1
         mi_division = division_2
         document.getElementById('id_departamento_D2').options[Ndpto].selected=true
         $("#departamento_D2").show();
     }
     else if (contains(division_3,dpto)) {
-        val=3
-        Ndpto=division_3.indexOf(dpto)
+        val=2
+        Ndpto=division_3.indexOf(dpto)-1
         mi_division = division_3
         document.getElementById('id_departamento_D3').options[Ndpto].selected=true
         $("#departamento_D3").show();
     }
     else if (contains(division_4,dpto)) {
-        val=4
-        Ndpto=division_4.indexOf(dpto)
+        val=3
+        Ndpto=division_4.indexOf(dpto)-1
         mi_division = division_4
         document.getElementById('id_departamento_D4').options[Ndpto].selected=true
         $("#departamento_D4").show();
     }
-    document.getElementById('id_dependencia').options[2].selected=true
+
+    document.getElementById('id_dependencia').options[1].selected=true
     document.getElementById('id_division').options[val].selected=true
-    document.getElementById('id_decanato').options[2].selected=true
 
 }
 
