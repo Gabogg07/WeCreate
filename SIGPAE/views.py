@@ -95,6 +95,7 @@ def cargar_archivo(request):
 				if match[2] in cods:
 					dpto = cods.get(match[2])
 			if re.search(r'csa', cdg): dpto = 'Departamento de Ciencias Sociales'
+			if re.search(r'lla', cdg): dpto = 'Departamento de Lengua y Literatura'
 			context = {'texto_editable': texto_editable, 'documento': newdoc.docfile, 'codigo': cdg.upper(),'dpto':dpto,'row': newhist, 'form':HistorialForm()}
 			return render(request, 'SIGPAE/transcripcion.html', context)
 		return render(request,'SIGPAE/cargar.html',{'form': form})
@@ -132,6 +133,7 @@ def transcripcion(request):
 			if match[2] in cods:
 				dpto = cods.get(match[2])
 		if re.search(r'csa', cdg): dpto = 'Departamento de Ciencias Sociales'
+		if re.search(r'lla', cdg): dpto = 'Departamento de Lengua y Literatura'
 		context = {'texto_editable': texto_editable, 'ruta': ruta, 'codigo': cdg.upper(),'dpto':dpto,'row': row,'form':HistorialForm()}
 		return render(request, 'SIGPAE/transcripcion.html', context)
 	else:
