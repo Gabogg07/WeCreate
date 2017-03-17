@@ -11,7 +11,6 @@ from .models import Document, Historial
 from .forms import DocumentForm, ConsultaForm, HistorialForm, MostrarConsultaForm
 
 def prueba(request,url):
-	print("\nURL: "+url+"\n")
 	with open(url, 'rb') as pdf:
 		response = HttpResponse(pdf.read(), content_type='application/pdf')
 		response['Content-Disposition'] = 'inline;filename=some_file.pdf'
@@ -20,10 +19,8 @@ def prueba(request,url):
 
 def home(request):
 	if request.method == 'POST':
-		print("\nPOST\n")
 		form = HistorialForm(request.POST, request.FILES)
 		if form.is_valid():
-			print("\nFORM VALIDO\n")
 			documento = request.POST['documento']
 			row_hist = Historial.objects.all().filter(docfile_id = documento).first()
 			row_hist.dependencia = form.cleaned_data['dependencia']
@@ -36,7 +33,6 @@ def home(request):
 			row_hist.departamento_D2 = form.cleaned_data['departamento_D2']
 			row_hist.departamento_D3 = form.cleaned_data['departamento_D3']
 			row_hist.departamento_D4 = form.cleaned_data['departamento_D4']
-
 			row_hist.codigo_asignatura = form.cleaned_data['codigo_asignatura']
 			row_hist.denominacion = form.cleaned_data['denominacion']
 			row_hist.periodo = form.cleaned_data['periodo']
@@ -46,10 +42,11 @@ def home(request):
 			row_hist.horas_L = form.cleaned_data['horas_L']
 			row_hist.num_creditos = form.cleaned_data['num_creditos']
 			row_hist.requisitos = form.cleaned_data['requisitos']
-			row_hist.cont_sinopticos = form.cleaned_data['cont_sinopticos']
 			row_hist.estrategias_met = form.cleaned_data['estrategias_met']
 			row_hist.estrategias_ev = form.cleaned_data['estrategias_ev']
-			row_hist.objetivos = form.cleaned_data['objetivos']
+			row_hist.contenido = form.cleaned_data['contenido']
+			row_hist.objetivos_generales = form.cleaned_data['objetivos_generales']
+			row_hist.objetivos_especificos = form.cleaned_data['objetivos_especificos']
 			row_hist.fuentes_info = form.cleaned_data['fuentes_info']
 			row_hist.save()
 	return render(request, 'SIGPAE/home.html', {})
@@ -111,7 +108,6 @@ def transcripcion(request):
 		print("Ruta: "+ruta+"\n")
 		id_row = Document.objects.all().filter(docfile = docfile).first()
 		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
-
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
 			texto_editable=texto_editable.decode("utf-8")
