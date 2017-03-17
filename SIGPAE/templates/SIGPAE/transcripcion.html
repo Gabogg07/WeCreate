@@ -565,7 +565,575 @@ var decanato_1=new Array("Seleccione Coordinación","Coordinación del Ciclo Bá
 var decanato_2=new Array("Seleccione Coordinación","Coordinación de Química","Coordinación de Matemática","Coordinación de Biología","Coordinación de Física","Coordinación de Tecnología e Ingeniería Eléctrica","Coordinación de Tecnología e Ingeniería Electrónica","Coordinación de Ingeniería Mecánica","Coordinación de Ingeniería Química","Coordinación de Ingeniería de Computación","Coordinación de Ingeniería Geofísica","Coordinación de Ingeniería de Materiales","Coordinación de Ingeniería de Producción y Organización Empresarial","Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento","Coordinación de Ingeniería de Telecomunicaciones","Coordinación de Arquitectura","Coordinación de Estudios Urbanos","Coordinación de Turismo, Hotelería y Hospitalidad","Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional")
 var decanato_3=new Array("Seleccione Coordinación","Coordinación de Tecnología e Ingeniería Eléctrica","Coordinación de Tecnología Eléctrica y Electrónica","Coordinación de Ingeniería de Producción y Organización Empresarial","Coordinación de Turismo, Hotelería y Hospitalidad","Coordinación de Administración Aduanera","Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional","Coordinación de Administración del Transporte y Organización Empresarial","Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento")
 
-function cambia_decanato(k){
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+<div class="container" style="padding-top: 1em;">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex6-collapse">
+        <span class="sr-only">Desplegar navegación</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+    </div>
+
+    <div class="collapse navbar-collapse navbar-ex6-collapse">
+      <ul class="nav navbar-nav">
+      <li>&nbsp;</li>
+        <li><a href="{% url "home" %}">SIGPAE</a></li>
+        <li><a href="{% url "cargar" %}" >Cargar</a></li>
+        <li><a href="{% url "consulta" %}">Consultar</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<br>
+<br>
+
+</div>
+
+<script type="text/javascript">
+   var ElCod = "{{codigo}}";
+   var ElDep = "{{ dpto }}"
+</script>
+
+
+<div class="container-fluid" style="height: 80%">
+
+   <div class="row">
+      <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+         <h2> PDF </h2>
+         {% if documento %}
+            <iframe src=/prueba/{{ documento.path }} style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
+            </iframe>
+         {% else %}
+            <iframe src=/prueba/{{ ruta }} style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
+            </iframe>
+         {% endif %}   
+      </div>
+
+      <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+
+         <h2> Texto extraído </h2>
+         {% if texto_editable %}
+         <textarea id= KKK cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
+         {{ texto_editable}}
+         </textarea>
+         {% endif %}
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+      <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
+
+      <form name="menu_extraer">
+            <select class="form-control" name="opciones_extraer" style="width:95%;">
+            <option value="0" selected>Seleccione Opción
+            <option value="1">Código y Departamento
+            </select>
+      </form>
+
+      <button onClick="Extraer(ElCod,ElDep)">Extraer</button>
+
+
+      <form action="{% url "home" %}" method="post" enctype="multipart/form-data">
+         {% csrf_token %}
+         <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
+         <h2>Dependencia</h2>
+         <div onchange="mostrar()"><p>{{ form.dependencia }}</p></div>
+         <div onchange="cambia_decanato()" id="decanato"><p>{{ form.decanato.label_tag }} {{ form.decanato }}</p></div>
+         <div id="coordinacion_D1"><p>{{ form.coordinacion_D1.label_tag }} {{ form.coordinacion_D1 }}</p></div>
+         <div id="coordinacion_D2"><p>{{ form.coordinacion_D2.label_tag }} {{ form.coordinacion_D2 }}</p></div>
+         <div id="coordinacion_D3"><p>{{ form.coordinacion_D3.label_tag }} {{ form.coordinacion_D3 }}</p></div>
+         <div onchange="cambia_division()" id="division"><p>{{ form.division.label_tag }} {{ form.division }}</p></div>
+         <div id="departamento_D1"><p>{{ form.departamento_D1.label_tag }} {{ form.departamento_D1 }}</p></div>
+         <div id="departamento_D2"><p>{{ form.departamento_D2.label_tag }} {{ form.departamento_D2 }}</p></div>
+         <div id="departamento_D3"><p>{{ form.departamento_D3.label_tag }} {{ form.departamento_D3 }}</p></div>
+         <div id="departamento_D4"><p>{{ form.departamento_D4.label_tag }} {{ form.departamento_D4 }}</p></div>
+      <!--<h2> Dependencia </h2>
+
+
+      <form action="index.php" method="post" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+
+          <select class="form-control" id="status" name="status" onChange="mostrar(this.value);"  >
+            <option value="0">Seleccione tipo de unidad</option>
+              <option value="coordinaciones">Coordinación</option>
+              <option value="departamento">Departamento</option>
+           </select>
+      </form>
+      <div id="coordinaciones" class="element" style="display: none;">
+               <h2> Coordinación </h2>
+         <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+            <form name="f2">
+            <select class="form-control" name=dec onchange="cambia_decanato(0)" style="width:95%;">
+            <option value="0" selected>Seleccione Decanato...
+            <option value="1">Decanato de Estudios Generales
+            <option value="2">Decanato de Estudios Profesionales
+            <option value="3">Decanato de Estudios Tecnológicos
+            </select>
+<br>
+            <select class="form-control" name=decanato style="width:95%;">
+            <option value="-">-
+            </select>
+            </form>
+         </div>
+      </div>
+
+      <div id="departamento" class="element" style="display: none;">
+         <h2> Departamento: </h2>
+         <div class="form-group" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+            <form name="f1">
+            <select class="form-control" name=div onchange="cambia_division(0)" style="width:95%;">
+            <option value="0" selected>Seleccione División...
+            <option value="1">División de Ciencias Físicas y Matemáticas
+            <option value="2">División de Ciencias Sociales y Humanidades
+            <option value="3">División de Ciencias Biológicas
+            <option value="4">División de Ciencias y Tecnologías Administrativas e Industriales
+            </select>
+            <br>
+            <select class="form-control" name=division style="width:95%;">
+            <option value="-">-
+            </select>
+            </form>
+         </div>
+
+      </div-->
+
+
+         <h2> Código Asignatura </h2>
+         <!--<textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">{{ form.codigo_asignatura }}</textarea>-->
+
+         <p>{{ form.codigo_asignatura.label_tag }} {{ form.codigo_asignatura }}</p>
+         <br>
+         <!--<h2> Denominación </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         {{row.denominacion}}</textarea>-->
+         <p>{{ form.denominacion.label_tag }} {{ form.denominacion }}</p>
+         <br>
+         <h2> Fecha de entrada en vigencia </h2>
+         <!--<h3> Período: </h3>
+         <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+         	<option value="">{{row.periodo}}</option>
+         <h3> Período: <h3>
+         <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+         	<option value="">Nigún período</option>
+            <option value="Sep-Dic">Sep-Dic</option>
+            <option value="Ene-Mar">Ene-Mar</option>
+            <option value="Abr-Jul">Abr-Jul</option>
+            <option value="Intensivo">Intensivo</option>
+         </select>-->
+         <p>{{ form.periodo.label_tag }} {{ form.periodo }}</p>
+
+         <!--<h3> Año: </h3>
+         <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+         	<option value=0>{{row.anio}}</option>
+         </select>
+
+         <h3> Año: <h3>
+         <select class="form-control" name="periodo" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+         	<option value=0>Ningún año</option>
+            <option value="1">1969</option>
+            <option value="2">1970</option>
+            <option value="3">1971</option>
+            <option value="4">1972</option>
+            <option value="5">1973</option>
+            <option value="6">1974</option>
+            <option value="7">1975</option>
+            <option value="8">1976</option>
+            <option value="9">1977</option>
+            <option value="10">1978</option>
+            <option value="11">1979</option>
+            <option value="12">1980</option>
+            <option value="13">1981</option>
+            <option value="14">1982</option>
+            <option value="15">1983</option>
+            <option value="16">1984</option>
+            <option value="17">1985</option>
+            <option value="19">1986</option>
+            <option value="20">1987</option>
+            <option value="21">1988</option>
+            <option value="22">1989</option>
+            <option value="23">1990</option>
+            <option value="24">1991</option>
+            <option value="25">1992</option>
+            <option value="26">1993</option>
+            <option value="27">1994</option>
+            <option value="28">1995</option>
+            <option value="29">1996</option>
+            <option value="30">1997</option>
+            <option value="31">1998</option>
+            <option value="32">1999</option>
+            <option value="33">2000</option>
+            <option value="34">2001</option>
+            <option value="35">2002</option>
+            <option value="36">2003</option>
+            <option value="37">2004</option>
+            <option value="38">2005</option>
+            <option value="39">2006</option>
+            <option value="40">2007</option>
+            <option value="41">2008</option>
+            <option value="33">2009</option>
+            <option value="34">2010</option>
+            <option value="35">2011</option>
+            <option value="36">2012</option>
+            <option value="37">2013</option>
+            <option value="38">2014</option>
+            <option value="39">2015</option>
+            <option value="40">2016</option>
+            <option value="41">2017</option>
+         </select>-->
+         <p>{{ form.anio.label_tag }} {{ form.anio }}</p>
+
+         <h2> Horas de teoría semanales: </h2>
+         <!--<select class="form-control" name="Horas_Teoria" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+            <option value="0">{{row.horas_T}}</option>
+         </select>
+
+         <h2> Horas de teoría semanales: </h2>
+         <select class="form-control" name="Horas_Teoria" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="19">18</option>
+            <option value="20">19</option>
+            <option value="21">20</option>
+            <option value="22">21</option>
+            <option value="23">22</option>
+            <option value="24">23</option>
+            <option value="25">24</option>
+            <option value="26">25</option>
+            <option value="27">26</option>
+            <option value="28">27</option>
+            <option value="29">28</option>
+            <option value="30">29</option>
+            <option value="31">30</option>
+            <option value="32">31</option>
+            <option value="33">32</option>
+            <option value="34">33</option>
+            <option value="35">34</option>
+            <option value="36">35</option>
+            <option value="37">36</option>
+            <option value="38">37</option>
+            <option value="39">38</option>
+            <option value="40">39</option>
+            <option value="41">40</option>
+         </select>-->
+         <p>{{ form.horas_T.label_tag }} {{ form.horas_T }}</p>
+         <!--<h2> Horas de práctica semanales: </h2>
+         <select class="form-control" name="Horas_Practica"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+            <option value="0">{{row.horas_P}}</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="19">18</option>
+            <option value="20">19</option>
+            <option value="21">20</option>
+            <option value="22">21</option>
+            <option value="23">22</option>
+            <option value="24">23</option>
+            <option value="25">24</option>
+            <option value="26">25</option>
+            <option value="27">26</option>
+            <option value="28">27</option>
+            <option value="29">28</option>
+            <option value="30">29</option>
+            <option value="31">30</option>
+            <option value="32">31</option>
+            <option value="33">32</option>
+            <option value="34">33</option>
+            <option value="35">34</option>
+            <option value="36">35</option>
+            <option value="37">36</option>
+            <option value="38">37</option>
+            <option value="39">38</option>
+            <option value="40">39</option>
+            <option value="41">40</option>
+         </select>-->
+         <p>{{ form.horas_P.label_tag }} {{ form.horas_P }}</p>
+         <!--<h2> Horas de Laboratorio semanales: </h2>
+         <select class="form-control" name="Horas_Laboratorio"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+            <option value="0">{{row.horas_L}}</option>
+         </select>
+             </select>
+         <h2> Horas de laboratorio semanales: </h2>
+         <select class="form-control" name="Horas_Laboratorio"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="19">18</option>
+            <option value="20">19</option>
+            <option value="21">20</option>
+            <option value="22">21</option>
+            <option value="23">22</option>
+            <option value="24">23</option>
+            <option value="25">24</option>
+            <option value="26">25</option>
+            <option value="27">26</option>
+            <option value="28">27</option>
+            <option value="29">28</option>
+            <option value="30">29</option>
+            <option value="31">30</option>
+            <option value="32">31</option>
+            <option value="33">32</option>
+            <option value="34">33</option>
+            <option value="35">34</option>
+            <option value="36">35</option>
+            <option value="37">36</option>
+            <option value="38">37</option>
+            <option value="39">38</option>
+            <option value="40">39</option>
+            <option value="41">40</option>
+         </select>-->
+         <p>{{ form.horas_L.label_tag }} {{ form.horas_L }}</p>
+
+         <!--<h2> Número de créditos: </h2>
+         </select>
+         <h2> Número de créditos: </h2>
+         <select class="form-control" name="Numero_creditos"  style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%; height:12%">
+            <option value="0">{{row.num_creditos}}</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+         </select>-->
+         <p>{{ form.num_creditos.label_tag }} {{ form.num_creditos }}</p>
+
+         <!--<h2> Requisitos </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         {{row.requisitos}}</textarea>-->
+         <p>{{ form.requisitos.label_tag }} {{ form.requisitos }}</p>
+
+         <!--<h2> Objetivos </h2>
+         <textarea cols="40" rows="15" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         {{row.objetivos}}</textarea>-->
+         <p>{{ form.objetivos.label_tag }} {{ form.objetivos }}</p>
+         <br>
+
+         <!--<h2> Contenidos sinópticos </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         {{row.cont_sinopticos}}</textarea>-->
+
+         <!--<h2> Estrategias metodológicas </h2>
+         </select>
+
+         <h2> Requisitos </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea-->
+
+         <h2> Contenidos sinópticos </h2>
+         <!--<form action="index.php" method="post" name="contenidos" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">-->
+
+             <!--<select class="form-control" id="status_contenido" name="status_contenido" onChange="mostrar_objetivos(this.value, 'objsGeneralesContent1', 'objsGeneralesContent2', 'objsEspecificosContent');">
+               <option value="0">Seleccione el tipo de contenido</option>
+                 <option value="objsGenerales">Objetivos</option>
+                 <option value="objsEspecificos">Objetivos Generales y Específicos</option>
+              </select>
+         </form>-->
+         <p>{{ form.contenido.label_tag }} {{ form.contenido }}</p>
+
+
+         <!--<div id="objsGenerales" class="element" style="display: none;">
+                  <h2> Objetivos Generales </h2>
+            <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
+               <<form name="f3">
+                 <textarea id="objsGeneralesContent1"  cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" ></textarea>
+               </form>>
+            </div>
+         </div>-->
+
+         <!--<div id="objsEspecificos" class="element" style="display: none;">
+            <h2> Objetivos Generales: </h2>
+            <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
+               <<form name="f4">
+                 <textarea id="objsGeneralesContent2" cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" ></textarea>
+   <br>
+               </form>>
+            </div>
+
+            <h2> Objetivos Específicos: </h2>
+            <div class="form-group" style="border:10px deepskyblue;font-family:arial;padding:10px;width:95%">
+               <!--<form name="f5">
+                 <textarea id="objsEspecificosContent" cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%" ></textarea>
+   <br>
+               </form>>
+            </div>
+
+         </div>-->
+         <br>
+         <br>
+         <p>{{ form.objetivos_generales.label_tag }} {{ form.objetivos_generales }}</p>
+         <p>{{ form.objetivos_especificos.label_tag }} {{ form.objetivos_especificos }}</p>
+
+
+         <!--h2> Estrategias metodológicas </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         {{row.estrategias_met}}</textarea>-->
+         <p>{{ form.estrategias_met.label_tag }} {{ form.estrategias_met }}</p>
+         <br>
+
+         <!--<h2> Estrategias de evaluación </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         {{row.estrategias_ev}}</textarea>-->
+         <p>{{ form.estrategias_ev.label_tag }} {{ form.estrategias_ev }}</p>
+         <br>
+
+         <!--<h2> Fuentes de información recomendadas </h2>
+         </textarea>
+             <br>
+             <h2> Objetivos </h2>
+             <textarea cols="40" rows="15" style="overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
+             <br>
+             <h2> Contenidos sinópticos </h2>
+             <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
+             <h2> Estrategias metodológicas </h2>
+             <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
+             <br>
+             <h2> Estrategias de evaluación </h2>
+             <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         </textarea>
+         <h2> Fuentes de información recomendadas </h2>
+         <textarea cols="40" rows="1" style="border:10px double deepskyblue;font-family:arial;padding:10px;width:95%">
+         {{row.fuentes_info}}</textarea>-->
+         <p>{{ form.fuentes_info.label_tag }} {{ form.fuentes_info }}</p>
+
+        </div>
+        <input type="submit" value="Guardar"/>
+      </form>
+      </div>
+       </div>
+      </div></div>
+
+
+<script type="text/javascript">
+   document.getElementById('id_dependencia').value = "{{ row.dependencia }}";
+   document.getElementById('id_decanato').value = "{{ row.decanato }}";
+   document.getElementById('id_coordinacion_D1').value = "{{ row.coordinacion_D1 }}";
+   document.getElementById('id_coordinacion_D2').value = "{{ row.coordinacion_D2 }}";
+   document.getElementById('id_coordinacion_D3').value = "{{ row.coordinacion_D3 }}";
+   document.getElementById('id_division').value = "{{ row.division }}";
+   document.getElementById('id_departamento_D1').value = "{{ row.departamento_D1 }}";
+   document.getElementById('id_departamento_D2').value = "{{ row.departamento_D2 }}";
+   document.getElementById('id_departamento_D3').value = "{{ row.departamento_D3 }}";
+   document.getElementById('id_departamento_D4').value = "{{ row.departamento_D4 }}";
+   document.getElementById('id_codigo_asignatura').value = "{{ row.codigo_asignatura }}";
+   document.getElementById('id_denominacion').value = "{{ row.denominacion }}";
+   document.getElementById('id_periodo').value = "{{ row.periodo }}";
+   document.getElementById('id_anio').value = "{{ row.anio }}";
+   document.getElementById('id_horas_T').value = "{{ row.horas_T }}";
+   document.getElementById('id_horas_P').value = "{{ row.horas_P }}";
+   document.getElementById('id_horas_L').value = "{{ row.horas_L }}";
+   document.getElementById('id_num_creditos').value = "{{ row.num_creditos }}";
+   document.getElementById('id_requisitos').value = "{{ row.requisitos }}";
+   document.getElementById('id_estrategias_met').value = "{{ row.estrategias_met }}";
+   document.getElementById('id_estrategias_ev').value = "{{ row.estrategias_ev }}";
+   document.getElementById('id_contenido').value = "{{ row.contenido }}";
+   document.getElementById('id_objetivos_generales').value = "{{ row.objetivos_generales }}";
+   document.getElementById('id_objetivos_especificos').value = "{{ row.objetivos_especificos }}";
+   document.getElementById('id_fuentes_info').value = "{{ row.fuentes_info }}";
+
+
+</script>
+
+<script>
+/*
+var division_1=["Seleccione Departamento","Departamento de Física","Departamento de Química","Departamento de Mecánica","Departamento de Matemáticas Puras y Aplicadas","Departamento de Computación y Tecnología de la Información","Departamento de Cómputo Científico y Estadística","Departamento de Electrónica y Circuitos","Departamento de Termodinámica y Fenómenos de Transferencia","Departamento de Conversión y Transporte de Energía","Departamento de Procesos y Sistemas","Departamento de Ciencias de los Materiales","Departamento de Ciencias de la Tierra"]
+var division_2=["Seleccione Departamento","Departamento de Ciencia y Tecnología del Comportamiento","Departamento de Lengua y Literatura","Departamento de Ciencias Económicas y Administrativas","Departamento de Idiomas","Departamento de Filosofía","Departamento de Ciencias Sociales","Departamento de Diseño Arquitectura y Artes Plásticas","Departamento de Planificación Urbana"]
+var division_3=["Seleccione Departamento","Departamento de Biología Celular","Departamento de Estudios Ambientales","Departamento de Biología de Organismos","Departamento de Tecnología de Procesos Biológicos y Bioquímicos"]
+var division_4=["Seleccione Departamento","Departamento de Tecnología de Servicios","Departamento de Tecnología Industrial","Departamento de Formación General y Ciencias Básicas"]
+
+function cambia_division2(k){
+   var div = document.f1.div[document.f1.div.selectedIndex].value
+   if (div != 0) {
+      mis_division=eval("division_" + div)
+      num_division = mis_division.length
+      document.f1.division.length = num_division
+      for(i=0;i<num_division;i++){
+         document.f1.division.options[i].value=mis_division[i]
+         document.f1.division.options[i].text=mis_division[i]
+      }
+   }else{
+      document.f1.division.length = 1
+      document.f1.division.options[0].value = "-"
+      document.f1.division.options[0].text = "-"
+   }
+   document.f1.division.options[k].selected = true
+}
+var decanato_1=new Array("Seleccione Coordinación","Coordinación del Ciclo Básico","Coordinación del Ciclo Profesional","Coordinación de Formación General","Coordinación del Ciclo de Iniciación Universitaria")
+var decanato_2=new Array("Seleccione Coordinación","Coordinación de Química","Coordinación de Matemática","Coordinación de Biología","Coordinación de Física","Coordinación de Tecnología e Ingeniería Eléctrica","Coordinación de Tecnología e Ingeniería Electrónica","Coordinación de Ingeniería Mecánica","Coordinación de Ingeniería Química","Coordinación de Ingeniería de Computación","Coordinación de Ingeniería Geofísica","Coordinación de Ingeniería de Materiales","Coordinación de Ingeniería de Producción y Organización Empresarial","Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento","Coordinación de Ingeniería de Telecomunicaciones","Coordinación de Arquitectura","Coordinación de Estudios Urbanos","Coordinación de Turismo, Hotelería y Hospitalidad","Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional")
+var decanato_3=new Array("Seleccione Coordinación","Coordinación de Tecnología e Ingeniería Eléctrica","Coordinación de Tecnología Eléctrica y Electrónica","Coordinación de Ingeniería de Producción y Organización Empresarial","Coordinación de Turismo, Hotelería y Hospitalidad","Coordinación de Administración Aduanera","Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional","Coordinación de Administración del Transporte y Organización Empresarial","Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento")
+
+function cambia_decanato2(k){
    var dec = document.f2.dec[document.f2.dec.selectedIndex].value
    if (dec != 0) {
       mis_decanato=eval("decanato_" + dec)
@@ -583,7 +1151,7 @@ function cambia_decanato(k){
    document.f2.decanato.options[k].selected = true
 }
 
-function mostrar(id) {
+function mostrar2(id) {
    if (id == "coordinaciones") {
       $("#coordinaciones").show();
       $("#departamento").hide();
@@ -594,6 +1162,92 @@ function mostrar(id) {
       $("#departamento").show();
    }
 
+}
+*/
+
+/*Funcion que al cargar la pagina se encarga de esconder todos los select para que luego a medida que el usuario vaya seleccionando las distintas opciones, se vayan desplegando los select correspondientes*/
+function inicio(){
+   $("#decanato").hide();
+   $("#coordinacion_D1").hide();
+   $("#coordinacion_D2").hide();
+   $("#coordinacion_D3").hide();
+   $("#departamento_D1").hide();
+   $("#departamento_D2").hide();
+   $("#departamento_D3").hide();
+   $("#departamento_D4").hide();
+   $("#division").hide();
+}
+window.onload = inicio();
+
+/*Funcion que se encarga de mostrar la unidad que desea seleccionar el usuario, esto es, si el usuario marca coordinacion como unidad, mostrar las opciones correspondientes*/
+function mostrar() {
+   $("#decanato").hide();
+   $("#coordinacion_D1").hide();
+   $("#coordinacion_D2").hide();
+   $("#coordinacion_D3").hide();
+   $("#departamento_D1").hide();
+   $("#departamento_D2").hide();
+   $("#departamento_D3").hide();
+   $("#departamento_D4").hide();
+   $("#division").hide();
+   var uni = document.getElementById('id_dependencia').value;
+   if (uni =="Departamento") {
+      $("#division").show();
+   }else{
+      $("#decanato").show();
+   }
+
+}
+/*Funcion que en base a un decanado seleccionado muestra
+las coordinaciones que conforman ese decanato para que pueda ser
+seleccionada una coordinacion por el usuario*/
+
+function cambia_decanato(){
+   $("#departamento_D1").hide();
+   $("#departamento_D2").hide();
+   $("#departamento_D3").hide();
+   $("#departamento_D4").hide();
+   $("#division").hide();
+   $("#coordinacion_D1").hide();
+   $("#coordinacion_D2").hide();
+   $("#coordinacion_D3").hide();
+   var dec = document.getElementById('id_decanato').value;
+   if (dec =="Decanato de Estudios Generales") {
+      $("#coordinacion_D1").show();
+   } else{
+   if (dec =="Decanato de Estudios Profesionales") {
+      $("#coordinacion_D2").show();
+   } else {
+      $("#coordinacion_D3").show();
+   }}
+}
+
+/*Funcion que en base a una division seleccionada muestra
+los departamentos que conforman esa division para que pueda ser
+seleccionado un departamento por el usuario*/
+
+function cambia_division(){
+   $("#departamento_D1").hide();
+   $("#departamento_D2").hide();
+   $("#departamento_D3").hide();
+   $("#departamento_D4").hide();
+   $("#decanato").hide();
+   $("#coordinacion_D1").hide();
+   $("#coordinacion_D2").hide();
+   $("#coordinacion_D3").hide();
+   var div = document.getElementById('id_division').value;
+   if (div =="División de Ciencias Físicas y Matemáticas") {
+      $("#departamento_D1").show();
+   }
+   if (div =="División de Ciencias Sociales y Humanidades") {
+      $("#departamento_D2").show();
+   }
+   if (div =="División de Ciencias Biológicas") {
+      $("#departamento_D3").show();
+   }
+   if (div =="División de Ciencias y Tecnologías Administrativas e Industriales") {
+      $("#departamento_D4").show();
+   }
 }
 
 
@@ -625,6 +1279,120 @@ function mostrar_objetivos(id, generales1, generales2, especificos) {
         mantenerContenidos(generales1, generales2); // Copia el contenido a Objetivos Generales
         document.getElementById(generales1).value = ""; // Borra el contenido anterior
         $("#objsGenerales").hide();
+        $("#objsEspecificos").show();
+    }
+    /*Se introdujo informacion en la modalidad de Objtvs Generales y Especificos*/
+    else if(id == "objsGenerales") {
+        if (confirm("Al cambiar de modalidad se perderá la división entre los tipos\
+ de Objetivos y toda la información pasará a estar en el único campo de\
+ Objetivos. ¿Desea proseguir?")){
+          mantenerContenidos2(generales2, especificos, generales1); // Copia el contenido al unico campo de Objetivos
+          document.getElementById(especificos).value = ""; // Borra el contenido anterior
+          document.getElementById(generales2).value = "";
+          $("#objsGenerales").show();
+          $("#objsEspecificos").hide();
+        }
+        else{
+         document.contenidos.status_contenido.options[2].selected = true;
+        }
+    }
+
+
+}
+/*Funcion que verifica si se logro extraer algun codigo, en caso de ser negativo levanta una advertencia, en caso contrario
+  procede a escribir el codigo en su campo respectivo y llamar a su funcion auxiliar. */
+function Extraer(cod,dpto) {
+    if (document.menu_extraer.opciones_extraer.options[1].selected==true) {
+        if (cod.length == 0) {
+            alert("No se encontró ningún código");
+        }
+        else {
+            asig = document.getElementById('id_codigo_asignatura');
+            asig.value = cod;
+
+            AsignarDep(dpto);
+        }
+    }
+}
+/*Funcion que verifica si un objeto esta contenido, o no, en un arreglo*/
+function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
+/*Funcion que una vez recibo el departamento, asigna la dependencia, division y departamento a la pagina.
+  usada como auxiliar de Extraer*/
+function AsignarDep(dpto) {
+    mi_division=[]
+    Ndpto=0
+    val=0
+    $("#division").show();
+    if (contains(division_1,dpto)){
+        val=1
+        Ndpto=division_1.indexOf(dpto)
+        mi_division = division_1
+
+        document.getElementById('id_departamento_D1').options[Ndpto].selected=true
+        $("#departamento_D1").show();
+    }
+    else if (contains(division_2,dpto)) {
+        val=2
+        Ndpto=division_2.indexOf(dpto)
+        mi_division = division_2
+        document.getElementById('id_departamento_D2').options[Ndpto].selected=true
+        $("#departamento_D2").show();
+    }
+    else if (contains(division_3,dpto)) {
+        val=3
+        Ndpto=division_3.indexOf(dpto)
+        mi_division = division_3
+        document.getElementById('id_departamento_D3').options[Ndpto].selected=true
+        $("#departamento_D3").show();
+    }
+    else if (contains(division_4,dpto)) {
+        val=4
+        Ndpto=division_4.indexOf(dpto)
+        mi_division = division_4
+        document.getElementById('id_departamento_D4').options[Ndpto].selected=true
+        $("#departamento_D4").show();
+    }
+    document.getElementById('id_dependencia').options[2].selected=true
+    document.getElementById('id_division').options[val].selected=true
+    document.getElementById('id_decanato').options[2].selected=true
+
+}
+
+/*Funcion utilizada para mantener el contenido de las textareas cuando se pasa
+de la opcion Objetivos a Objetivos Generales y Objetivos Especificos*/
+function mantenerContenidos (psCopyFromId, psCopyToId)
+{
+   var copyFrom = document.getElementById(psCopyFromId);
+   var copyTo = document.getElementById(psCopyToId);
+
+
+
+   copyTo.value = copyFrom.value;
+}
+
+/*Funcion utilizada para mantener el contenido de las textareas cuando se pasa
+de la opcion Objetvos Generales y Especificos a la opcion Objetivos*/
+function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
+{
+
+   var copyFrom1 = document.getElementById(psCopyFromId1);
+   var copyFrom2 = document.getElementById(psCopyFromId2);
+   var copyTo = document.getElementById(psCopyToId);
+
+
+
+   copyTo.value = copyFrom1.value + "\n" + copyFrom2.value;
+}
+
+</script>
+
         $("#objsEspecificos").show();
     }
     /*Se introdujo informacion en la modalidad de Objtvs Generales y Especificos*/
