@@ -245,6 +245,7 @@ function mostrar2(id) {
 }
 */
 
+
 /*Funcion que al cargar la pagina se encarga de esconder todos los select para que luego a medida que el usuario vaya seleccionando las distintas opciones, se vayan desplegando los select correspondientes*/
 function inicio(){
    $("#decanato").hide();
@@ -258,6 +259,49 @@ function inicio(){
    $("#division").hide();
 }
 window.onload = inicio();
+window.onload = desplegar_carga();
+
+/*Funcion que se encarga de desplegar los campos de departamentos que esten llenos cuando se viene de consulta*/
+function desplegar_carga(){
+    if(document.getElementById('id_dependencia').value=='Departamento') {
+        //Caso Departamento
+        var div = document.getElementById('id_division').value;
+        if (div.length>0) {
+            $("#division").show();
+            if (div == "División de Ciencias Físicas y Matemáticas"){
+                $("#departamento_D1").show();
+            }
+            else if (div == "División de Ciencias Sociales y Humanidades") {
+                $("#departamento_D2").show();
+            }
+            else if (div == "División de Ciencias Biológicas") {
+                $("#departamento_D3").show();
+            }
+            else if (div == "División de Ciencias y Tecnologías Administrativas e Industriales") {
+                $("#departamento_D4").show();
+            }
+        }
+    }
+    else{
+        //Este caso es una coordinacion
+        var dec = document.getElementById('id_decanato').value;
+        if ( dec.length>0){
+            $("#decanato").show();
+            if (dec =="Decanato de Estudios Generales") {
+                $("#coordinacion_D1").show();
+            }
+             else
+            {
+               if (dec =="Decanato de Estudios Profesionales") {
+                  $("#coordinacion_D2").show();
+               } else {
+                  $("#coordinacion_D3").show();
+               }
+             }
+
+        }
+    }
+}
 
 /*Funcion que se encarga de mostrar la unidad que desea seleccionar el usuario, esto es, si el usuario marca coordinacion como unidad, mostrar las opciones correspondientes*/
 function mostrar() {
@@ -294,12 +338,15 @@ function cambia_decanato(){
    var dec = document.getElementById('id_decanato').value;
    if (dec =="Decanato de Estudios Generales") {
       $("#coordinacion_D1").show();
-   } else{
-   if (dec =="Decanato de Estudios Profesionales") {
-      $("#coordinacion_D2").show();
-   } else {
-      $("#coordinacion_D3").show();
-   }}
+   }
+   else
+   {
+       if (dec =="Decanato de Estudios Profesionales") {
+          $("#coordinacion_D2").show();
+       } else {
+          $("#coordinacion_D3").show();
+       }
+   }
 }
 
 /*Funcion que en base a una division seleccionada muestra
@@ -389,6 +436,9 @@ function AsignarDep(dpto) {
         mi_division = division_4
         document.getElementById('id_departamento_D4').options[Ndpto].selected=true
         $("#departamento_D4").show();
+    }
+    else{
+        alert("No se encontró ningún Departamento para el codigo extraido");
     }
 
     document.getElementById('id_dependencia').options[1].selected=true
