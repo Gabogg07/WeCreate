@@ -1,68 +1,55 @@
+{% extends "SIGPAE/base.html" %}
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
 		<meta charset="utf-8">
+
 		<title>Cargar</title>
 	</head>
-
-	<body>
-
-	<div class="container" style="padding-top: 1em;">
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex6-collapse">
-        <span class="sr-only">Desplegar navegación</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-    </div>
-
-    <div class="collapse navbar-collapse navbar-ex6-collapse">
-      <ul class="nav navbar-nav">
-      <li>&nbsp;</li>
-        <li><a href="{% url "home" %}">SIGPAE</a></li>
-        <li class="active"><a href="{% url "cargar" %}" >Cargar</a></li>
-        <li><a href="{% url "consulta" %}">Consultar Transcripciones Guardadas</a></li>
-      </ul>
-    </div>
-  </nav>
-
-<br>
-<br>
-
+  
+{% block content %}
+  <link href="{% static 'css/cargar.css'%}" rel="stylesheet" media="screen">  
 </div>
+  <div class="col-lg-1 col-md-1 col-xs-1"></div>
+  <b><p text-align="justify;" style= "font-size: 16px;"> A continuación llene los campos necesarios, luego busque el programa que desea transcribir y dar click a cargar para proseguir. </p></b>
 
 		<form action="{% url "cargar" %}" method="post" enctype="multipart/form-data" id="form_carga">
 			{% csrf_token %}
-			<p>{{ form.non_field_errors }}</p>
+			<center><p>{{ form.non_field_errors }}</p></center>
+<div class="row">
+  <div class="col-lg-1 col-md-1 col-xs-1"></div>
+  <div class="col-lg-2 col-md-2 col-xs-2">
+			<p>{{ form.codigo.label_tag }} </p>
+				<p>{{ form.codigo }}</p>
+			</div>
+  <div class="col-lg-2 col-md-2 col-xs-2">
+			<p>{{ form.periodo.label_tag }} </p>
+				<p>{{ form.periodo }}</p>
+			</div>
 
-			<p>{{ form.codigo.label_tag }} {{ form.codigo }}</p>
-
-			<p>{{ form.periodo.label_tag }} {{ form.periodo }}</p>
-
-			<p>{{ form.anio.label_tag }} {{ form.anio }}</p>
-
-			<p>{{ form.tipo.label_tag }} {{ form.tipo }}</p>
-
-			<p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
-
-			<p>
-				{{ form.docfile.errors }}
-				{{ form.docfile }}
-			</p>
-
+  <div class="col-lg-2 col-md-2 col-xs-2">
+			<p>{{ form.anio.label_tag }}</p> 
+				<p>{{ form.anio }}</p>
+			</div>
+  <div class="col-lg-2 col-md-2 col-xs-2">
+			<p>{{ form.tipo.label_tag }} </p>
+				<p>{{ form.tipo }}</p>
+			</div>
+</div>
+		<div class="row">
+  <div class="col-lg-1 col-md-1 col-xs-1"></div>
+  <div class="col-lg-4 col-md-4 col-xs-4">
+			<p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }} {{ form.docfile.errors }} {{ form.docfile }} </p>
+			</div>
+		</div>
+<div class="row">		
+  <div class="col-lg-1 col-md-1 col-xs-1"></div>
+   <div class="col-lg-4 col-md-4 col-xs-4"> 
 			<p><input type="submit" value="Cargar"/></p>
+		</div>
+	</div>
 		</form>
-	</body>
+{% endblock content %}
 </html>
