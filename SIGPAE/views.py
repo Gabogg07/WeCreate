@@ -64,8 +64,34 @@ def home(request):
 			row_hist.objetivos_generales = form.cleaned_data['objetivos_generales']
 			row_hist.objetivos_especificos = form.cleaned_data['objetivos_especificos']
 			row_hist.fuentes_info = form.cleaned_data['fuentes_info']
-			row_hist.save()
-	return render(request, 'SIGPAE/home.html', context)
+			print("Estoy aqui")
+			print(form.cleaned_data['codigo_asignatura'])
+			x = form.cleaned_data['codigo_asignatura']
+			x = x[:2].lower()
+			if x in cods:
+				print (cods[x])
+				temp0 = form.cleaned_data['departamento_D1'].encode('UTF-8')
+				temp1 = form.cleaned_data['departamento_D2'].encode('UTF-8')
+				temp2 = form.cleaned_data['departamento_D3'].encode('UTF-8')
+				temp3 = form.cleaned_data['departamento_D4'].encode('UTF-8')
+
+				if ( temp0 == cods[x] or temp1 == cods[x] or temp2 == cods[x] or temp3 == cods[x] ):
+
+					print("SI ESTAAAA")
+					print(cods[x])
+					row_hist.save()
+					return render(request, 'SIGPAE/home.html', context)
+				else:
+					x = form.cleaned_data['codigo_asignatura']
+					doc = Document.objects.filter(codigo=x)
+					if doc:
+						for f in doc:
+							nombre = os.path.basename(f.docfile.name)
+							texto_editable = textract.process(f.docfile.url)
+							context = {'texto_editable': texto_editable, 'documento': f}
+							return render(request, 'SIGPAE/transcripcion.html', context)
+	elif (request.method == 'GET'):
+		return render(request, 'SIGPAE/home.html', context)
 
 def index(request):
 	return render(request, 'SIGPAE/index.html', {})
