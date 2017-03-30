@@ -24,9 +24,9 @@ def home(request):
 	if request.method == 'POST':
 		form = HistorialForm(request.POST, request.FILES)
 		if form.is_valid():
-			if (form.cleaned_data['codigo_asignatura'] != "" and
-				form.cleaned_data['periodo'] != "" and
-				form.cleaned_data['anio'] != ""):
+			if (form.cleaned_data['codigo_asignatura'].encode('UTF-8') != "" and
+				form.cleaned_data['periodo'].encode('UTF-8') != "" and
+				form.cleaned_data['anio'].encode('UTF-8') != ""):
 
 				items = Historial.objects.all().filter(
 						codigo_asignatura=form.cleaned_data['codigo_asignatura'],
@@ -64,32 +64,36 @@ def home(request):
 			row_hist.objetivos_generales = form.cleaned_data['objetivos_generales']
 			row_hist.objetivos_especificos = form.cleaned_data['objetivos_especificos']
 			row_hist.fuentes_info = form.cleaned_data['fuentes_info']
-			print("Estoy aqui")
-			print(form.cleaned_data['codigo_asignatura'])
 			x = form.cleaned_data['codigo_asignatura']
 			x = x[:2].lower()
 			if x in cods:
-				print (cods[x])
 				temp0 = form.cleaned_data['departamento_D1'].encode('UTF-8')
 				temp1 = form.cleaned_data['departamento_D2'].encode('UTF-8')
 				temp2 = form.cleaned_data['departamento_D3'].encode('UTF-8')
 				temp3 = form.cleaned_data['departamento_D4'].encode('UTF-8')
-
 				if ( temp0 == cods[x] or temp1 == cods[x] or temp2 == cods[x] or temp3 == cods[x] ):
 
-					print("SI ESTAAAA")
-					print(cods[x])
 					row_hist.save()
 					return render(request, 'SIGPAE/home.html', context)
 				else:
-					x = form.cleaned_data['codigo_asignatura']
-					doc = Document.objects.filter(codigo=x)
-					if doc:
-						for f in doc:
-							nombre = os.path.basename(f.docfile.name)
-							texto_editable = textract.process(f.docfile.url)
-							context = {'texto_editable': texto_editable, 'documento': f}
-							return render(request, 'SIGPAE/transcripcion.html', context)
+					x = form.cleaned_data['codigo_asignatura'].encode('UTF-8')
+					doc = Document.objects.filter(codigo=x).first()
+					print("\n")
+					print(doc.nombre)
+					print("\n")
+
+					id_row = Document.objects.all().filter(docfile = doc.docfile).first()
+					row = Historial.objects.all().filter(docfile_id = id_row.id).first()
+					print("\n")
+					print(row.dependencia)
+					print("\n")
+					texto_editable = textract.process(doc.docfile.url)
+					mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
+					context = {'texto_editable': texto_editable, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
+					return render(request, 'SIGPAE/transcripcion.html', context)
+			elif(form.cleaned_data['codigo_asignatura'] == ""):
+				row_hist.save()
+				return render(request, 'SIGPAE/home.html', context)
 	elif (request.method == 'GET'):
 		return render(request, 'SIGPAE/home.html', context)
 
@@ -146,9 +150,20 @@ def transcripcion(request):
 	if request.GET.items():
 		opcion = request.GET['tipo']
 		docfile = request.GET['documento']
+		#print ("\n" + docfile + "\n")
 		ruta = request.GET['ruta']
 		id_row = Document.objects.all().filter(docfile = docfile).first()
+		#print(request.GET['row'])
+		'''if 'row' in request.GET:
+			print("LIDHCIHD")
+			row = request.GET['row']
+		else:
+			print ("\n")
+			print("ESTOY ES AQUI")
+			print ("\n")'''
 		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
+
+
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
 			texto_editable=texto_editable.decode("utf-8")
@@ -195,6 +210,7 @@ def consulta(request):
 			if(per==str(0) or an==str(0)):
 				doc = Document.objects.filter(codigo=cod).order_by('-periodo' and '-anio')
 				if doc:
+					print("ENTRE EN ESTE ID DE doc")
 					form = MostrarConsultaForm()
 					context = {'documents': doc,'cod':cod,'form':form}
 					return render(request,'SIGPAE/mostrarConsulta.html',context)
@@ -211,6 +227,8 @@ def consulta(request):
 					for f in doc:
 						nombre = os.path.basename(f.docfile.name)
 						texto_editable = textract.process(f.docfile.url)
+						print("este es el de consulta" + "\n")
+						print(f)
 						context = {'texto_editable': texto_editable, 'documento': f}
 						return render(request, 'SIGPAE/transcripcion.html', context)
 

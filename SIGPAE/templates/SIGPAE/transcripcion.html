@@ -62,7 +62,7 @@
          {% else %}
             <iframe src=/prueba/{{ ruta }} style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
             </iframe>
-         {% endif %}   
+         {% endif %}
       </div>
 
       <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
@@ -88,7 +88,7 @@
       <button onClick="Extraer(ElCod,ElDep)">Extraer</button>
 
 
-      <form action="{% url "home" %}" method="post" enctype="multipart/form-data">
+      <form action="{% url "home" %}" method="post" enctype="multipart/form-data" id="form">
          {% csrf_token %}
          <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
 
@@ -117,11 +117,11 @@
          <p>{{ form.anio.label_tag }} {{ form.anio }}</p>
 
          <h2> Horas de teoría semanales: </h2>
-         
+
          <p>{{ form.horas_T.label_tag }} {{ form.horas_T }}</p>
-        
+
          <p>{{ form.horas_P.label_tag }} {{ form.horas_P }}</p>
-         
+
          <p>{{ form.horas_L.label_tag }} {{ form.horas_L }}</p>
 
          <p>{{ form.num_creditos.label_tag }} {{ form.num_creditos }}</p>
@@ -148,13 +148,28 @@
          <p>{{ form.fuentes_info.label_tag }} {{ form.fuentes_info }}</p>
 
         </div>
+        {% if documents %}
+          <input type="hidden" name="ruta" value={{ document.docfile.path }}>
+          <input type="hidden" name="documento" value={{ document.docfile }}>
+        {% endif %}
         <input type="submit" value="Guardar"/>
       </form>
       </div>
        </div>
       </div></div>
 
-
+<script type="text/javascript">
+  function submitForm(){
+    if ('{{cond}}' == 0) {
+      alert('Entre con 0')
+      return false;
+    }
+    else if('{{cond}}' == 1){
+      alert('entre con 1')
+      return true;
+    }
+  }
+</script>
 <script type="text/javascript">
    document.getElementById('id_dependencia').value = "{{ row.dependencia }}";
    document.getElementById('id_decanato').value = "{{ row.decanato }}";
@@ -484,7 +499,7 @@ function mostrar_objetivos() {
          $("#obj_esp").show();
       }
    }
-    
+
 }
 /*Funcion utilizada para mantener el contenido de las textareas cuando se pasa
 de la opcion Objetivos a Objetivos Generales y Objetivos Especificos*/
@@ -513,3 +528,8 @@ function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
 }
 
 </script>
+{% if mensaje_alerta %}
+   <script type="text/javascript">
+    alert('{{ mensaje_alerta }}');
+   </script>
+{% endif %}
