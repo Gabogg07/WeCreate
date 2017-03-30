@@ -78,12 +78,13 @@ def home(request):
 				else:
 					doc = Document.objects.all().filter(id = documento).first()
 					row = Historial.objects.all().filter(docfile_id = documento).first()
-					print("\n")
-					print(row.dependencia)
-					print("\n")
+					cdg = request.POST['cod']
+					print cdg
+					dpto = request.POST['dpto']
+					print dpto
 					texto_editable = textract.process(doc.docfile.url)
 					mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
-					context = {'texto_editable': texto_editable, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
+					context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(), 'dpto':dpto, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
 					return render(request, 'SIGPAE/transcripcion.html', context)
 			elif (form.cleaned_data['codigo_asignatura'].encode('UTF-8') == ""):
 				row_hist.save()
@@ -91,12 +92,11 @@ def home(request):
 			else:
 				doc = Document.objects.all().filter(id = documento).first()
 				row = Historial.objects.all().filter(docfile_id = documento).first()
-				print("\n")
-				print(row.dependencia)
-				print("\n")
+				cdg = request.POST['cod']
+				dpto = request.POST['dpto']
 				texto_editable = textract.process(doc.docfile.url)
 				mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
-				context = {'texto_editable': texto_editable, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
+				context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(), 'dpto':dpto, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
 				return render(request, 'SIGPAE/transcripcion.html', context)
 
 

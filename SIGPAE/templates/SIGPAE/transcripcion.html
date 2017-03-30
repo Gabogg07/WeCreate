@@ -91,7 +91,8 @@
       <form action="{% url "home" %}" method="post" enctype="multipart/form-data" id="form">
          {% csrf_token %}
          <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
-         <input type="hidden" name="cod" value={{ codigo }}>
+         <input type="hidden" name="cod" value = {{ codigo }}>
+         <input type="hidden" name="dpto" id="dpto">
 
          <h2>Dependencia</h2>
          <div onchange="mostrar()"><p>{{ form.dependencia }}</p></div>
@@ -427,6 +428,7 @@ function AsignarDep(dpto) {
         Ndpto=division_1.indexOf(dpto)-1
         mi_division = division_1
         document.getElementById('id_departamento_D1').options[Ndpto].selected=true
+        document.getElementById('dpto').value=document.getElementById('id_departamento_D1').value
         $("#departamento_D1").show();
     }
     else if (contains(division_2,dpto)) {
@@ -434,6 +436,7 @@ function AsignarDep(dpto) {
         Ndpto=division_2.indexOf(dpto)-1
         mi_division = division_2
         document.getElementById('id_departamento_D2').options[Ndpto].selected=true
+        document.getElementById('dpto').value=document.getElementById('id_departamento_D2').value
         $("#departamento_D2").show();
     }
     else if (contains(division_3,dpto)) {
@@ -441,6 +444,7 @@ function AsignarDep(dpto) {
         Ndpto=division_3.indexOf(dpto)-1
         mi_division = division_3
         document.getElementById('id_departamento_D3').options[Ndpto].selected=true
+        document.getElementById('dpto').value=document.getElementById('id_departamento_D3').value
         $("#departamento_D3").show();
     }
     else if (contains(division_4,dpto)) {
@@ -448,6 +452,7 @@ function AsignarDep(dpto) {
         Ndpto=division_4.indexOf(dpto)-1
         mi_division = division_4
         document.getElementById('id_departamento_D4').options[Ndpto].selected=true
+        document.getElementById('dpto').value=document.getElementById('id_departamento_D4').value
         $("#departamento_D4").show();
     }
     else{
@@ -526,8 +531,13 @@ function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
 }
 
 </script>
+
 {% if mensaje_alerta %}
    <script type="text/javascript">
     alert('{{ mensaje_alerta }}');
    </script>
 {% endif %}
+
+<script type="text/javascript">
+  document.getElementById('dpto').value=ElDep
+</script>
