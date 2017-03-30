@@ -162,7 +162,6 @@ def transcripcion(request):
 
 		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
 
->>>>>>> 40eddc4d42b0d91a1d6e6677d43e43afc89dc403
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
 			texto_editable=texto_editable.decode("utf-8")
