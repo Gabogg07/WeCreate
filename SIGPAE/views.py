@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.template import RequestContext
 from django.http import HttpResponseRedirect,HttpResponse
 from django.core.urlresolvers import reverse
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 import textract
 import os
 import re
@@ -74,12 +76,17 @@ def cargar_archivo(request):
 	if request.method == 'POST':
 		form = DocumentForm(request.POST, request.FILES)
 		if form.is_valid():
+			myfile = request.FILES['docfile']
+			fs = FileSystemStorage()
+			filename = fs.save(myfile.name, myfile)
+			uploaded_file_url = fs.url(filename)
+
 			newdoc = Document(
 				codigo = form.cleaned_data['codigo'],
 				periodo = form.cleaned_data['periodo'],
 				anio = form.cleaned_data['anio'],
 				nombre=request.FILES['docfile'].name,
-				docfile = request.FILES['docfile'])
+				docfile = os.path.abspath(myfile.name))
 			newdoc.save()
 
 			newhist = Historial(
@@ -88,7 +95,7 @@ def cargar_archivo(request):
 
 			opcion = form.cleaned_data['tipo']
 			if (opcion == "texto"):
-				texto_editable = textract.process(newdoc.docfile.url)
+				texto_editable = textract.process(newdoc.docfile)
 				texto_editable=texto_editable.decode("utf-8")
 				match = re.findall(r'(((co|ep|dfm|et|ci|bc|bo|mt|gc|ce|cs|cc|ct|da|ec|ea|ff|fl|fs|fis|fc|id|ll|ma|mc|pl|ps|qm|pb|ts|ti|tf|fc|pg|td|tg)(-|\s)?([0-9][0-9][0-9][0-9]))|((dfm|cib|bcb|bob|cmt|cea|csa|csx|csy|csz|egs|cce|cte|dap|daa|eyc|ead|fsi|fis|fcr|fca|fcb|fcc|fce|fcf|fcg|fch|fci|fcl|fcr|fcx|fcz|fcw|idm|lla|llb|llc|lle|egl|mat|mec|plx|ply|prs|qim|tsx|tft|teg)(-|\s)?([0-9][0-9][0-9])))',texto_editable.lower())
 				if match: match=match[0]
@@ -97,8 +104,8 @@ def cargar_archivo(request):
 				if match:
 					cdg=match[0]
 			else:
-				os.system("pdftohtml -s -c " + newdoc.docfile.url)
-				output = re.sub('.(p|P)(d|D)(f|F)', '-html.html', newdoc.docfile.url)
+				os.system("pdftohtml -s -c " + newdoc.docfile)
+				output = re.sub('.(p|P)(d|D)(f|F)', '-html.html', newdoc.docfile)
 				file = open(output, "r")
 				texto_editable = file.read()
 				file.close()

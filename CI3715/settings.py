@@ -74,11 +74,27 @@ WSGI_APPLICATION = 'CI3715.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+DATABASE_ROUTERS = ['CI3715.routers.DatabaseAppsRouter',]
+DATABASE_APPS_MAPPING = {'default': 'default',
+                         'gestionpae': 'gestionpae'}
+
 DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-	}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'admin',
+        'USER': 'wc',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '',
+    },
+    'gestionpae': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'gestionpae',
+        'USER': 'wc',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': ''
+    }
 }
 
 
