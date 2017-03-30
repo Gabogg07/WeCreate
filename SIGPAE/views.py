@@ -19,6 +19,12 @@ def prueba(request,url):
 		return response
 	pdf.closed
 
+'''
+Esta función se encarga de guardar en la base de datos la transcripción que se este realizando de
+un programa en caso de que el metodo con el que se llame sea el POST
+
+En caso de que se llame a 'home' con el metodo GET sencillamente te envía a la pagina principal de SIGPAE
+'''
 def home(request):
 	context = {}
 	if request.method == 'POST':
@@ -32,13 +38,17 @@ def home(request):
 						codigo_asignatura=form.cleaned_data['codigo_asignatura'],
 						periodo=form.cleaned_data['periodo'],
 						anio=form.cleaned_data['anio'])
-
+				#Se verifica que no haya un programa con el mismo codigo año y periodo iguales
 				if items.count() > 0:
 					message = "Introdujo un programa con código, período y año existentes"
 					context = {'message':message}
 
 			documento = request.POST['documento']
+
+			#Query que instancia el documento que se va a transcribir
 			row_hist = Historial.objects.all().filter(docfile_id = documento).first()
+
+			#Cada campo se guarda en la base de datosen la tabla Historial
 			row_hist.dependencia = form.cleaned_data['dependencia']
 			row_hist.decanato = form.cleaned_data['decanato']
 			row_hist.coordinacion_D1 = form.cleaned_data['coordinacion_D1']
@@ -64,6 +74,8 @@ def home(request):
 			row_hist.objetivos_generales = form.cleaned_data['objetivos_generales']
 			row_hist.objetivos_especificos = form.cleaned_data['objetivos_especificos']
 			row_hist.fuentes_info = form.cleaned_data['fuentes_info']
+
+			#Se verifica si el código introducido coincide con el departamento
 			x = form.cleaned_data['codigo_asignatura']
 			x = x[:2].lower()
 			if x in cods:
@@ -71,10 +83,12 @@ def home(request):
 				temp1 = form.cleaned_data['departamento_D2'].encode('UTF-8')
 				temp2 = form.cleaned_data['departamento_D3'].encode('UTF-8')
 				temp3 = form.cleaned_data['departamento_D4'].encode('UTF-8')
+				#Si coincide el codigo con el departamento, se guarda
 				if ( temp0 == cods[x] or temp1 == cods[x] or temp2 == cods[x] or temp3 == cods[x] ):
 
 					row_hist.save()
 					return render(request, 'SIGPAE/home.html', context)
+				#Si no coincide, se recarga la página con un alert
 				else:
 					doc = Document.objects.all().filter(id = documento).first()
 					row = Historial.objects.all().filter(docfile_id = documento).first()
@@ -86,9 +100,12 @@ def home(request):
 					mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
 					context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(), 'dpto':dpto, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
 					return render(request, 'SIGPAE/transcripcion.html', context)
+			#Si se queda en blanco el campo del código, se guarda también
 			elif (form.cleaned_data['codigo_asignatura'].encode('UTF-8') == ""):
 				row_hist.save()
 				return render(request, 'SIGPAE/home.html', context)
+			#Si se coloca algo que no sea un codigo ni nada manda un mensaje de alerta que no coincide con el departamento
+			#que este puesto
 			else:
 				doc = Document.objects.all().filter(id = documento).first()
 				row = Historial.objects.all().filter(docfile_id = documento).first()
@@ -99,7 +116,7 @@ def home(request):
 				context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(), 'dpto':dpto, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
 				return render(request, 'SIGPAE/transcripcion.html', context)
 
-
+	#Si se llama a 'home' con el metodo get, simplemente se muestra la página principal
 	elif (request.method == 'GET'):
 		return render(request, 'SIGPAE/home.html', context)
 
@@ -207,7 +224,6 @@ def consulta(request):
 			if(per==str(0) or an==str(0)):
 				doc = Document.objects.filter(codigo=cod).order_by('-periodo' and '-anio')
 				if doc:
-					print("ENTRE EN ESTE ID DE doc")
 					form = MostrarConsultaForm()
 					context = {'documents': doc,'cod':cod,'form':form}
 					return render(request,'SIGPAE/mostrarConsulta.html',context)

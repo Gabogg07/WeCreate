@@ -170,6 +170,8 @@
   }
 </script>
 <script type="text/javascript">
+/*Script que sirve para mostrar los datos que se hayan guardado en la Base de Datos como
+  borrador de una trancripcion*/
    document.getElementById('id_dependencia').value = "{{ row.dependencia }}";
    document.getElementById('id_decanato').value = "{{ row.decanato }}";
    document.getElementById('id_coordinacion_D1').value = "{{ row.coordinacion_D1 }}";
@@ -205,60 +207,6 @@ var division_1=["Seleccione Departamento","Departamento de Física","Departament
 var division_2=["Seleccione Departamento","Departamento de Ciencia y Tecnología del Comportamiento","Departamento de Lengua y Literatura","Departamento de Ciencias Económicas y Administrativas","Departamento de Idiomas","Departamento de Filosofía","Departamento de Ciencias Sociales","Departamento de Diseño Arquitectura y Artes Plásticas","Departamento de Planificación Urbana"]
 var division_3=["Seleccione Departamento","Departamento de Biología Celular","Departamento de Estudios Ambientales","Departamento de Biología de Organismos","Departamento de Tecnología de Procesos Biológicos y Bioquímicos"]
 var division_4=["Seleccione Departamento","Departamento de Tecnología de Servicios","Departamento de Tecnología Industrial","Departamento de Formación General y Ciencias Básicas"]
-/*
-function cambia_division2(k){
-   var div = document.f1.div[document.f1.div.selectedIndex].value
-   if (div != 0) {
-      mis_division=eval("division_" + div)
-      num_division = mis_division.length
-      document.f1.division.length = num_division
-      for(i=0;i<num_division;i++){
-         document.f1.division.options[i].value=mis_division[i]
-         document.f1.division.options[i].text=mis_division[i]
-      }
-   }else{
-      document.f1.division.length = 1
-      document.f1.division.options[0].value = "-"
-      document.f1.division.options[0].text = "-"
-   }
-   document.f1.division.options[k].selected = true
-}
-var decanato_1=new Array("Seleccione Coordinación","Coordinación del Ciclo Básico","Coordinación del Ciclo Profesional","Coordinación de Formación General","Coordinación del Ciclo de Iniciación Universitaria")
-var decanato_2=new Array("Seleccione Coordinación","Coordinación de Química","Coordinación de Matemática","Coordinación de Biología","Coordinación de Física","Coordinación de Tecnología e Ingeniería Eléctrica","Coordinación de Tecnología e Ingeniería Electrónica","Coordinación de Ingeniería Mecánica","Coordinación de Ingeniería Química","Coordinación de Ingeniería de Computación","Coordinación de Ingeniería Geofísica","Coordinación de Ingeniería de Materiales","Coordinación de Ingeniería de Producción y Organización Empresarial","Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento","Coordinación de Ingeniería de Telecomunicaciones","Coordinación de Arquitectura","Coordinación de Estudios Urbanos","Coordinación de Turismo, Hotelería y Hospitalidad","Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional")
-var decanato_3=new Array("Seleccione Coordinación","Coordinación de Tecnología e Ingeniería Eléctrica","Coordinación de Tecnología Eléctrica y Electrónica","Coordinación de Ingeniería de Producción y Organización Empresarial","Coordinación de Turismo, Hotelería y Hospitalidad","Coordinación de Administración Aduanera","Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional","Coordinación de Administración del Transporte y Organización Empresarial","Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento")
-
-function cambia_decanato2(k){
-   var dec = document.f2.dec[document.f2.dec.selectedIndex].value
-   if (dec != 0) {
-      mis_decanato=eval("decanato_" + dec)
-      num_decanato = mis_decanato.length
-      document.f2.decanato.length = num_decanato
-      for(i=0;i<num_decanato;i++){
-         document.f2.decanato.options[i].value=mis_decanato[i]
-         document.f2.decanato.options[i].text=mis_decanato[i]
-      }
-   }else{
-      document.f2.decanato.length = 1
-      document.f2.decanato.options[0].value = "-"
-      document.f2.decanato.options[0].text = "-"
-   }
-   document.f2.decanato.options[k].selected = true
-}
-
-function mostrar2(id) {
-   if (id == "coordinaciones") {
-      $("#coordinaciones").show();
-      $("#departamento").hide();
-   }
-
-   if (id == "departamento") {
-      $("#coordinaciones").hide();
-      $("#departamento").show();
-   }
-
-}
-*/
-
 
 /*Funcion que al cargar la pagina se encarga de esconder todos los select para que luego a medida que el usuario vaya seleccionando las distintas opciones, se vayan desplegando los select correspondientes*/
 function inicio(){
@@ -534,10 +482,13 @@ function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
 
 {% if mensaje_alerta %}
    <script type="text/javascript">
+   /*Mensaje de alerta si un departamento no coincide con el codigo de la materia*/
     alert('{{ mensaje_alerta }}');
    </script>
 {% endif %}
 
 <script type="text/javascript">
+/*Guarda en la variable dpto el departamento que saca al extrae en caso de que el departamento
+  no coincide con el codigo de la materia*/
   document.getElementById('dpto').value=ElDep
 </script>
