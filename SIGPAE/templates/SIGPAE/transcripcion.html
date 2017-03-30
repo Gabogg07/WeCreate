@@ -91,6 +91,7 @@
       <form action="{% url "home" %}" method="post" enctype="multipart/form-data" id="form">
          {% csrf_token %}
          <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
+         <input type="hidden" name="cod" value={{ codigo }}>
 
          <h2>Dependencia</h2>
          <div onchange="mostrar()"><p>{{ form.dependencia }}</p></div>

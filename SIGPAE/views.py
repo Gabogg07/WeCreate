@@ -76,14 +76,8 @@ def home(request):
 					row_hist.save()
 					return render(request, 'SIGPAE/home.html', context)
 				else:
-					x = form.cleaned_data['codigo_asignatura'].encode('UTF-8')
-					doc = Document.objects.filter(codigo=x).first()
-					print("\n")
-					print(doc.nombre)
-					print("\n")
-
-					id_row = Document.objects.all().filter(docfile = doc.docfile).first()
-					row = Historial.objects.all().filter(docfile_id = id_row.id).first()
+					doc = Document.objects.all().filter(id = documento).first()
+					row = Historial.objects.all().filter(docfile_id = documento).first()
 					print("\n")
 					print(row.dependencia)
 					print("\n")
@@ -91,9 +85,20 @@ def home(request):
 					mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
 					context = {'texto_editable': texto_editable, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
 					return render(request, 'SIGPAE/transcripcion.html', context)
-			else:
+			elif (form.cleaned_data['codigo_asignatura'].encode('UTF-8') == ""):
 				row_hist.save()
 				return render(request, 'SIGPAE/home.html', context)
+			else:
+				doc = Document.objects.all().filter(id = documento).first()
+				row = Historial.objects.all().filter(docfile_id = documento).first()
+				print("\n")
+				print(row.dependencia)
+				print("\n")
+				texto_editable = textract.process(doc.docfile.url)
+				mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
+				context = {'texto_editable': texto_editable, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
+				return render(request, 'SIGPAE/transcripcion.html', context)
+
 
 	elif (request.method == 'GET'):
 		return render(request, 'SIGPAE/home.html', context)
@@ -151,19 +156,10 @@ def transcripcion(request):
 	if request.GET.items():
 		opcion = request.GET['tipo']
 		docfile = request.GET['documento']
-		#print ("\n" + docfile + "\n")
 		ruta = request.GET['ruta']
 		id_row = Document.objects.all().filter(docfile = docfile).first()
-		#print(request.GET['row'])
-		'''if 'row' in request.GET:
-			print("LIDHCIHD")
-			row = request.GET['row']
-		else:
-			print ("\n")
-			print("ESTOY ES AQUI")
-			print ("\n")'''
-		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
 
+		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
 
 		if (opcion == "texto"):
 			texto_editable = textract.process(docfile)
