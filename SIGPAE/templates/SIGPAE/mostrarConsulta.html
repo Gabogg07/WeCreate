@@ -53,9 +53,9 @@
 						<form action="{% url "transcripcion" %}" method="get" enctype="multipart/form-data">
 							{% csrf_token %}
 							
-							<input type="hidden" name="ruta" value={{ document.docfile.path }}>
+							<input type="hidden" name="ruta" value={{ document.docfile }}>
 							<input type="hidden" name="documento" value={{ document.docfile }}>
-							<p>{{ document.docfile.name }} {{ form.tipo }} <input type="submit" value="Transcribir"/></p>
+							<p>{{ document.nombre }} {{ form.tipo }} <input type="submit" value="Transcribir"/></p>
 
 						</form>
 					</li>
