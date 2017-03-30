@@ -148,10 +148,7 @@
          <p>{{ form.fuentes_info.label_tag }} {{ form.fuentes_info }}</p>
 
         </div>
-        {% if documents %}
-          <input type="hidden" name="ruta" value={{ document.docfile.path }}>
-          <input type="hidden" name="documento" value={{ document.docfile }}>
-        {% endif %}
+
         <input type="submit" value="Guardar"/>
       </form>
       </div>

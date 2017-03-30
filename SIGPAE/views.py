@@ -91,9 +91,10 @@ def home(request):
 					mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
 					context = {'texto_editable': texto_editable, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
 					return render(request, 'SIGPAE/transcripcion.html', context)
-			elif(form.cleaned_data['codigo_asignatura'] == ""):
+			else:
 				row_hist.save()
 				return render(request, 'SIGPAE/home.html', context)
+
 	elif (request.method == 'GET'):
 		return render(request, 'SIGPAE/home.html', context)
 
