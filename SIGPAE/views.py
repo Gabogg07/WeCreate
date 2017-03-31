@@ -95,9 +95,9 @@ def home(request):
 					doc = Document.objects.all().filter(id = documento).first()
 					row = Historial.objects.all().filter(docfile_id = documento).first()
 					cdg = request.POST['cod']
-					print cdg
+
 					dpto = request.POST['dpto']
-					print dpto
+
 					texto_editable = textract.process(doc.docfile.url)
 					mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
 					context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(), 'dpto':dpto, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
