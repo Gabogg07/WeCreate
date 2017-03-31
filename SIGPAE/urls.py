@@ -11,4 +11,4 @@ urlpatterns = [
 	url(r'^transcripcion/$', views.transcripcion, name='transcripcion'),
 	url(r'^consulta/$', views.consulta, name='consulta'),
 	url(r'prueba(?P<url>(\w|\W|\s)*)/$',views.prueba,name='prueba')
-]   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]   
