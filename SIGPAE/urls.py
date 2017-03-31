@@ -11,4 +11,8 @@ urlpatterns = [
 	url(r'^transcripcion/$', views.transcripcion, name='transcripcion'),
 	url(r'^consulta/$', views.consulta, name='consulta'),
 	url(r'prueba(?P<url>(\w|\W|\s)*)/$',views.prueba,name='prueba')
+<<<<<<< HEAD
 ]   
+=======
+] 
+>>>>>>> wc/Objetivos

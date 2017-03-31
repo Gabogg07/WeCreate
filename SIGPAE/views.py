@@ -179,6 +179,7 @@ def transcripcion(request):
 		ruta = request.GET['ruta']
 		id_row = Document.objects.all().filter(docfile = docfile).first()
 
+
 		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
 
 		if (opcion == "texto"):
