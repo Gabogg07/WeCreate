@@ -202,26 +202,8 @@
        $("#departamento_D4").hide();
        $("#division").hide();
        $("#obj_esp").hide();
-       if document.getElementById('id_objetivos_especificos').length > 0 {
-          $("#obj_esp").show();
-       }  
+      
     }
-
-    window.onload = inicio();
-    window.onload = desplegar_carga();
-
-    /*Funcion que se encarga de desplegar los campos de departamentos que esten llenos cuando se viene de consulta*/
-    function desplegar_carga(){
-      if(document.getElementById('id_dependencia').value=='Departamento') {
-          //Caso Departamento
-          var div = document.getElementById('id_division').value;
-          if (div.length>0) {
-              $("#division").show();
-              if (div == "División de Ciencias Físicas y Matemáticas"){
-                  $("#departamento_D1").show();
-      }
-      window.onload = inicio();
-      window.onload = desplegar_carga();
 
     /*Funcion que se encarga de desplegar los campos de departamentos que esten llenos cuando se viene de consulta*/
     function desplegar_carga(){
@@ -263,6 +245,8 @@
         }
       }
     }
+     window.onload = inicio();
+     window.onload = desplegar_carga();
 
     /*Funcion que se encarga de mostrar la unidad que desea seleccionar el usuario, esto es, si el usuario marca coordinacion como unidad, mostrar las opciones correspondientes*/
     function mostrar() {

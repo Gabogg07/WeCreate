@@ -41,7 +41,7 @@ def home(request):
 						periodo=form.cleaned_data['periodo'],
 						anio=form.cleaned_data['anio'])
 				#Se verifica que no haya un programa con el mismo codigo año y periodo iguales
-				if items.count() > 0:
+				if items.count() > 1:
 					message = "Introdujo un programa con código, período y año existentes"
 					context = {'message':message}
 
@@ -98,7 +98,7 @@ def home(request):
 
 					dpto = request.POST['dpto']
 
-					texto_editable = textract.process(doc.docfile.url)
+					texto_editable = textract.process(doc.docfile)
 					mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
 					context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(), 'dpto':dpto, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
 					return render(request, 'SIGPAE/transcripcion.html', context)
@@ -113,7 +113,7 @@ def home(request):
 				row = Historial.objects.all().filter(docfile_id = documento).first()
 				cdg = request.POST['cod']
 				dpto = request.POST['dpto']
-				texto_editable = textract.process(doc.docfile.url)
+				texto_editable = textract.process(doc.docfile)
 				mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
 				context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(), 'dpto':dpto, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
 				return render(request, 'SIGPAE/transcripcion.html', context)
@@ -351,10 +351,10 @@ def consulta_sigpae(request):
 				if solicitudes:
 					programas = []
 					for solicitud in solicitudes:
-						programa = Programa.objects.using('gestionpae').filter(id=solicitudes.first().id).first()
+						programa = Programa.objects.using('gestionpae').filter(id=solicitud.id).first()
 						if programa:
 							programas.append(programa)
-
+							
 					form = MostrarConsultaForm()
 					context = {'programas':programas, 'solicitud':solicitudes.first(), 'cod':cod, 'form':form}
 					return render(request,'SIGPAE/mostrarSIGPAE.html',context)
@@ -363,13 +363,16 @@ def consulta_sigpae(request):
 					form = ConsultaForm()
 					return render(request, 'SIGPAE/consulta_sigpae.html', {'form': form, 'mensaje': mensaje})
 			else:
-				solicitudes = Solicitud.objects.using('gestionpae').filter(cod=cod,trime=per,ano=an).order_by('-trime' and '-ano')
+				solicitudes = Solicitud.objects.using('gestionpae').filter(cod=cod).order_by('-trime' and '-ano')
 				if solicitudes:
 					programas = []
 					for solicitud in solicitudes:
-						programa = Programa.objects.using('gestionpae').filter(id=solicitudes.first().id).first()
+						programa = Programa.objects.using('gestionpae').filter(id=solicitud.id,fecha_vigtrim=per,fecha_vigano=an).first()
+						programa_2 = Programa.objects.using('gestionpae').filter(id=solicitud.id,fecha_vigtrim=per.lower(),fecha_vigano=an).first()
 						if programa:
 							programas.append(programa)
+						elif programa_2:
+							programas.append(programa_2)
 
 					form = MostrarConsultaForm()
 					context = {'programas':programas, 'solicitud':solicitudes.first(), 'cod':cod, 'form':form}

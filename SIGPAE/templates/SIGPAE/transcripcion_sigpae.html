@@ -113,252 +113,315 @@
   {% endblock content %}
 </html>
 
-<script type="text/javascript">
-   document.getElementById('id_dependencia').value = "{{ row.dependencia }}";
-   document.getElementById('id_decanato').value = "{{ row.decanato }}";
-   document.getElementById('id_coordinacion_D1').value = "{{ row.coordinacion_D1 }}";
-   document.getElementById('id_coordinacion_D2').value = "{{ row.coordinacion_D2 }}";
-   document.getElementById('id_coordinacion_D3').value = "{{ row.coordinacion_D3 }}";
-   document.getElementById('id_division').value = "{{ row.division }}";
-   document.getElementById('id_departamento_D1').value = "{{ row.departamento_D1 }}";
-   document.getElementById('id_departamento_D2').value = "{{ row.departamento_D2 }}";
-   document.getElementById('id_departamento_D3').value = "{{ row.departamento_D3 }}";
-   document.getElementById('id_departamento_D4').value = "{{ row.departamento_D4 }}";
-   document.getElementById('id_codigo_asignatura').value = "{{ row.codigo_asignatura }}";
-   document.getElementById('id_denominacion').value = "{{ row.denominacion }}";
-   document.getElementById('id_periodo').value = "{{ row.periodo }}";
-   document.getElementById('id_anio').value = "{{ row.anio }}";
-   document.getElementById('id_horas_T').value = "{{ row.horas_T }}";
-   document.getElementById('id_horas_P').value = "{{ row.horas_P }}";
-   document.getElementById('id_horas_L').value = "{{ row.horas_L }}";
-   document.getElementById('id_num_creditos').value = "{{ row.num_creditos }}";
-   document.getElementById('id_requisitos').value = "{{ row.requisitos }}";
-   document.getElementById('id_estrategias_met').value = "{{ row.estrategias_met }}";
-   document.getElementById('id_estrategias_ev').value = "{{ row.estrategias_ev }}";
-   document.getElementById('id_contenido').value = "{{ row.contenido }}";
-   document.getElementById('id_objetivos_generales').value = "{{ row.objetivos_generales }}";
-   document.getElementById('id_objetivos_especificos').value = "{{ row.objetivos_especificos }}";
-   document.getElementById('id_fuentes_info').value = "{{ row.fuentes_info }}";
-</script>
+{%block custom_script%}
+  <script type="text/javascript">
+     var ElCod = "{{codigo}}";
+     var ElDep = "{{ dpto }}"
+  </script>
 
-<script>
-var division_1=["Seleccione Departamento","Departamento de Física","Departamento de Química","Departamento de Mecánica","Departamento de Matemáticas Puras y Aplicadas","Departamento de Computación y Tecnología de la Información","Departamento de Cómputo Científico y Estadística","Departamento de Electrónica y Circuitos","Departamento de Termodinámica y Fenómenos de Transferencia","Departamento de Conversión y Transporte de Energía","Departamento de Procesos y Sistemas","Departamento de Ciencias de los Materiales","Departamento de Ciencias de la Tierra"]
-var division_2=["Seleccione Departamento","Departamento de Ciencia y Tecnología del Comportamiento","Departamento de Lengua y Literatura","Departamento de Ciencias Económicas y Administrativas","Departamento de Idiomas","Departamento de Filosofía","Departamento de Ciencias Sociales","Departamento de Diseño Arquitectura y Artes Plásticas","Departamento de Planificación Urbana"]
-var division_3=["Seleccione Departamento","Departamento de Biología Celular","Departamento de Estudios Ambientales","Departamento de Biología de Organismos","Departamento de Tecnología de Procesos Biológicos y Bioquímicos"]
-var division_4=["Seleccione Departamento","Departamento de Tecnología de Servicios","Departamento de Tecnología Industrial","Departamento de Formación General y Ciencias Básicas"]
+  <script type="text/javascript">
+  /*Script que sirve para mostrar los datos que se hayan guardado en la Base de Datos como
+    borrador de una trancripcion*/
+     document.getElementById('id_dependencia').value = "{{ row.dependencia }}";
+     document.getElementById('id_decanato').value = "{{ row.decanato }}";
+     document.getElementById('id_coordinacion_D1').value = "{{ row.coordinacion_D1 }}";
+     document.getElementById('id_coordinacion_D2').value = "{{ row.coordinacion_D2 }}";
+     document.getElementById('id_coordinacion_D3').value = "{{ row.coordinacion_D3 }}";
+     document.getElementById('id_division').value = "{{ row.division }}";
+     document.getElementById('id_departamento_D1').value = "{{ row.departamento_D1 }}";
+     document.getElementById('id_departamento_D2').value = "{{ row.departamento_D2 }}";
+     document.getElementById('id_departamento_D3').value = "{{ row.departamento_D3 }}";
+     document.getElementById('id_departamento_D4').value = "{{ row.departamento_D4 }}";
+     document.getElementById('id_codigo_asignatura').value = "{{ row.codigo_asignatura }}";
+     document.getElementById('id_denominacion').value = "{{ row.denominacion }}";
+     document.getElementById('id_periodo').value = "{{ row.periodo }}";
+     document.getElementById('id_anio').value = "{{ row.anio }}";
+     document.getElementById('id_horas_T').value = "{{ row.horas_T }}";
+     document.getElementById('id_horas_P').value = "{{ row.horas_P }}";
+     document.getElementById('id_horas_L').value = "{{ row.horas_L }}";
+     document.getElementById('id_num_creditos').value = "{{ row.num_creditos }}";
+     document.getElementById('id_requisitos').value = "{{ row.requisitos }}";
+     document.getElementById('id_estrategias_met').value = "{{ row.estrategias_met }}";
+     document.getElementById('id_estrategias_ev').value = "{{ row.estrategias_ev }}";
+     document.getElementById('id_contenido').value = "{{ row.contenido }}";
+     document.getElementById('id_objetivos_generales').value = "{{ row.objetivos_generales }}";
+     document.getElementById('id_objetivos_especificos').value = "{{ row.objetivos_especificos }}";
+     document.getElementById('id_fuentes_info').value = "{{ row.fuentes_info }}";
+  </script>
 
-/*Funcion que al cargar la pagina se encarga de esconder todos los select para que luego a medida que el usuario vaya seleccionando las distintas opciones, se vayan desplegando los select correspondientes*/
-function inicio(){
-   $("#decanato").hide();
-   $("#coordinacion_D1").hide();
-   $("#coordinacion_D2").hide();
-   $("#coordinacion_D3").hide();
-   $("#departamento_D1").hide();
-   $("#departamento_D2").hide();
-   $("#departamento_D3").hide();
-   $("#departamento_D4").hide();
-   $("#division").hide();
-}
-window.onload = inicio();
+  <script type="text/javascript">
+    var division_1=["Seleccione Departamento","Departamento de Física","Departamento de Química","Departamento de Mecánica","Departamento de Matemáticas Puras y Aplicadas","Departamento de Computación y Tecnología de la Información","Departamento de Cómputo Científico y Estadística","Departamento de Electrónica y Circuitos","Departamento de Termodinámica y Fenómenos de Transferencia","Departamento de Conversión y Transporte de Energía","Departamento de Procesos y Sistemas","Departamento de Ciencias de los Materiales","Departamento de Ciencias de la Tierra"]
+    var division_2=["Seleccione Departamento","Departamento de Ciencia y Tecnología del Comportamiento","Departamento de Lengua y Literatura","Departamento de Ciencias Económicas y Administrativas","Departamento de Idiomas","Departamento de Filosofía","Departamento de Ciencias Sociales","Departamento de Diseño Arquitectura y Artes Plásticas","Departamento de Planificación Urbana"]
+    var division_3=["Seleccione Departamento","Departamento de Biología Celular","Departamento de Estudios Ambientales","Departamento de Biología de Organismos","Departamento de Tecnología de Procesos Biológicos y Bioquímicos"]
+    var division_4=["Seleccione Departamento","Departamento de Tecnología de Servicios","Departamento de Tecnología Industrial","Departamento de Formación General y Ciencias Básicas"]
 
-/*Funcion que se encarga de mostrar la unidad que desea seleccionar el usuario, esto es, si el usuario marca coordinacion como unidad, mostrar las opciones correspondientes*/
-function mostrar() {
-   $("#decanato").hide();
-   $("#coordinacion_D1").hide();
-   $("#coordinacion_D2").hide();
-   $("#coordinacion_D3").hide();
-   $("#departamento_D1").hide();
-   $("#departamento_D2").hide();
-   $("#departamento_D3").hide();
-   $("#departamento_D4").hide();
-   $("#division").hide();
-   var uni = document.getElementById('id_dependencia').value;
-   if (uni =="Departamento") {
-      $("#division").show();
-   }else{
-      $("#decanato").show();
-   }
+    /*Funcion que al cargar la pagina se encarga de esconder todos los select para que luego a medida que el usuario vaya seleccionando las distintas opciones, se vayan desplegando los select correspondientes*/
+    function inicio(){
+       $("#decanato").hide();
+       $("#coordinacion_D1").hide();
+       $("#coordinacion_D2").hide();
+       $("#coordinacion_D3").hide();
+       $("#departamento_D1").hide();
+       $("#departamento_D2").hide();
+       $("#departamento_D3").hide();
+       $("#departamento_D4").hide();
+       $("#division").hide();
+       $("#obj_esp").hide();
+      
+    }
 
-}
-/*Funcion que en base a un decanado seleccionado muestra
-las coordinaciones que conforman ese decanato para que pueda ser
-seleccionada una coordinacion por el usuario*/
+    /*Funcion que se encarga de desplegar los campos de departamentos que esten llenos cuando se viene de consulta*/
+    function desplegar_carga(){
+      if(document.getElementById('id_dependencia').value=='Departamento') {
+        //Caso Departamento
+        var div = document.getElementById('id_division').value;
+        if (div.length>0) {
+          $("#division").show();
+          if (div == "División de Ciencias Físicas y Matemáticas") {
+            $("#departamento_D1").show();
+          }
+          else if (div == "División de Ciencias Sociales y Humanidades") {
+            $("#departamento_D2").show();
+          }
+          else if (div == "División de Ciencias Biológicas") {
+            $("#departamento_D3").show();
+          }
+          else if (div == "División de Ciencias y Tecnologías Administrativas e Industriales") {
+            $("#departamento_D4").show();
+          }
+        }
+      }
+      else {
+        //Este caso es una coordinacion
+        var dec = document.getElementById('id_decanato').value;
+        if ( dec.length>0){
+          $("#decanato").show();
+          if (dec =="Decanato de Estudios Generales") {
+            $("#coordinacion_D1").show();
+          }
+          else {
+            if (dec =="Decanato de Estudios Profesionales") {
+              $("#coordinacion_D2").show();
+            } 
+            else {
+              $("#coordinacion_D3").show();
+            }
+          }
+        }
+      }
+    }
+     window.onload = inicio();
+     window.onload = desplegar_carga();
 
-function cambia_decanato(){
-   $("#departamento_D1").hide();
-   $("#departamento_D2").hide();
-   $("#departamento_D3").hide();
-   $("#departamento_D4").hide();
-   $("#division").hide();
-   $("#coordinacion_D1").hide();
-   $("#coordinacion_D2").hide();
-   $("#coordinacion_D3").hide();
-   var dec = document.getElementById('id_decanato').value;
-   if (dec =="Decanato de Estudios Generales") {
-      $("#coordinacion_D1").show();
-   } else{
-   if (dec =="Decanato de Estudios Profesionales") {
-      $("#coordinacion_D2").show();
-   } else {
-      $("#coordinacion_D3").show();
-   }}
-}
+    /*Funcion que se encarga de mostrar la unidad que desea seleccionar el usuario, esto es, si el usuario marca coordinacion como unidad, mostrar las opciones correspondientes*/
+    function mostrar() {
+      $("#decanato").hide();
+      $("#coordinacion_D1").hide();
+      $("#coordinacion_D2").hide();
+      $("#coordinacion_D3").hide();
+      $("#departamento_D1").hide();
+      $("#departamento_D2").hide();
+      $("#departamento_D3").hide();
+      $("#departamento_D4").hide();
+      $("#division").hide();
+      var uni = document.getElementById('id_dependencia').value;
+      if (uni =="Departamento") {
+        $("#division").show();
+      } else {
+        $("#decanato").show();
+      }
+    }
 
-/*Funcion que en base a una division seleccionada muestra
-los departamentos que conforman esa division para que pueda ser
-seleccionado un departamento por el usuario*/
+    /*Funcion que en base a un decanado seleccionado muestra
+    las coordinaciones que conforman ese decanato para que pueda ser
+    seleccionada una coordinacion por el usuario*/
 
-function cambia_division(){
-   $("#departamento_D1").hide();
-   $("#departamento_D2").hide();
-   $("#departamento_D3").hide();
-   $("#departamento_D4").hide();
-   $("#decanato").hide();
-   $("#coordinacion_D1").hide();
-   $("#coordinacion_D2").hide();
-   $("#coordinacion_D3").hide();
-   var div = document.getElementById('id_division').value;
-   if (div =="División de Ciencias Físicas y Matemáticas") {
-      $("#departamento_D1").show();
-   }
-   if (div =="División de Ciencias Sociales y Humanidades") {
-      $("#departamento_D2").show();
-   }
-   if (div =="División de Ciencias Biológicas") {
-      $("#departamento_D3").show();
-   }
-   if (div =="División de Ciencias y Tecnologías Administrativas e Industriales") {
-      $("#departamento_D4").show();
-   }
-}
+    function cambia_decanato(){
+      $("#departamento_D1").hide();
+      $("#departamento_D2").hide();
+      $("#departamento_D3").hide();
+      $("#departamento_D4").hide();
+      $("#division").hide();
+      $("#coordinacion_D1").hide();
+      $("#coordinacion_D2").hide();
+      $("#coordinacion_D3").hide();
+      var dec = document.getElementById('id_decanato').value;
+      if (dec =="Decanato de Estudios Generales") {
+        $("#coordinacion_D1").show();
+      }
+      else
+      {
+        if (dec =="Decanato de Estudios Profesionales") {
+          $("#coordinacion_D2").show();
+        } 
+        else {
+          $("#coordinacion_D3").show();
+        }
+      }
+    }
 
-/*Funcion que verifica si se logro extraer algun codigo, en caso de ser negativo levanta una advertencia, en caso contrario
-  procede a escribir el codigo en su campo respectivo y llamar a su funcion auxiliar. */
-function Extraer(cod,dpto) {
-    if (document.menu_extraer.opciones_extraer.options[1].selected==true) {
+    /*Funcion que en base a una division seleccionada muestra
+    los departamentos que conforman esa division para que pueda ser
+    seleccionado un departamento por el usuario*/
+
+    function cambia_division(){
+      $("#departamento_D1").hide();
+      $("#departamento_D2").hide();
+      $("#departamento_D3").hide();
+      $("#departamento_D4").hide();
+      $("#decanato").hide();
+      $("#coordinacion_D1").hide();
+      $("#coordinacion_D2").hide();
+      $("#coordinacion_D3").hide();
+      var div = document.getElementById('id_division').value;
+      if (div =="División de Ciencias Físicas y Matemáticas") {
+        $("#departamento_D1").show();
+      }
+      if (div =="División de Ciencias Sociales y Humanidades") {
+        $("#departamento_D2").show();
+      }
+      if (div =="División de Ciencias Biológicas") {
+        $("#departamento_D3").show();
+      }
+      if (div =="División de Ciencias y Tecnologías Administrativas e Industriales") {
+        $("#departamento_D4").show();
+      }
+    }
+
+    /*Funcion que verifica si se logro extraer algun codigo, en caso de ser negativo levanta una advertencia, en caso contrario
+    procede a escribir el codigo en su campo respectivo y llamar a su funcion auxiliar. */
+    function Extraer(cod,dpto) {
+      if (document.menu_extraer.opciones_extraer.options[1].selected==true) {
         if (cod.length == 0) {
-            alert("No se encontró ningún código");
+          alert("No se encontró ningún código");
         }
         else {
-            asig = document.getElementById('id_codigo_asignatura');
-            asig.value = cod;
-
-            AsignarDep(dpto);
+          asig = document.getElementById('id_codigo_asignatura');
+          asig.value = cod;
+          AsignarDep(dpto);
         }
+      }
     }
-}
 
-/*Funcion que verifica si un objeto esta contenido, o no, en un arreglo*/
-function contains(a, obj) {
-    for (var i = 0; i < a.length; i++) {
+    /*Funcion que verifica si un objeto esta contenido, o no, en un arreglo*/
+    function contains(a, obj) {
+      for (var i = 0; i < a.length; i++) {
         if (a[i] === obj) {
-            return true;
+          return true;
         }
+      }
+      return false;
     }
-    return false;
-}
 
-/*Funcion que una vez recibo el departamento, asigna la dependencia, division y departamento a la pagina.
-  usada como auxiliar de Extraer*/
-function AsignarDep(dpto) {
-    mi_division=[]
-    Ndpto=0
-    val=0
-    $("#division").show();
-    if (contains(division_1,dpto)){
-        val=0
-        Ndpto=division_1.indexOf(dpto)-1
+    /*Funcion que una vez recibo el departamento, asigna la dependencia, division y departamento a la pagina.
+      usada como auxiliar de Extraer*/
+    function AsignarDep(dpto) {
+      mi_division=[]
+      Ndpto=0
+      val=0
+      $("#division").show();
+      if (contains(division_1,dpto)){
+        val=1
+        Ndpto=division_1.indexOf(dpto)
         mi_division = division_1
         document.getElementById('id_departamento_D1').options[Ndpto].selected=true
+        document.getElementById('dpto').value=document.getElementById('id_departamento_D1').value
         $("#departamento_D1").show();
-    }
-    else if (contains(division_2,dpto)) {
-        val=1
-        Ndpto=division_2.indexOf(dpto)-1
+      }
+      else if (contains(division_2,dpto)) {
+        val=2
+        Ndpto=division_2.indexOf(dpto)
         mi_division = division_2
         document.getElementById('id_departamento_D2').options[Ndpto].selected=true
+        document.getElementById('dpto').value=document.getElementById('id_departamento_D2').value
         $("#departamento_D2").show();
-    }
-    else if (contains(division_3,dpto)) {
-        val=2
-        Ndpto=division_3.indexOf(dpto)-1
+      }
+      else if (contains(division_3,dpto)) {
+        val=3
+        Ndpto=division_3.indexOf(dpto)
         mi_division = division_3
         document.getElementById('id_departamento_D3').options[Ndpto].selected=true
+        document.getElementById('dpto').value=document.getElementById('id_departamento_D3').value
         $("#departamento_D3").show();
-    }
-    else if (contains(division_4,dpto)) {
-        val=3
-        Ndpto=division_4.indexOf(dpto)-1
+      }
+      else if (contains(division_4,dpto)) {
+        val=4
+        Ndpto=division_4.indexOf(dpto)
         mi_division = division_4
         document.getElementById('id_departamento_D4').options[Ndpto].selected=true
+        document.getElementById('dpto').value=document.getElementById('id_departamento_D4').value
         $("#departamento_D4").show();
+      }
+      else{
+        alert("No se encontró ningún Departamento para el codigo extraido");
+      }
+      document.getElementById('id_dependencia').options[2].selected=true
+      document.getElementById('id_division').options[val].selected=true
     }
 
-    document.getElementById('id_dependencia').options[1].selected=true
-    document.getElementById('id_division').options[val].selected=true
+    /*Funcion utilizada para cambiar entre los tipos de objetivos. Cambia entre
+    la opcion de tener solo Objetivos y tener Objetivos Generales y Objetivos
+    Especificos*/
+    function mostrar_objetivos() {
+      $("#obj_gen").hide();
+      $("#obj_esp").hide();
+      var obj = document.getElementById('id_contenido').value;
+      var cont_obj_gen = document.getElementById('id_objetivos_generales').value;
+      var cont_obj_esp = document.getElementById('id_objetivos_especificos').value;
 
-}
-
-/*Funcion utilizada para cambiar entre los tipos de objetivos. Cambia entre
-la opcion de tener solo Objetivos y tener Objetivos Generales y Objetivos
-Especificos*/
-function mostrar_objetivos() {
-   $("#obj_gen").hide();
-   $("#obj_esp").hide();
-   var obj = document.getElementById('id_contenido').value;
-   var cont_obj_gen = document.getElementById('id_objetivos_generales').value;
-   var cont_obj_esp = document.getElementById('id_objetivos_especificos').value;
-
-   /*Caso base: no se ha introducido ningun tipo de contenido en los campos de Objetivos*/
-   if ((cont_obj_gen.length==0)&&(cont_obj_esp.length==0)){
-      /*Oculta los objetivos generales y especificos y muestra los objetivos generales*/
-      if (obj == "Objetivos") {
-        $("#obj_gen").show();
-        $("#obj_esp").hide();
+      /*Caso base: no se ha introducido ningun tipo de contenido en los campos de Objetivos*/
+      if ((cont_obj_gen.length==0)&&(cont_obj_esp.length==0)){
+        /*Oculta los objetivos generales y especificos y muestra los objetivos generales*/
+        if (obj == "Objetivos") {
+          $("#obj_gen").show();
+          $("#obj_esp").hide();
+        }
+        /*Oculta los objetivos y muestra los objetivos generales y especificos*/
+        if (obj == "Objetivos Generales y Específicos") {
+          $("#obj_gen").show();
+          $("#obj_esp").show();
+        }
       }
-      /*Oculta los objetivos y muestra los objetivos generales y especificos*/
-      if (obj == "Objetivos Generales y Específicos") {
-        $("#obj_gen").show();
-        $("#obj_esp").show();
-      }
-   }else{
-      if (obj == "Objetivos"){
-         if (confirm("Al cambiar de modalidad se perderá la división entre los tipos\
- de Objetivos y toda la información pasará a estar en el único campo de\
- Objetivos. ¿Desea proseguir?")){
+      else{
+        if (obj == "Objetivos"){
+          if (confirm("Al cambiar de modalidad se perderá la división entre los tipos de Objetivos y toda la información pasará a estar en el único campo de Objetivos. ¿Desea proseguir?")){
             mantenerContenidos2('id_objetivos_generales','id_objetivos_especificos','id_objetivos_generales'); // Copia el contenido al unico campo de Objetivos
             document.getElementById('id_objetivos_especificos').value = ""; //Borra el contenido en especificos
             $("#obj_gen").show();
             $("#obj_esp").hide();
-            }
+          }
+        }
+        else{
+          $("#obj_gen").show();
+          $("#obj_esp").show();
+        }
       }
-      else{
-         $("#obj_gen").show();
-         $("#obj_esp").show();
-      }
-   }
-    
-}
+    }
 
-/*Funcion utilizada para mantener el contenido de las textareas cuando se pasa
-de la opcion Objetivos a Objetivos Generales y Objetivos Especificos*/
-function mantenerContenidos (psCopyFromId, psCopyToId)
-{
-   var copyFrom = document.getElementById(psCopyFromId);
-   var copyTo = document.getElementById(psCopyToId);
+    /*Funcion utilizada para mantener el contenido de las textareas cuando se pasa
+    de la opcion Objetvos Generales y Especificos a la opcion Objetivos*/
+    function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
+    {
+      var copyFrom1 = document.getElementById(psCopyFromId1);
+      var copyFrom2 = document.getElementById(psCopyFromId2);
+      var copyTo = document.getElementById(psCopyToId);
 
-   copyTo.value = copyFrom.value;
-}
+      copyTo.value = copyFrom1.value + "\n" + copyFrom2.value;
+    }
 
-/*Funcion utilizada para mantener el contenido de las textareas cuando se pasa
-de la opcion Objetvos Generales y Especificos a la opcion Objetivos*/
-function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
-{
+    </script>
 
-   var copyFrom1 = document.getElementById(psCopyFromId1);
-   var copyFrom2 = document.getElementById(psCopyFromId2);
-   var copyTo = document.getElementById(psCopyToId);
+    {% if mensaje_alerta %}
+      <script type="text/javascript">
+        /*Mensaje de alerta si un departamento no coincide con el codigo de la materia*/
+        alert('{{ mensaje_alerta }}');
+      </script>
+    {% endif %}
 
-   copyTo.value = copyFrom1.value + "\n" + copyFrom2.value;
-}
-</script>
+    <script type="text/javascript">
+      /*Guarda en la variable dpto el departamento que saca al extrae en caso de que el departamento
+      no coincide con el codigo de la materia*/
+      document.getElementById('dpto').value=ElDep
+    </script>
+  {% endblock custom_script %}
+</html>
