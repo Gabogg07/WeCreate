@@ -349,7 +349,12 @@ def consulta_sigpae(request):
 			if(per==str(0) or an==str(0)):
 				solicitudes = Solicitud.objects.using('gestionpae').filter(cod=cod).order_by('-trime' and '-ano')
 				if solicitudes:
-					programas = Programa.objects.using('gestionpae').filter(id=solicitudes.first().id)
+					programas = []
+					for solicitud in solicitudes:
+						programa = Programa.objects.using('gestionpae').filter(id=solicitudes.first().id).first()
+						if programa:
+							programas.append(programa)
+
 					form = MostrarConsultaForm()
 					context = {'programas':programas, 'solicitud':solicitudes.first(), 'cod':cod, 'form':form}
 					return render(request,'SIGPAE/mostrarSIGPAE.html',context)
@@ -357,46 +362,22 @@ def consulta_sigpae(request):
 					mensaje = "No hay programas con esas especificaciones"
 					form = ConsultaForm()
 					return render(request, 'SIGPAE/consulta_sigpae.html', {'form': form, 'mensaje': mensaje})
-
-			'''		
-				doc = Document.objects.filter(codigo=cod).order_by('-periodo' and '-anio')
-				if doc:
-					form = MostrarConsultaForm()
-					context = {'documents': doc,'cod':cod,'form':form}
-					return render(request,'SIGPAE/mostrarSIGPAE.html',context)
-
-				else:
-					mensaje="No hay archivos con esas especificaciones"
-					form = ConsultaForm()
-					return render(request,'SIGPAE/consulta_sigpae.html',{'form': form, 'mensaje':mensaje})
-
 			else:
+				solicitudes = Solicitud.objects.using('gestionpae').filter(cod=cod,trime=per,ano=an).order_by('-trime' and '-ano')
+				if solicitudes:
+					programas = []
+					for solicitud in solicitudes:
+						programa = Programa.objects.using('gestionpae').filter(id=solicitudes.first().id).first()
+						if programa:
+							programas.append(programa)
 
-
-
-
-
-				doc = Document.objects.filter(codigo=cod, periodo=per, anio=an)
-				if doc:
-					for f in doc:
-						nombre = os.path.basename(f.docfile.name)
-						texto_editable = textract.process(f.docfile.url)
-						print("este es el de consulta" + "\n")
-						print(f)
-						context = {'texto_editable': texto_editable, 'documento': f}
-						return render(request, 'SIGPAE/transcripcion.html', context)
-
+					form = MostrarConsultaForm()
+					context = {'programas':programas, 'solicitud':solicitudes.first(), 'cod':cod, 'form':form}
+					return render(request,'SIGPAE/mostrarSIGPAE.html',context)
 				else:
-					doc = Document.objects.filter(codigo=cod).order_by('-periodo' and '-anio')
-					if doc:
-						form = MostrarConsultaForm()
-						context = {'documents': doc,'cod':cod,'form':form}
-						return render(request, 'SIGPAE/mostrarSIGPAE.html', context)
-					else:
-						mensaje = "No hay archivos con esas especificaciones"
-						form = ConsultaForm()
-						return render(request, 'SIGPAE/consulta_sigpae.html', {'form': form, 'mensaje': mensaje})
-			'''
+					mensaje = "No hay programas con esas especificaciones"
+					form = ConsultaForm()
+					return render(request, 'SIGPAE/consulta_sigpae.html', {'form': form, 'mensaje': mensaje})
 	else:
 		form=ConsultaForm()
 		return render(request, 'SIGPAE/consulta_sigpae.html', {'form': form})
