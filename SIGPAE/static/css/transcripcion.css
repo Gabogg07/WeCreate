@@ -1,0 +1,47 @@
+select,textarea,input[type]{
+    display: inline-block;
+    background-color: #FFFFFF;
+    border:10px double deepskyblue;
+    font-family:arial;
+    padding:10px;
+    width: 95%;
+    }
+
+input[type=submit] {
+    width: 50%;
+    background-color: deepskyblue;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button {
+    width: 40%;
+    background-color: deepskyblue;
+    color: white;
+    padding: 7px 10px;
+    margin: 8px 0;
+    border: none;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+iframe {
+	width:100%;
+	height:555px;
+	padding:10px;
+	padding-left: 5px;
+	border:10px double deepskyblue;
+}
+
+div.scroll {
+	height:500px;
+	width:100%;
+	overflow-y:auto;
+	overflow-x:hidden;
+}

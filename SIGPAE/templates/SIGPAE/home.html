@@ -1,62 +1,20 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html class="full" lang="en">
-<!-- Make sure the <html> tag is set to the .full CSS class. Change the background image in the full.css file. -->
 
 <head>
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<style>
-
-/* latin */
-@font-face {
-  font-family: 'Cantarell';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Cantarell Regular'), local('Cantarell-Regular'), url(http://fonts.gstatic.com/s/cantarell/v6/V86VyqXbc09Sss3BPsMj11tXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-}
-
-	body {
-	margin-top: 20px;
-	margin-bottom: 50px;
-	background: none;
-	color: #FFF;
-	padding: 5% 0;
-	font-family: "Cantarell", sans-serif;
-}
-
-.full {
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),url(http://static.panoramio.com/photos/original/604965.jpg) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-div{ text-align: center;}
-
-#row{
-    padding: 10% 0;
-
-}
-h1{
-	font-size: 70px;
-}
-
-</style>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet" media="screen">
+  <!-- Optional theme -->
+  <link href="{% static 'css/bootstrap-theme.min.css'%}" rel="stylesheet" media="screen">
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/home.css'%}" rel="stylesheet" media="screen">
 </head>
 
 <body>
-
-
     <!-- Page Content -->
     <div class="container-fluid" style="height: 100%;">
         <div class="row">

@@ -123,6 +123,9 @@ def home(request):
 def index(request):
 	return render(request, 'SIGPAE/index.html', {})
 
+def base(request):
+	return render(request, 'SIGPAE/base.html', {})
+
 def cargar_archivo(request):
 	if request.method == 'POST':
 		form = DocumentForm(request.POST, request.FILES)

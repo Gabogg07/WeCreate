@@ -1,0 +1,35 @@
+input, select {
+    padding: 4px 10px;
+    margin: 0px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+}
+
+input[type=submit] {
+    background-color: deepskyblue;
+    color: white;
+    margin: 8px 0;
+    border: none;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    float: center;
+    display: inline;
+}
+
+input[type=submit]:hover {
+    background-color: #0489B1;
+}
+
+ul.lista {
+list-style-type: none;
+}
+
+li.lista {
+background: url('libro.jpg') no-repeat left 11px;
+height: 54px;
+padding-left: 35px;
+padding-top: 3px;
+}

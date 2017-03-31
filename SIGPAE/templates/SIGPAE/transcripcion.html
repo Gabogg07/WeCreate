@@ -1,83 +1,62 @@
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+{% extends "SIGPAE/base.html" %}
+{% load static %}
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head %}
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title> SIGPAE - Transcripción </title>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <link rel="icon" href="../../favicon.ico">
+      {% block css %}    
+        <!-- Bootstrap core CSS -->
+        <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet" media="screen">
+        <!-- Custom styles for this template -->
+        <link href="{% static 'css/navbar.css'%}" rel="stylesheet" media="screen">
+      {% endblock css %}
+        <link href="{% static 'css/transcripcion.css'%}" rel="stylesheet" media="screen">
+        {% endblock head %}
+  </head>
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-
-<style>
-    select,textarea,input[type]{
-        background-color: #FFFFFF;
-        border:10px double deepskyblue;
-        font-family:arial;
-        padding:10px;
-        width:95%
-    }
-</style>
-
-<div class="container" style="padding-top: 1em;">
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex6-collapse">
-        <span class="sr-only">Desplegar navegación</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-    </div>
-
-    <div class="collapse navbar-collapse navbar-ex6-collapse">
-      <ul class="nav navbar-nav">
-      <li>&nbsp;</li>
-        <li><a href="{% url "home" %}">SIGPAE</a></li>
-        <li><a href="{% url "cargar" %}" >Cargar</a></li>
-        <li><a href="{% url "consulta" %}">Consultar Transcripciones Guardadas</a></li>
-      </ul>
-    </div>
-  </nav>
-
-<br>
-<br>
-
-</div>
-
+{% block content %}
 <script type="text/javascript">
    var ElCod = "{{codigo}}";
    var ElDep = "{{ dpto }}"
 </script>
 
-<div class="container-fluid" style="height: 80%">
+<div class="container">
 
    <div class="row">
       <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-         <h2> PDF </h2>
+         <center><h2> PDF </h2></center>
          {% if documento %}
-            <iframe src=/prueba/{{ documento.path }} style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
+            <iframe src=/prueba/{{ documento.path }}>
             </iframe>
          {% else %}
-            <iframe src=/prueba/{{ ruta }} style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
+            <iframe src=/prueba/{{ ruta }}>
             </iframe>
          {% endif %}
       </div>
 
       <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
 
-         <h2> Texto extraído </h2>
+         <center><h2> Texto extraído </h2><center>
          {% if texto_editable %}
-         <textarea id= KKK cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
+         <textarea id= KKK cols="35" rows="25" col align="">
          {{ texto_editable}}
          </textarea>
          {% endif %}
       </div>
-
-      <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-      <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
-
+      <br>
+      <br>
+      <br>
+      <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+      <div class="scroll">
       <form name="menu_extraer">
             <select class="form-control" name="opciones_extraer" style="width:95%;">
             <option value="0" selected>Seleccione Opción
@@ -86,7 +65,7 @@
       </form>
 
       <button onClick="Extraer(ElCod,ElDep)">Extraer</button>
-
+      <p style="font-size: 10px;"><b> Al escoger código y departamento, dar click a extraer y los campos  pertinentes serán llenados automaticamente.</b></p>
 
       <form action="{% url "home" %}" method="post" enctype="multipart/form-data" id="form">
          {% csrf_token %}
@@ -131,32 +110,36 @@
          <p>{{ form.requisitos.label_tag }} {{ form.requisitos }}</p>
 
          <p>{{ form.objetivos.label_tag }} {{ form.objetivos }}</p>
-         <br>
 
          <h2> Contenidos sinópticos </h2>
 
          <div onchange="mostrar_objetivos()"><p>{{ form.contenido.label_tag }} {{ form.contenido }}</p></div>
 
-         <br>
-         <br>
          <div id="obj_gen"><p>{{ form.objetivos_generales.label_tag }} {{ form.objetivos_generales }}</p></div>
          <div id="obj_esp"><p>{{ form.objetivos_especificos.label_tag }} {{ form.objetivos_especificos }}</p></div>
          <p>{{ form.estrategias_met.label_tag }} {{ form.estrategias_met }}</p>
-         <br>
 
          <p>{{ form.estrategias_ev.label_tag }} {{ form.estrategias_ev }}</p>
-         <br>
 
          <p>{{ form.fuentes_info.label_tag }} {{ form.fuentes_info }}</p>
 
         </div>
+<<<<<<< HEAD
 
         <input type="submit" value="Guardar"/>
+=======
+        <center><input type="submit" value="Guardar"/></center>
+>>>>>>> wc/Interfaz
       </form>
       </div>
        </div>
       </div></div>
+{% endblock content %}
 
+<<<<<<< HEAD
+=======
+  {%block custom_script%}
+>>>>>>> wc/Interfaz
 <script type="text/javascript">
   function submitForm(){
     if ('{{cond}}' == 0) {
@@ -480,6 +463,7 @@ function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
 
 </script>
 
+<<<<<<< HEAD
 {% if mensaje_alerta %}
    <script type="text/javascript">
    /*Mensaje de alerta si un departamento no coincide con el codigo de la materia*/
@@ -492,3 +476,6 @@ function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
   no coincide con el codigo de la materia*/
   document.getElementById('dpto').value=ElDep
 </script>
+=======
+  {% endblock %}
+>>>>>>> wc/Interfaz
