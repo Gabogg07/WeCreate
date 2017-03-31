@@ -114,39 +114,25 @@
 </html>
 
 {%block custom_script%}
-  <script type="text/javascript">
-     var ElCod = "{{codigo}}";
-     var ElDep = "{{ dpto }}"
-  </script>
 
   <script type="text/javascript">
   /*Script que sirve para mostrar los datos que se hayan guardado en la Base de Datos como
     borrador de una trancripcion*/
-     document.getElementById('id_dependencia').value = "{{ row.dependencia }}";
-     document.getElementById('id_decanato').value = "{{ row.decanato }}";
-     document.getElementById('id_coordinacion_D1').value = "{{ row.coordinacion_D1 }}";
-     document.getElementById('id_coordinacion_D2').value = "{{ row.coordinacion_D2 }}";
-     document.getElementById('id_coordinacion_D3').value = "{{ row.coordinacion_D3 }}";
-     document.getElementById('id_division').value = "{{ row.division }}";
-     document.getElementById('id_departamento_D1').value = "{{ row.departamento_D1 }}";
-     document.getElementById('id_departamento_D2').value = "{{ row.departamento_D2 }}";
-     document.getElementById('id_departamento_D3').value = "{{ row.departamento_D3 }}";
-     document.getElementById('id_departamento_D4').value = "{{ row.departamento_D4 }}";
-     document.getElementById('id_codigo_asignatura').value = "{{ row.codigo_asignatura }}";
-     document.getElementById('id_denominacion').value = "{{ row.denominacion }}";
-     document.getElementById('id_periodo').value = "{{ row.periodo }}";
-     document.getElementById('id_anio').value = "{{ row.anio }}";
-     document.getElementById('id_horas_T').value = "{{ row.horas_T }}";
-     document.getElementById('id_horas_P').value = "{{ row.horas_P }}";
-     document.getElementById('id_horas_L').value = "{{ row.horas_L }}";
-     document.getElementById('id_num_creditos').value = "{{ row.num_creditos }}";
-     document.getElementById('id_requisitos').value = "{{ row.requisitos }}";
-     document.getElementById('id_estrategias_met').value = "{{ row.estrategias_met }}";
-     document.getElementById('id_estrategias_ev').value = "{{ row.estrategias_ev }}";
-     document.getElementById('id_contenido').value = "{{ row.contenido }}";
-     document.getElementById('id_objetivos_generales').value = "{{ row.objetivos_generales }}";
-     document.getElementById('id_objetivos_especificos').value = "{{ row.objetivos_especificos }}";
-     document.getElementById('id_fuentes_info').value = "{{ row.fuentes_info }}";
+    document.getElementById('id_codigo_asignatura').value = "{{ row.codigo_asignatura }}";
+    document.getElementById('id_denominacion').value = "{{ row.denominacion }}";
+    document.getElementById('id_periodo').value = "{{ row.periodo }}";
+    document.getElementById('id_anio').value = "{{ row.anio }}";
+    document.getElementById('id_horas_T').value = "{{ row.horas_T }}";
+    document.getElementById('id_horas_P').value = "{{ row.horas_P }}";
+    document.getElementById('id_horas_L').value = "{{ row.horas_L }}";
+    document.getElementById('id_num_creditos').value = "{{ row.num_creditos }}"
+    document.getElementById('id_requisitos').value = "{{ row.requisitos }}";
+    document.getElementById('id_estrategias_met').value = "{{ row.estrategias_met }}";
+    document.getElementById('id_estrategias_ev').value = "{{ row.estrategias_ev }}";
+    document.getElementById('id_contenido').value = "{{ row.contenido }}";
+    document.getElementById('id_objetivos_generales').value = "{{ row.objetivos_generales }}";
+    document.getElementById('id_objetivos_especificos').value = "{{ row.objetivos_especificos }}";
+    document.getElementById('id_fuentes_info').value = "{{ row.fuentes_info }}";
   </script>
 
   <script type="text/javascript">

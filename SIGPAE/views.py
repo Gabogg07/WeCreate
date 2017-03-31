@@ -80,8 +80,28 @@ def home(request):
 			#Se verifica si el código introducido coincide con el departamento
 			x = form.cleaned_data['codigo_asignatura']
 			x = x[:2].lower()
+			hP=int(request.POST['hPrac'])
+			hL=int(request.POST['hLab'])
+			hT=int(request.POST['hTeo'])
+			'''
+			if (hP+hT+hL>40):
+				doc = Document.objects.all().filter(id = documento).first()
+				row = Historial.objects.all().filter(docfile_id = documento).first()
+				cdg = request.POST['cod']
+
+				dpto = request.POST['dpto']
+
+				if doc.docfile != "":
+					texto_editable = textract.process(doc.docfile)
+					mensaje_alerta = "La suma de horas de laboratio, práctica, teoría no puede ser mayor a 40"
+					context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(), 'dpto':dpto, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
+					return render(request, 'SIGPAE/transcripcion.html', context)
+				else:
+					mensaje_alerta = "La suma de horas de laboratio, práctica, teoría no puede ser mayor a 40"
+					context = {'row': row,'form':HistorialForm(),'sigpae':True,'mensaje_alerta':mensaje_alerta}
+					return render(request, 'SIGPAE/transcripcion.html', context)
+			'''
 			if x in cods:
-				print("Conseguí código")
 				temp0 = form.cleaned_data['departamento_D1'].encode('UTF-8')
 				temp1 = form.cleaned_data['departamento_D2'].encode('UTF-8')
 				temp2 = form.cleaned_data['departamento_D3'].encode('UTF-8')
@@ -95,7 +115,6 @@ def home(request):
 					return render(request, 'SIGPAE/home.html', context)
 				#Si no coincide, se recarga la página con un alert
 				else:
-					print("Sin coincidencia")
 					doc = Document.objects.all().filter(id = documento).first()
 					row = Historial.objects.all().filter(docfile_id = documento).first()
 					cdg = request.POST['cod']
@@ -118,7 +137,6 @@ def home(request):
 			#Si se coloca algo que no sea un codigo ni nada manda un mensaje de alerta que no coincide con el departamento
 			#que este puesto
 			else:
-				print("No conseguí código")
 				doc = Document.objects.all().filter(id = documento).first()
 				row = Historial.objects.all().filter(docfile_id = documento).first()
 				cdg = request.POST['cod']
@@ -310,6 +328,7 @@ def transcripcion_sigpae(request):
 			docfile_id=newdoc)
 			
 		newhist.save()
+
 		context = {'row': newhist, 'form': HistorialForm()}
 		return render(request, 'SIGPAE/transcripcion_sigpae.html', context)
 	elif request.method == 'POST':
