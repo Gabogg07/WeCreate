@@ -581,4 +581,3 @@ class Usuario(models.Model):
 		_DATABASE = 'gestionpae'
 		managed = False
 		db_table = 'usuario'
->>>>>>> 82b57394ac66cc61d44a2b2013fd930dd4fa5623

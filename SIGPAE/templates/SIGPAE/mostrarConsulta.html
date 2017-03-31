@@ -38,10 +38,6 @@
 							<input type="hidden" name="documento" value={{ historia.docfile_id.docfile }}>
 							<input type="hidden" name="historia_id" value={{ historia.id }}>
 							<p>{{ historia.codigo_asignatura }} {{ historia.periodo }} {{ historia.anio }} {{ form.tipo }} <input type="submit" value="Transcribir"/></p>
-
-							<input type="hidden" name="ruta" value={{ document.docfile.path }}>
-							<input type="hidden" name="documento" value={{ document.docfile }}>
-							<p>{{ document.docfile.name }} {{ form.tipo }} <input type="submit" value="Transcribir"/></p>
 						</form>
 					</li>
 				{% endfor %}
