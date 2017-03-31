@@ -338,32 +338,32 @@
       val=0
       $("#division").show();
       if (contains(division_1,dpto)){
-          val=0
-          Ndpto=division_1.indexOf(dpto)-1
+          val=1
+          Ndpto=division_1.indexOf(dpto)
           mi_division = division_1
           document.getElementById('id_departamento_D1').options[Ndpto].selected=true
           document.getElementById('dpto').value=document.getElementById('id_departamento_D1').value
           $("#departamento_D1").show();
       }
       else if (contains(division_2,dpto)) {
-          val=1
-          Ndpto=division_2.indexOf(dpto)-1
+          val=2
+          Ndpto=division_2.indexOf(dpto)
           mi_division = division_2
           document.getElementById('id_departamento_D2').options[Ndpto].selected=true
           document.getElementById('dpto').value=document.getElementById('id_departamento_D2').value
           $("#departamento_D2").show();
       }
       else if (contains(division_3,dpto)) {
-          val=2
-          Ndpto=division_3.indexOf(dpto)-1
+          val=3
+          Ndpto=division_3.indexOf(dpto)
           mi_division = division_3
           document.getElementById('id_departamento_D3').options[Ndpto].selected=true
           document.getElementById('dpto').value=document.getElementById('id_departamento_D3').value
           $("#departamento_D3").show();
       }
       else if (contains(division_4,dpto)) {
-          val=3
-          Ndpto=division_4.indexOf(dpto)-1
+          val=4
+          Ndpto=division_4.indexOf(dpto)
           mi_division = division_4
           document.getElementById('id_departamento_D4').options[Ndpto].selected=true
           document.getElementById('dpto').value=document.getElementById('id_departamento_D4').value
@@ -373,7 +373,7 @@
           alert("No se encontró ningún Departamento para el codigo extraido");
       }
 
-      document.getElementById('id_dependencia').options[1].selected=true
+      document.getElementById('id_dependencia').options[2].selected=true
       document.getElementById('id_division').options[val].selected=true
 
   }
