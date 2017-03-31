@@ -19,15 +19,15 @@
         <!-- Custom styles for this template -->
         <link href="{% static 'css/navbar.css'%}" rel="stylesheet" media="screen">
       {% endblock css %}
-        <link href="{% static 'css/transcripcion.css'%}" rel="stylesheet" media="screen">
-        {% endblock head %}
+      <link href="{% static 'css/transcripcion.css'%}" rel="stylesheet" media="screen">
+    {% endblock head %}
   </head>
 
-{% block content %}
+  {% block content %}
 
-<div class="container">
+  <div class="container-fluid" style="height: 80%">
 
-   <div class="row">
+    <div class="row">
       <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
         {% if sigpae %}
           <textarea id= KKK cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
@@ -58,92 +58,87 @@
         {% endif %}
       </div>
 
-      <br>
-      <br>
-      <br>
-
-      <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-      <div class="scroll">
-      {% if sigpae %}
-      {% else %}
-        <form name="menu_extraer">
-          <select class="form-control" name="opciones_extraer" style="width:95%;">
-          <option value="0" selected>Seleccione Opción
-          <option value="1">Código y Departamento
-          </select>
-        </form>
-        <button onClick="Extraer(ElCod,ElDep)">Extraer</button>
-        <p style="font-size: 10px;"><b> Al escoger código y departamento, dar click a extraer y los campos pertinentes serán llenados automaticamente.</b></p>
-      {% endif %}
-
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-      <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
+        <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
+          <div class="scroll">
+            {% if sigpae %}
+            {% else %}
+              <form name="menu_extraer">
+                <select class="form-control" name="opciones_extraer" style="width:95%;">
+                <option value="0" selected>Seleccione Opción
+                <option value="1">Código y Departamento
+                </select>
+              </form>
+              <button onClick="Extraer(ElCod,ElDep)">Extraer</button>
+              <p style="font-size: 10px;"><b> Al escoger código y departamento, dar click a extraer y los campos pertinentes serán llenados automaticamente.</b></p>
+            {% endif %}     
 
-      <form action="{% url "home" %}" method="post" enctype="multipart/form-data" id="form">
-         {% csrf_token %}
-         <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
-         <input type="hidden" name="cod" value = {{ codigo }}>
-         <input type="hidden" name="dpto" id="dpto">
+            <form action="{% url "home" %}" method="post" enctype="multipart/form-data" id="form">
+              {% csrf_token %}
+              <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
+              <input type="hidden" name="cod" value = {{ codigo }}>
+              <input type="hidden" name="dpto" id="dpto">
 
-         <h2>Dependencia</h2>
-         <div onchange="mostrar()"><p>{{ form.dependencia }}</p></div>
-         <div onchange="cambia_decanato()" id="decanato"><p>{{ form.decanato.label_tag }} {{ form.decanato }}</p></div>
-         <div id="coordinacion_D1"><p>{{ form.coordinacion_D1.label_tag }} {{ form.coordinacion_D1 }}</p></div>
-         <div id="coordinacion_D2"><p>{{ form.coordinacion_D2.label_tag }} {{ form.coordinacion_D2 }}</p></div>
-         <div id="coordinacion_D3"><p>{{ form.coordinacion_D3.label_tag }} {{ form.coordinacion_D3 }}</p></div>
-         <div onchange="cambia_division()" id="division"><p>{{ form.division.label_tag }} {{ form.division }}</p></div>
-         <div id="departamento_D1"><p>{{ form.departamento_D1.label_tag }} {{ form.departamento_D1 }}</p></div>
-         <div id="departamento_D2"><p>{{ form.departamento_D2.label_tag }} {{ form.departamento_D2 }}</p></div>
-         <div id="departamento_D3"><p>{{ form.departamento_D3.label_tag }} {{ form.departamento_D3 }}</p></div>
-         <div id="departamento_D4"><p>{{ form.departamento_D4.label_tag }} {{ form.departamento_D4 }}</p></div>
+              <h2>Dependencia</h2>
+              <div onchange="mostrar()"><p>{{ form.dependencia }}</p></div>
+              <div onchange="cambia_decanato()" id="decanato"><p>{{ form.decanato.label_tag }} {{ form.decanato }}</p></div>
+              <div id="coordinacion_D1"><p>{{ form.coordinacion_D1.label_tag }} {{ form.coordinacion_D1 }}</p></div>
+              <div id="coordinacion_D2"><p>{{ form.coordinacion_D2.label_tag }} {{ form.coordinacion_D2 }}</p></div>
+              <div id="coordinacion_D3"><p>{{ form.coordinacion_D3.label_tag }} {{ form.coordinacion_D3 }}</p></div>
+              <div onchange="cambia_division()" id="division"><p>{{ form.division.label_tag }} {{ form.division }}</p></div>
+              <div id="departamento_D1"><p>{{ form.departamento_D1.label_tag }} {{ form.departamento_D1 }}</p></div>
+              <div id="departamento_D2"><p>{{ form.departamento_D2.label_tag }} {{ form.departamento_D2 }}</p></div>
+              <div id="departamento_D3"><p>{{ form.departamento_D3.label_tag }} {{ form.departamento_D3 }}</p></div>
+              <div id="departamento_D4"><p>{{ form.departamento_D4.label_tag }} {{ form.departamento_D4 }}</p></div>
 
-         <h2> Código Asignatura </h2>
+              <h2> Código Asignatura </h2>
 
-         <p>{{ form.codigo_asignatura.label_tag }} {{ form.codigo_asignatura }}</p>
-         <br>
-         <p>{{ form.denominacion.label_tag }} {{ form.denominacion }}</p>
-         <br>
-         <h2> Fecha de entrada en vigencia </h2>
-         <p>{{ form.periodo.label_tag }} {{ form.periodo }}</p>
+              <p>{{ form.codigo_asignatura.label_tag }} {{ form.codigo_asignatura }}</p>
+              <br>
+              <p>{{ form.denominacion.label_tag }} {{ form.denominacion }}</p>
+              <br>
+              <h2> Fecha de entrada en vigencia </h2>
+              <p>{{ form.periodo.label_tag }} {{ form.periodo }}</p>
 
-         <p>{{ form.anio.label_tag }} {{ form.anio }}</p>
+              <p>{{ form.anio.label_tag }} {{ form.anio }}</p>
 
-         <h2> Horas de teoría semanales: </h2>
+              <h2> Horas de teoría semanales: </h2>
 
-         <p>{{ form.horas_T.label_tag }} {{ form.horas_T }}</p>
+              <p>{{ form.horas_T.label_tag }} {{ form.horas_T }}</p>
 
-         <p>{{ form.horas_P.label_tag }} {{ form.horas_P }}</p>
+              <p>{{ form.horas_P.label_tag }} {{ form.horas_P }}</p>
 
-         <p>{{ form.horas_L.label_tag }} {{ form.horas_L }}</p>
+              <p>{{ form.horas_L.label_tag }} {{ form.horas_L }}</p>
 
-         <p>{{ form.num_creditos.label_tag }} {{ form.num_creditos }}</p>
+              <p>{{ form.num_creditos.label_tag }} {{ form.num_creditos }}</p>
 
-         <p>{{ form.requisitos.label_tag }} {{ form.requisitos }}</p>
+              <p>{{ form.requisitos.label_tag }} {{ form.requisitos }}</p>
 
-         <p>{{ form.objetivos.label_tag }} {{ form.objetivos }}</p>
+              <p>{{ form.objetivos.label_tag }} {{ form.objetivos }}</p>
 
-         <h2> Contenidos sinópticos </h2>
+              <h2> Contenidos sinópticos </h2>
 
-         <div onchange="mostrar_objetivos()"><p>{{ form.contenido.label_tag }} {{ form.contenido }}</p></div>
+              <div onchange="mostrar_objetivos()"><p>{{ form.contenido.label_tag }} {{ form.contenido }}</p></div>
 
-         <br>
+              <br>
 
-         <div id="obj_gen"><p>{{ form.objetivos_generales.label_tag }} {{ form.objetivos_generales }}</p></div>
-         <div id="obj_esp"><p>{{ form.objetivos_especificos.label_tag }} {{ form.objetivos_especificos }}</p></div>
-         <p>{{ form.estrategias_met.label_tag }} {{ form.estrategias_met }}</p>
+              <div id="obj_gen"><p>{{ form.objetivos_generales.label_tag }} {{ form.objetivos_generales }}</p></div>
+              <div id="obj_esp"><p>{{ form.objetivos_especificos.label_tag }} {{ form.objetivos_especificos }}</p></div>
+              <p>{{ form.estrategias_met.label_tag }} {{ form.estrategias_met }}</p>
 
-         <p>{{ form.estrategias_ev.label_tag }} {{ form.estrategias_ev }}</p>
+              <p>{{ form.estrategias_ev.label_tag }} {{ form.estrategias_ev }}</p>
 
-         <p>{{ form.fuentes_info.label_tag }} {{ form.fuentes_info }}</p>
-
+              <p>{{ form.fuentes_info.label_tag }} {{ form.fuentes_info }}</p>
+  
+              <center><input type="submit" value="Guardar"/></center>
+            </form>
+          </div>
         </div>
-
-        <center><input type="submit" value="Guardar"/></center>
-      </form>
       </div>
-      </div>
-      </div></div>
-{% endblock content %}
+    </div>
+  </div>
+  {% endblock content %}
+</html>
 
 {%block custom_script%}
   <script type="text/javascript">
@@ -200,8 +195,11 @@
      $("#departamento_D4").hide();
      $("#division").hide();
      $("#obj_esp").hide();
-
+     if document.getElementById('id_objetivos_especificos').length > 0 {
+        $("#obj_esp").show();
+     }  
   }
+
   window.onload = inicio();
   window.onload = desplegar_carga();
 
