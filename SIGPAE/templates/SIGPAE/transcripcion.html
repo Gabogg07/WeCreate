@@ -92,7 +92,10 @@
          {% csrf_token %}
          <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
          <input type="hidden" name="cod" value = {{ codigo }}>
-         <input type="hidden" name="dpto" id="dpto">
+         <input type="hidden" name="dpto" id="dpto" value = 0>
+         <input type="hidden" name="hTeo" id="hTeo" value = 0>
+         <input type="hidden" name="hLab" id="hLab" value = 0>
+         <input type="hidden" name="hPrac" id="hPrac" value = 0>
 
          <h2>Dependencia</h2>
          <div onchange="mostrar()"><p>{{ form.dependencia }}</p></div>
@@ -120,11 +123,11 @@
 
          <h2> Horas de teoría semanales: </h2>
 
-         <p>{{ form.horas_T.label_tag }} {{ form.horas_T }}</p>
+        <div onchange="cambia_hora(1);" id="horasTeo"><p>{{ form.horas_T.label_tag }} {{ form.horas_T }}</p></div>
 
-         <p>{{ form.horas_P.label_tag }} {{ form.horas_P }}</p>
+        <div onchange="cambia_hora(2);" id="horasPrac"><p>{{ form.horas_P.label_tag }} {{ form.horas_P }}</p></div>
 
-         <p>{{ form.horas_L.label_tag }} {{ form.horas_L }}</p>
+         <div onchange="cambia_hora(3);" id="horasLab"><p>{{ form.horas_L.label_tag }} {{ form.horas_L }}</p></div>
 
          <p>{{ form.num_creditos.label_tag }} {{ form.num_creditos }}</p>
 
@@ -524,6 +527,22 @@ function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
    var copyTo = document.getElementById(psCopyToId);
 
    copyTo.value = copyFrom1.value + "\n" + copyFrom2.value;
+}
+
+
+/*Funcion que al seleccionar un nuevo valor en las horas de clases, actualiza el parametro
+para ver que la sumatoria no sea mayor de 40*/
+function cambia_hora(n){
+    if(n==1){
+        document.getElementById('hTeo').value=document.getElementById('id_horas_T').value
+    }
+    else if(n==2){
+        document.getElementById('hPrac').value=document.getElementById('id_horas_P').value
+    }
+    else{
+        document.getElementById('hLab').value=document.getElementById('id_horas_L').value
+    }
+
 }
 
 </script>

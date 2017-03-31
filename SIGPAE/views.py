@@ -66,11 +66,31 @@ def home(request):
 			row_hist.fuentes_info = form.cleaned_data['fuentes_info']
 			x = form.cleaned_data['codigo_asignatura']
 			x = x[:2].lower()
+
+			hP=int(request.POST['hPrac'])
+			hL=int(request.POST['hLab'])
+			hT=int(request.POST['hTeo'])
+
+			if((hP+hT+hL)>40):
+			   doc = Document.objects.all().filter(id=documento).first()
+			   row = Historial.objects.all().filter(docfile_id=documento).first()
+			   cdg = request.POST['cod']
+			   print(cdg)
+			   dpto = request.POST['dpto']
+			   print(dpto)
+			   texto_editable = textract.process(doc.docfile.url)
+			   mensaje_alerta = "El total de horas de Laboratorio,Teoria y Practica no puede superar las 40 horas"
+			   context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(),
+			            'dpto': dpto, 'row': row, 'form': HistorialForm(), 'mensaje_alerta': mensaje_alerta}
+			   return render(request, 'SIGPAE/transcripcion.html', context)
+
 			if x in cods:
 				temp0 = form.cleaned_data['departamento_D1'].encode('UTF-8')
 				temp1 = form.cleaned_data['departamento_D2'].encode('UTF-8')
 				temp2 = form.cleaned_data['departamento_D3'].encode('UTF-8')
 				temp3 = form.cleaned_data['departamento_D4'].encode('UTF-8')
+
+
 				if ( temp0 == cods[x] or temp1 == cods[x] or temp2 == cods[x] or temp3 == cods[x] ):
 
 					row_hist.save()
