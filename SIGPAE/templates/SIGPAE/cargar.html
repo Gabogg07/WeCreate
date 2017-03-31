@@ -1,3 +1,6 @@
+<!-- HTML a mostrar cuando un usuario selecciona en home >
+<  la opcion de realizar la transcripcion de un programa,>
+<  en esta seccion debe cargar el programa             -->
 {% extends "SIGPAE/base.html" %}
 {% load static %}
 
@@ -10,15 +13,14 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title> SIGPAE - Cargar </title>
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
       <meta name="description" content="">
       <meta name="author" content="">
       <link rel="icon" href="../../favicon.ico">
       
       {% block css %}    
-        <!-- Bootstrap core CSS -->
+        <!-- Bootstrap CSS -->
         <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet" media="screen">
-        <!-- Custom styles for this template -->
+        <!-- CSS para este proyecto -->
         <link href="{% static 'css/navbar.css'%}" rel="stylesheet" media="screen">
       {% endblock css %}
           
@@ -35,6 +37,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-1 col-md-1 col-xs-1"></div>
+        <!-- Mensaje de ayuda al usuario -->
         <b><p text-align="justify;" style= "font-size: 16px;"> A continuación llene los campos necesarios, luego busque el programa que desea transcribir y dar click a cargar para proseguir. </p></b>
       </div>
       <form action="{% url "cargar" %}" method="post" enctype="multipart/form-data" id="form_carga">
@@ -42,18 +45,22 @@
         <center><p>{{ form.non_field_errors }}</p></center>
         <div class="row">
           <div class="col-lg-1 col-md-1 col-xs-1"></div>
+          <!-- Codigo de la asignatura -->
           <div class="col-lg-2 col-md-2 col-xs-2">
             <p>{{ form.codigo.label_tag }} </p>
             <p>{{ form.codigo }}</p>
           </div>
+          <!-- Periodo/Trimestre de la asignatura -->
           <div class="col-lg-2 col-md-2 col-xs-2">
             <p>{{ form.periodo.label_tag }} </p>
             <p>{{ form.periodo }}</p>
           </div>
+          <!-- Año -->
           <div class="col-lg-2 col-md-2 col-xs-2">
             <p>{{ form.anio.label_tag }}</p> 
             <p>{{ form.anio }}</p>
           </div>
+          <!-- Tipo -->
           <div class="col-lg-2 col-md-2 col-xs-2">
             <p>{{ form.tipo.label_tag }} </p>
             <p>{{ form.tipo }}</p>

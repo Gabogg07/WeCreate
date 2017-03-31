@@ -1,3 +1,7 @@
+<!-- HTML a mostrar cuando un usuario selecciona en home   >
+<  la opcion de realizar la transcripcion de un programa,  >
+<  en esta seccion se muestra la transcripcion realizada -->
+
 {% extends "SIGPAE/base.html" %}
 {% load static %}
 
@@ -9,16 +13,16 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title> SIGPAE - Transcripción </title>
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
       <meta name="description" content="">
       <meta name="author" content="">
       <link rel="icon" href="../../favicon.ico">
       {% block css %}    
-        <!-- Bootstrap core CSS -->
+        <!-- Bootstrap CSS -->
         <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet" media="screen">
-        <!-- Custom styles for this template -->
+        <!-- CSS para este proyecto -->
         <link href="{% static 'css/navbar.css'%}" rel="stylesheet" media="screen">
       {% endblock css %}
+        <!-- CSS para este documento -->
         <link href="{% static 'css/transcripcion.css'%}" rel="stylesheet" media="screen">
     {% endblock head %}
   </head>
@@ -44,7 +48,6 @@
             <form action="{% url "transcripcion_sigpae" %}" method="post" enctype="multipart/form-data">
               {% csrf_token %}
               <input type="hidden" name="historia_id" value={{ row.id }}>
-
               <h2>Dependencia</h2>
               <div onchange="mostrar()"><p>{{ form.dependencia }}</p></div>
               <div onchange="cambia_decanato()" id="decanato"><p>{{ form.decanato.label_tag }} {{ form.decanato }}</p></div>
