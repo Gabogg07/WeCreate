@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
   <head>
     {% block head %}
       <meta charset="utf-8">
@@ -27,12 +28,17 @@
 {% block content %}
 <div class="container">
 	<p><b> &nbsp Escoja la transcripción a consultar, seleccione si desea que se muestre en texto o en HTML y dar click al botón transcribir. </b></p>
-		{% if documents %}
+		{% if historias %}
 			<ul class= 'lista'>
-				{% for document in documents %}
+				{% for historia in historias %}
 					<li class= 'lista'>
 						<form action="{% url "transcripcion" %}" method="get" enctype="multipart/form-data">
 							{% csrf_token %}
+							<input type="hidden" name="ruta" value={{ historia.docfile_id.docfile }}>
+							<input type="hidden" name="documento" value={{ historia.docfile_id.docfile }}>
+							<input type="hidden" name="historia_id" value={{ historia.id }}>
+							<p>{{ historia.codigo_asignatura }} {{ historia.periodo }} {{ historia.anio }} {{ form.tipo }} <input type="submit" value="Transcribir"/></p>
+
 							<input type="hidden" name="ruta" value={{ document.docfile.path }}>
 							<input type="hidden" name="documento" value={{ document.docfile }}>
 							<p>{{ document.docfile.name }} {{ form.tipo }} <input type="submit" value="Transcribir"/></p>
