@@ -46,62 +46,23 @@
 
 </div>
 
-<script type="text/javascript">
-   var ElCod = "{{codigo}}";
-   var ElDep = "{{ dpto }}"
-</script>
-
 <div class="container-fluid" style="height: 80%">
 
    <div class="row">
       <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-        {% if sigpae %}
-          <textarea id= KKK cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
-          </textarea>
-        {% else %}
-          <h2> PDF </h2>
-          {% if documento %}
-            <iframe src=/prueba/{{ documento }} style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
-            </iframe>
-          {% else %}
-            <iframe src=/prueba/{{ ruta }} style="width:100%;height:100%;padding:10px;border:10px double deepskyblue;">
-            </iframe>
-          {% endif %}
-        {% endif %}
+         <textarea id= KKK cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;"> </textarea>
       </div>
 
       <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
-        {% if sigpae %}
-          <textarea id= KKK cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
-          </textarea>
-        {% else %}
-          <h2> Texto extraído </h2>
-          {% if texto_editable %}
-            <textarea id= KKK cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;">
-            {{ texto_editable}}
-            </textarea>
-          {% endif %}
-        {% endif %}
+         <textarea id= KKK cols="35" rows="25" col align="" style="width:100%;overflow:scroll;border:10px double deepskyblue;font-family:arial;padding:10px;height:90%;"> </textarea>
       </div>
 
       <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
       <div style="overflow:scroll;height:100%;width:100%;overflow-y:auto;overflow-x:hidden;">
 
-      {% if sigpae %}
-      {% else %}
-        <form name="menu_extraer">
-              <select class="form-control" name="opciones_extraer" style="width:95%;">
-              <option value="0" selected>Seleccione Opción
-              <option value="1">Código y Departamento
-              </select>
-        </form>
-
-        <button onClick="Extraer(ElCod,ElDep)">Extraer</button>
-      {% endif %}
-
-      <form action="{% url "home" %}" method="post" enctype="multipart/form-data">
+      <form action="{% url "transcripcion_sigpae" %}" method="post" enctype="multipart/form-data">
          {% csrf_token %}
-         <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
+         <input type="hidden" name="historia_id" value={{ row.id }}>
 
          <h2>Dependencia</h2>
          <div onchange="mostrar()"><p>{{ form.dependencia }}</p></div>
@@ -192,8 +153,6 @@
    document.getElementById('id_objetivos_generales').value = "{{ row.objetivos_generales }}";
    document.getElementById('id_objetivos_especificos').value = "{{ row.objetivos_especificos }}";
    document.getElementById('id_fuentes_info').value = "{{ row.fuentes_info }}";
-
-
 </script>
 
 <script>
@@ -202,59 +161,6 @@ var division_1=["Seleccione Departamento","Departamento de Física","Departament
 var division_2=["Seleccione Departamento","Departamento de Ciencia y Tecnología del Comportamiento","Departamento de Lengua y Literatura","Departamento de Ciencias Económicas y Administrativas","Departamento de Idiomas","Departamento de Filosofía","Departamento de Ciencias Sociales","Departamento de Diseño Arquitectura y Artes Plásticas","Departamento de Planificación Urbana"]
 var division_3=["Seleccione Departamento","Departamento de Biología Celular","Departamento de Estudios Ambientales","Departamento de Biología de Organismos","Departamento de Tecnología de Procesos Biológicos y Bioquímicos"]
 var division_4=["Seleccione Departamento","Departamento de Tecnología de Servicios","Departamento de Tecnología Industrial","Departamento de Formación General y Ciencias Básicas"]
-/*
-function cambia_division2(k){
-   var div = document.f1.div[document.f1.div.selectedIndex].value
-   if (div != 0) {
-      mis_division=eval("division_" + div)
-      num_division = mis_division.length
-      document.f1.division.length = num_division
-      for(i=0;i<num_division;i++){
-         document.f1.division.options[i].value=mis_division[i]
-         document.f1.division.options[i].text=mis_division[i]
-      }
-   }else{
-      document.f1.division.length = 1
-      document.f1.division.options[0].value = "-"
-      document.f1.division.options[0].text = "-"
-   }
-   document.f1.division.options[k].selected = true
-}
-var decanato_1=new Array("Seleccione Coordinación","Coordinación del Ciclo Básico","Coordinación del Ciclo Profesional","Coordinación de Formación General","Coordinación del Ciclo de Iniciación Universitaria")
-var decanato_2=new Array("Seleccione Coordinación","Coordinación de Química","Coordinación de Matemática","Coordinación de Biología","Coordinación de Física","Coordinación de Tecnología e Ingeniería Eléctrica","Coordinación de Tecnología e Ingeniería Electrónica","Coordinación de Ingeniería Mecánica","Coordinación de Ingeniería Química","Coordinación de Ingeniería de Computación","Coordinación de Ingeniería Geofísica","Coordinación de Ingeniería de Materiales","Coordinación de Ingeniería de Producción y Organización Empresarial","Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento","Coordinación de Ingeniería de Telecomunicaciones","Coordinación de Arquitectura","Coordinación de Estudios Urbanos","Coordinación de Turismo, Hotelería y Hospitalidad","Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional")
-var decanato_3=new Array("Seleccione Coordinación","Coordinación de Tecnología e Ingeniería Eléctrica","Coordinación de Tecnología Eléctrica y Electrónica","Coordinación de Ingeniería de Producción y Organización Empresarial","Coordinación de Turismo, Hotelería y Hospitalidad","Coordinación de Administración Aduanera","Coordinación de Comercio Exterior y Licenciatura en Comercio Internacional","Coordinación de Administración del Transporte y Organización Empresarial","Coordinación de Tecnología Mecánica, Mantenimiento Aeronáutico e Ingeniería de Mantenimiento")
-
-function cambia_decanato2(k){
-   var dec = document.f2.dec[document.f2.dec.selectedIndex].value
-   if (dec != 0) {
-      mis_decanato=eval("decanato_" + dec)
-      num_decanato = mis_decanato.length
-      document.f2.decanato.length = num_decanato
-      for(i=0;i<num_decanato;i++){
-         document.f2.decanato.options[i].value=mis_decanato[i]
-         document.f2.decanato.options[i].text=mis_decanato[i]
-      }
-   }else{
-      document.f2.decanato.length = 1
-      document.f2.decanato.options[0].value = "-"
-      document.f2.decanato.options[0].text = "-"
-   }
-   document.f2.decanato.options[k].selected = true
-}
-
-function mostrar2(id) {
-   if (id == "coordinaciones") {
-      $("#coordinaciones").show();
-      $("#departamento").hide();
-   }
-
-   if (id == "departamento") {
-      $("#coordinaciones").hide();
-      $("#departamento").show();
-   }
-
-}
-*/
 
 /*Funcion que al cargar la pagina se encarga de esconder todos los select para que luego a medida que el usuario vaya seleccionando las distintas opciones, se vayan desplegando los select correspondientes*/
 function inicio(){
@@ -454,8 +360,6 @@ function mantenerContenidos (psCopyFromId, psCopyToId)
    var copyFrom = document.getElementById(psCopyFromId);
    var copyTo = document.getElementById(psCopyToId);
 
-
-
    copyTo.value = copyFrom.value;
 }
 
@@ -467,8 +371,6 @@ function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
    var copyFrom1 = document.getElementById(psCopyFromId1);
    var copyFrom2 = document.getElementById(psCopyFromId2);
    var copyTo = document.getElementById(psCopyToId);
-
-
 
    copyTo.value = copyFrom1.value + "\n" + copyFrom2.value;
 }

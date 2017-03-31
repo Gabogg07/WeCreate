@@ -11,7 +11,7 @@ import os
 import re
 
 from .codigos import *
-from .models import Document, Historial
+from .models import *
 from .forms import DocumentForm, ConsultaForm, HistorialForm, MostrarConsultaForm
 
 def prueba(request,url):
@@ -90,6 +90,9 @@ def cargar_archivo(request):
 			newdoc.save()
 
 			newhist = Historial(
+				codigo_asignatura = form.cleaned_data['codigo'],
+				periodo = form.cleaned_data['periodo'],
+				anio = form.cleaned_data['anio'],
 				docfile_id = newdoc)
 			newhist.save()
 
@@ -128,6 +131,10 @@ def transcripcion(request):
 		opcion = request.GET['tipo']
 		docfile = request.GET['documento']
 		ruta = request.GET['ruta']
+		if docfile == "":
+			row = Historial.objects.all().filter(id = request.GET['historia_id']).first()
+			context = {'row': row,'form':HistorialForm(),'sigpae':True}
+			return render(request, 'SIGPAE/transcripcion.html', context)
 		id_row = Document.objects.all().filter(docfile = docfile).first()
 		row = Historial.objects.all().filter(docfile_id = id_row.id).first()
 		if (opcion == "texto"):
@@ -174,20 +181,143 @@ def consulta(request):
 			an = form.cleaned_data['anio']
 
 			if(per==str(0) or an==str(0)):
+				hist = Historial.objects.filter(codigo_asignatura=cod).order_by('-periodo' and '-anio')
+				if hist:
+					form = MostrarConsultaForm()
+					context = {'historias': hist,'cod':cod,'form':form}
+					return render(request,'SIGPAE/mostrarConsulta.html',context)
+				else:
+					mensaje="No hay archivos con esas especificaciones"
+					form = ConsultaForm()
+					return render(request,'SIGPAE/consulta.html',{'form': form, 'mensaje':mensaje})	
+			else:
+				hist = Historial.objects.filter(codigo_asignatura=cod,periodo=per,anio=an).order_by('-periodo' and '-anio')
+				if hist:
+					form = MostrarConsultaForm()
+					context = {'historias': hist,'cod':cod,'form':form}
+					return render(request,'SIGPAE/mostrarConsulta.html',context)
+				else:
+					mensaje = "No hay archivos con esas especificaciones"
+					form = ConsultaForm()
+					return render(request, 'SIGPAE/consulta.html', {'form': form, 'mensaje': mensaje})
+	else:
+		form=ConsultaForm()
+		return render(request, 'SIGPAE/consulta.html', {'form': form})
+
+def transcripcion_sigpae(request):
+	if request.GET.items():
+		sol_id = request.GET['sol_id']
+		solicitud = Solicitud.objects.using('gestionpae').filter(id=sol_id).first()
+		programa = Programa.objects.using('gestionpae').filter(id=sol_id).first()
+
+		newdoc = Document(
+			codigo = solicitud.cod,
+			periodo = programa.fecha_vigtrim,
+			anio = programa.fecha_vigano,
+			docfile = "")
+		newdoc.save()
+
+		newhist = Historial(
+			codigo_asignatura = solicitud.cod,
+			denominacion = solicitud.denominacion,
+			periodo = programa.fecha_vigtrim,
+			anio = programa.fecha_vigano,
+			horas_T = programa.h_teoria,
+			horas_P = programa.h_prac,
+			horas_L = programa.h_lab,
+			num_creditos = solicitud.creditos,
+			requisitos = solicitud.requisito_cre,
+			estrategias_met = programa.estrategias,
+			estrategias_ev = programa.estrat_eval,
+			contenido = programa.contenidos,
+			objetivos_generales = programa.obj_g,
+			objetivos_especificos = programa.obj_e,
+			fuentes_info = programa.fuentes,
+			docfile_id=newdoc)
+			
+		newhist.save()
+		context = {'row': newhist, 'form': HistorialForm()}
+		return render(request, 'SIGPAE/transcripcion_sigpae.html', context)
+	elif request.method == 'POST':
+		form = HistorialForm(request.POST, request.FILES)
+		if form.is_valid():
+			historia = request.POST['historia_id']
+			row_hist = Historial.objects.all().filter(id = historia).first()
+			row_hist.dependencia = form.cleaned_data['dependencia']
+			row_hist.decanato = form.cleaned_data['decanato']
+			row_hist.coordinacion_D1 = form.cleaned_data['coordinacion_D1']
+			row_hist.coordinacion_D2 = form.cleaned_data['coordinacion_D2']
+			row_hist.coordinacion_D3 = form.cleaned_data['coordinacion_D3']
+			row_hist.division = form.cleaned_data['division']
+			row_hist.departamento_D1 = form.cleaned_data['departamento_D1']
+			row_hist.departamento_D2 = form.cleaned_data['departamento_D2']
+			row_hist.departamento_D3 = form.cleaned_data['departamento_D3']
+			row_hist.departamento_D4 = form.cleaned_data['departamento_D4']
+			row_hist.codigo_asignatura = form.cleaned_data['codigo_asignatura']
+			row_hist.denominacion = form.cleaned_data['denominacion']
+			row_hist.periodo = form.cleaned_data['periodo']
+			row_hist.anio = form.cleaned_data['anio']
+			row_hist.horas_T = form.cleaned_data['horas_T']
+			row_hist.horas_P = form.cleaned_data['horas_P']
+			row_hist.horas_L = form.cleaned_data['horas_L']
+			row_hist.num_creditos = form.cleaned_data['num_creditos']
+			row_hist.requisitos = form.cleaned_data['requisitos']
+			row_hist.estrategias_met = form.cleaned_data['estrategias_met']
+			row_hist.estrategias_ev = form.cleaned_data['estrategias_ev']
+			row_hist.contenido = form.cleaned_data['contenido']
+			row_hist.objetivos_generales = form.cleaned_data['objetivos_generales']
+			row_hist.objetivos_especificos = form.cleaned_data['objetivos_especificos']
+			row_hist.fuentes_info = form.cleaned_data['fuentes_info']
+			row_hist.save()
+		return render(request, 'SIGPAE/home.html', {})
+	else:
+		form = DocumentForm()
+		return render(request,'SIGPAE/cargar.html',{'form': form})
+
+def consulta_sigpae(request):
+	if request.method == 'POST':
+		form = ConsultaForm(request.POST, request.FILES)
+		if form.is_valid():
+
+			cod = form.cleaned_data['codigo'],
+			aux=str(cod).split("'")
+			cod=aux[1]
+			per = form.cleaned_data['periodo'],
+			aux = str(per).split("'")
+			per=aux[1]
+			an = form.cleaned_data['anio']
+
+			if(per==str(0) or an==str(0)):
+				solicitudes = Solicitud.objects.using('gestionpae').filter(cod=cod).order_by('-trime' and '-ano')
+				if solicitudes:
+					programas = Programa.objects.using('gestionpae').filter(id=solicitudes.first().id)
+					form = MostrarConsultaForm()
+					context = {'programas':programas, 'solicitud':solicitudes.first(), 'cod':cod, 'form':form}
+					return render(request,'SIGPAE/mostrarSIGPAE.html',context)
+				else:
+					mensaje = "No hay programas con esas especificaciones"
+					form = ConsultaForm()
+					return render(request, 'SIGPAE/consulta_sigpae.html', {'form': form, 'mensaje': mensaje})
+
+			'''		
 				doc = Document.objects.filter(codigo=cod).order_by('-periodo' and '-anio')
 				if doc:
 					form = MostrarConsultaForm()
 					context = {'documents': doc,'cod':cod,'form':form}
-					return render(request,'SIGPAE/mostrarConsulta.html',context)
+					return render(request,'SIGPAE/mostrarSIGPAE.html',context)
 
 				else:
 					mensaje="No hay archivos con esas especificaciones"
 					form = ConsultaForm()
-					return render(request,'SIGPAE/consulta.html',{'form': form, 'mensaje':mensaje})
+					return render(request,'SIGPAE/consulta_sigpae.html',{'form': form, 'mensaje':mensaje})
 
 			else:
-				doc = Document.objects.filter(codigo=cod, periodo=per, anio=an)
 
+
+
+
+
+				doc = Document.objects.filter(codigo=cod, periodo=per, anio=an)
 				if doc:
 					for f in doc:
 						nombre = os.path.basename(f.docfile.name)
@@ -200,11 +330,12 @@ def consulta(request):
 					if doc:
 						form = MostrarConsultaForm()
 						context = {'documents': doc,'cod':cod,'form':form}
-						return render(request, 'SIGPAE/mostrarConsulta.html', context)
+						return render(request, 'SIGPAE/mostrarSIGPAE.html', context)
 					else:
 						mensaje = "No hay archivos con esas especificaciones"
 						form = ConsultaForm()
-						return render(request, 'SIGPAE/consulta.html', {'form': form, 'mensaje': mensaje})
+						return render(request, 'SIGPAE/consulta_sigpae.html', {'form': form, 'mensaje': mensaje})
+			'''
 	else:
 		form=ConsultaForm()
-		return render(request, 'SIGPAE/consulta.html', {'form': form})
+		return render(request, 'SIGPAE/consulta_sigpae.html', {'form': form})
