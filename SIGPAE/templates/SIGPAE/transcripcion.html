@@ -67,7 +67,11 @@
       <button onClick="Extraer(ElCod,ElDep)">Extraer</button>
       <p style="font-size: 10px;"><b> Al escoger código y departamento, dar click a extraer y los campos  pertinentes serán llenados automaticamente.</b></p>
 
+<<<<<<< HEAD
       <form action="{% url "home" %}" method="post" enctype="multipart/form-data" id="form">
+=======
+      <form action="{% url "home" %}" method="post" enctype="multipart/form-data">
+>>>>>>> wc/Interfaz
          {% csrf_token %}
          <input type="hidden" name="documento" value={{ row.docfile_id.id }}>
          <input type="hidden" name="cod" value = {{ codigo }}>
@@ -125,8 +129,12 @@
 
         </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         <input type="submit" value="Guardar"/>
+=======
+        <center><input type="submit" value="Guardar"/></center>
+>>>>>>> wc/Interfaz
 =======
         <center><input type="submit" value="Guardar"/></center>
 >>>>>>> wc/Interfaz
@@ -136,6 +144,7 @@
       </div></div>
 {% endblock content %}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   {%block custom_script%}
@@ -152,6 +161,9 @@
     }
   }
 </script>
+=======
+  {%block custom_script%}
+>>>>>>> wc/Interfaz
 <script type="text/javascript">
 /*Script que sirve para mostrar los datos que se hayan guardado en la Base de Datos como
   borrador de una trancripcion*/
@@ -464,6 +476,7 @@ function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
 </script>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 {% if mensaje_alerta %}
    <script type="text/javascript">
    /*Mensaje de alerta si un departamento no coincide con el codigo de la materia*/
@@ -476,6 +489,9 @@ function mantenerContenidos2 (psCopyFromId1, psCopyFromId2, psCopyToId)
   no coincide con el codigo de la materia*/
   document.getElementById('dpto').value=ElDep
 </script>
+=======
+  {% endblock %}
+>>>>>>> wc/Interfaz
 =======
   {% endblock %}
 >>>>>>> wc/Interfaz
