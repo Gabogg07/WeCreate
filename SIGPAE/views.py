@@ -81,27 +81,36 @@ def home(request):
 			x = form.cleaned_data['codigo_asignatura']
 			x = x[:2].lower()
 			if x in cods:
+				print("Conseguí código")
 				temp0 = form.cleaned_data['departamento_D1'].encode('UTF-8')
 				temp1 = form.cleaned_data['departamento_D2'].encode('UTF-8')
 				temp2 = form.cleaned_data['departamento_D3'].encode('UTF-8')
 				temp3 = form.cleaned_data['departamento_D4'].encode('UTF-8')
 				#Si coincide el codigo con el departamento, se guarda
 				if ( temp0 == cods[x] or temp1 == cods[x] or temp2 == cods[x] or temp3 == cods[x] ):
-
+					row_hist.save()
+					return render(request, 'SIGPAE/home.html', context)
+				elif (temp0=="" and temp1=="" and temp2=="" and temp3==""):
 					row_hist.save()
 					return render(request, 'SIGPAE/home.html', context)
 				#Si no coincide, se recarga la página con un alert
 				else:
+					print("Sin coincidencia")
 					doc = Document.objects.all().filter(id = documento).first()
 					row = Historial.objects.all().filter(docfile_id = documento).first()
 					cdg = request.POST['cod']
 
 					dpto = request.POST['dpto']
 
-					texto_editable = textract.process(doc.docfile)
-					mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
-					context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(), 'dpto':dpto, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
-					return render(request, 'SIGPAE/transcripcion.html', context)
+					if doc.docfile != "":
+						texto_editable = textract.process(doc.docfile)
+						mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
+						context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(), 'dpto':dpto, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
+						return render(request, 'SIGPAE/transcripcion.html', context)
+					else:
+						mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
+						context = {'row': row,'form':HistorialForm(),'sigpae':True,'mensaje_alerta':mensaje_alerta}
+						return render(request, 'SIGPAE/transcripcion.html', context)
 			#Si se queda en blanco el campo del código, se guarda también
 			elif (form.cleaned_data['codigo_asignatura'].encode('UTF-8') == ""):
 				row_hist.save()
@@ -109,15 +118,21 @@ def home(request):
 			#Si se coloca algo que no sea un codigo ni nada manda un mensaje de alerta que no coincide con el departamento
 			#que este puesto
 			else:
+				print("No conseguí código")
 				doc = Document.objects.all().filter(id = documento).first()
 				row = Historial.objects.all().filter(docfile_id = documento).first()
 				cdg = request.POST['cod']
 				dpto = request.POST['dpto']
-				texto_editable = textract.process(doc.docfile)
-				mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
-				context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(), 'dpto':dpto, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
-				return render(request, 'SIGPAE/transcripcion.html', context)
 
+				if doc.docfile != "":
+					texto_editable = textract.process(doc.docfile)
+					mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
+					context = {'texto_editable': texto_editable, 'documento': doc.docfile, 'codigo': cdg.upper(), 'dpto':dpto, 'row':row, 'form':HistorialForm(), 'mensaje_alerta':mensaje_alerta}
+					return render(request, 'SIGPAE/transcripcion.html', context)
+				else:
+					mensaje_alerta = "El código de la materia y el departamento no coinciden, por favor revisar"
+					context = {'row': row,'form':HistorialForm(),'sigpae':True,'mensaje_alerta':mensaje_alerta}
+					return render(request, 'SIGPAE/transcripcion.html', context)
 	#Si se llama a 'home' con el metodo get, simplemente se muestra la página principal
 	elif (request.method == 'GET'):
 		return render(request, 'SIGPAE/home.html', context)
@@ -354,7 +369,7 @@ def consulta_sigpae(request):
 						programa = Programa.objects.using('gestionpae').filter(id=solicitud.id).first()
 						if programa:
 							programas.append(programa)
-							
+
 					form = MostrarConsultaForm()
 					context = {'programas':programas, 'solicitud':solicitudes.first(), 'cod':cod, 'form':form}
 					return render(request,'SIGPAE/mostrarSIGPAE.html',context)

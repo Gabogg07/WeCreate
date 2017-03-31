@@ -192,17 +192,28 @@
 
     /*Funcion que al cargar la pagina se encarga de esconder todos los select para que luego a medida que el usuario vaya seleccionando las distintas opciones, se vayan desplegando los select correspondientes*/
     function inicio(){
-       $("#decanato").hide();
-       $("#coordinacion_D1").hide();
-       $("#coordinacion_D2").hide();
-       $("#coordinacion_D3").hide();
-       $("#departamento_D1").hide();
-       $("#departamento_D2").hide();
-       $("#departamento_D3").hide();
-       $("#departamento_D4").hide();
-       $("#division").hide();
-       $("#obj_esp").hide();
-      
+      $("#decanato").hide();
+      $("#coordinacion_D1").hide();
+      $("#coordinacion_D2").hide();
+      $("#coordinacion_D3").hide();
+      $("#departamento_D1").hide();
+      $("#departamento_D2").hide();
+      $("#departamento_D3").hide();
+      $("#departamento_D4").hide();
+      $("#division").hide();
+      $("#obj_esp").hide();
+     	Tipo_obj();
+    }
+
+
+    function Tipo_obj() {
+    	obj=document.getElementById('id_objetivos_especificos').value
+    	if (obj.length > 0) {
+	      $("#obj_esp").show();
+	    }
+	    else {
+	    	$("#obj_esp").hide();
+	    }
     }
 
     /*Funcion que se encarga de desplegar los campos de departamentos que esten llenos cuando se viene de consulta*/
@@ -441,7 +452,7 @@
       var copyFrom2 = document.getElementById(psCopyFromId2);
       var copyTo = document.getElementById(psCopyToId);
 
-      copyTo.value = copyFrom1.value + "\n" + copyFrom2.value;
+      copyTo.value = copyFrom1.value + " " + copyFrom2.value;
     }
 
     </script>
